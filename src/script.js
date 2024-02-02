@@ -16,7 +16,9 @@ const panelUrls = {
 };
 
 const canvas = document.querySelector('canvas.webgl');
+
 const scene = new THREE.Scene();
+
 
 // Load HDR Environment Map
 const rgbeLoader = new RGBELoader();
