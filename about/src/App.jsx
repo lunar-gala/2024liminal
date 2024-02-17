@@ -1,7 +1,8 @@
 import './App.css'
-import { useState, useEffect, useRef } from "react";
+import './index.js'
+import { useState, useEffect, useRef } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
-import { createNoise2D } from 'simplex-noise';
+import { createNoise2D } from 'simplex-noise'
 import { Color, Vector3 } from 'three'
 import { Stats, Text } from '@react-three/drei'
 
@@ -18,6 +19,21 @@ function constrain(val, lo, hi) {
 const d = 5;
 let maxV = 14000;
 
+// class RobotoMono extends Text {
+//   render() {
+//     return (
+//       <MyAppText>
+//         <Text style={{
+//           fontSize: 48, 
+//           fontFamily: RobotoMono,
+//           }}>
+//             {this.props.children}
+//           </Text>
+//       </MyAppText>
+//     );
+//   }
+// }
+
 const Pane = ({ position, size, force, id }) => {
 
   const state = useThree()
@@ -26,25 +42,25 @@ const Pane = ({ position, size, force, id }) => {
 
   useFrame(({ delta, pointer }) => {
 
-    const x = (pointer.x * state.viewport.width) / 2
-    const y = (pointer.y * state.viewport.height) / 2
+    // const x = (pointer.x * state.viewport.width) / 2
+    // const y = (pointer.y * state.viewport.height) / 2
 
-    // console.log(x)
+    // // console.log(x)
 
-    let dist = x - position[0]
-    if (dist > 3) dist = 3
-    if (dist < -3) dist = -3
+    // let dist = x - position[0]
+    // if (dist > 3) dist = 3
+    // if (dist < -3) dist = -3
 
-    let inv_dist = (dist > 0) ? 3-dist : -(3+dist)
-    if (id == 1) console.log(inv_dist)
-    dist = constrain(dist, 0.01, 1) // avoid divide by zero errors
-    // speed = constrain(speed, 0.01, 0.1)
+    // let inv_dist = (dist > 0) ? 3-dist : -(3+dist)
+    // // if (id == 1) console.log(inv_dist)
+    // dist = constrain(dist, 0.01, 1) // avoid divide by zero errors
+    // // speed = constrain(speed, 0.01, 0.1)
 
 
     // let mouseOffset = dist * 
 
-    let theta_z =( (noise(state.clock.elapsedTime / 2 - position[0] / 10, 1) + 0.5) / 10)
-    let theta_x = noise(state.clock.elapsedTime / 2 - position[0] / 10 + 1000, 1) / 20
+    let theta_z =( (noise(state.clock.elapsedTime / 2 - position[0] / 10, id/10) + 0.5) / 10)
+    let theta_x = noise(state.clock.elapsedTime / 2 - position[0] / 10 + 1000, id/10) / 20
     // console.log(theta)
     ref.current.rotation.z = theta_z
     ref.current.rotation.x = theta_x
@@ -76,6 +92,7 @@ const App = () => {
     panes.push(<Pane position={position} size={size} force={force} key={i} id = {i}/>)
   }
 
+  /* text blocks */
   const about_text_1 = "it is not what is on each side of the doorway, but rather the space in between. What exists in the undefined area where one is not this nor that. "
   const about_text_2 = "you are in the space between spaces. Only here, can this exist."
   const about_text_3 = "welcome to liminal"
@@ -92,7 +109,7 @@ const App = () => {
 
         <Text
         scale={[0.5, 0.5, 0.5]}
-        // position={[0, 0, 5]}
+        // style={{fontFamily: "Kommuna"}}
         color="black" // default
         anchorX="center" // default
         anchorY="middle" // default
