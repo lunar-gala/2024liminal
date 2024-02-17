@@ -1,5 +1,5 @@
 import './App.css'
-import './index.js'
+import { fonts, map, constrain } from './index.js'
 import { useState, useEffect, useRef } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { createNoise2D } from 'simplex-noise'
@@ -8,31 +8,7 @@ import { Stats, Text } from '@react-three/drei'
 
 const noise = createNoise2D();
 
-function map(val, ilo, ihi, olo, ohi) { return olo + ((val - ilo) / (ihi - ilo)) * (ohi - olo) }
-
-function constrain(val, lo, hi) { 
-  if (lo < val && val < hi) return val
-  if (val <= lo) return lo
-  if (val >= hi) return hi
-}
-
 const d = 5;
-let maxV = 14000;
-
-// class RobotoMono extends Text {
-//   render() {
-//     return (
-//       <MyAppText>
-//         <Text style={{
-//           fontSize: 48, 
-//           fontFamily: RobotoMono,
-//           }}>
-//             {this.props.children}
-//           </Text>
-//       </MyAppText>
-//     );
-//   }
-// }
 
 const Pane = ({ position, size, force, id }) => {
 
@@ -59,7 +35,7 @@ const Pane = ({ position, size, force, id }) => {
 
     // let mouseOffset = dist * 
 
-    let theta_z =( (noise(state.clock.elapsedTime / 2 - position[0] / 10, id/10) + 0.5) / 10)
+    let theta_z = ((noise(state.clock.elapsedTime / 2 - position[0] / 10, id/10) + 0.5) / 10)
     let theta_x = noise(state.clock.elapsedTime / 2 - position[0] / 10 + 1000, id/10) / 20
     // console.log(theta)
     ref.current.rotation.z = theta_z
@@ -71,11 +47,10 @@ const Pane = ({ position, size, force, id }) => {
 
 
   return (
-    < mesh position = {position} ref = {ref}
-    >
+    <mesh position = {position} ref = {ref}>
       
       <boxGeometry args={size}/>
-      <meshStandardMaterial color={"lightblue"} />
+      <meshStandardMaterial color={"#E4F2F4"} />
     </mesh>
   )
 }
@@ -86,21 +61,21 @@ const App = () => {
   const panes = []
   for (let i=0; i<8; i++){
     let position = [map(i, 0, 7, -6, 6), 0, 0]
-    let size = [1, 6, 0.05]
+    let size = [1, 7, 0.05]
     let force = null // noise(state.clock.elapsedTime + position[0], 1)
     
     panes.push(<Pane position={position} size={size} force={force} key={i} id = {i}/>)
   }
 
   /* text blocks */
-  const about_text_1 = "it is not what is on each side of the doorway, but rather the space in between. What exists in the undefined area where one is not this nor that. "
-  const about_text_2 = "you are in the space between spaces. Only here, can this exist."
+  const about_text_1 = "it is not what is on each side of the doorway, but rather the space in between. what exists in the undefined area where one is not this nor that. "
+  const about_text_2 = "you are in the space between spaces. only here, can this exist."
   const about_text_3 = "welcome to liminal"
 
   return (
     <>
       <Canvas>
-        <ambientLight intensity={0.5}/>
+        <ambientLight intensity={1}/>
         <directionalLight position={[0, 0, 5]} intensity={0.5} />
 
         <group position={[0, 0, -0.15]}>
@@ -108,18 +83,47 @@ const App = () => {
         </group>
 
         <Text
-        scale={[0.5, 0.5, 0.5]}
-        // style={{fontFamily: "Kommuna"}}
-        color="black" // default
-        anchorX="center" // default
-        anchorY="middle" // default
+          scale={[0.4, 0.4, 0.4]}
+          position={[0, 2, 0]}
+          font={fonts.RobotoMono}
+          characters="abcdefghijklmnopqrstuvwxyz0123456789!"
+          color="black" // default
+          anchorX="center" // default
+          anchorY="middle" // default
+          maxWidth={32}
+          textAlign="justify"
         >
           {about_text_1}
-          {"\n"}
-          {about_text_2}
-          {"\n"}
-          {about_text_3}
+        </Text>
 
+        <Text
+          scale={[0.4, 0.4, 0.4]}
+          position={[0, -1, 0]}
+          font={fonts.RobotoMono}
+          characters="abcdefghijklmnopqrstuvwxyz0123456789!"
+          color="black" // default
+          anchorX="center" // default
+          anchorY="middle" // default
+          maxWidth={32}
+          textAlign="center"
+        >
+          {about_text_2}
+          {'\n'}{'\n'}{'\n'}
+          <Text
+            position={[-2.3, -2.8, 0]}
+            textAlign="center"
+            color="black"
+          >
+          welcome   to
+          </Text>
+          <Text 
+            font={fonts.Wordmark}
+            position={[3.5, -2.8, 0]}
+            color="black"
+            
+          >
+              LIMINAL
+          </Text>
         </Text>
 
         {/* <Stats /> */}

@@ -1,12 +1,18 @@
 import './index.css'
-import "./fonts/Kommuna/Kommuna Demo 400 Narrow.otf"
-import "./fonts/RobotoMono/RobotoMono-VariableFont_wght.ttf"
-import "./fonts/Wordmark/NewEdge666-Regular.otf"
-import "./fonts/Wordmark/NewEdge666-RegularRounded.otf"
-// import { StyleSheet } from 'react'
 
-// const styles = StyleSheet.create({
-//     MainText: {
-//       fontFamily: 'RobotoMono',
-//     },
-// });
+export const fonts = {
+    Kumuna: "/fonts/Kommuna/Kommuna Demo 400 Narrow.otf",
+    RobotoMono: "/fonts/RobotoMono/RobotoMono-VariableFont_wght.ttf",
+    Wordmark: "/fonts/Wordmark/NewEdge666-Regular.otf",
+    Wordmark_Rounded: "/fonts/Wordmark/NewEdge666-RegularRounded.otf",
+}
+
+export const map = (val, ilo, ihi, olo, ohi) => { 
+    return olo + ((val - ilo) / (ihi - ilo)) * (ohi - olo)
+  }
+  
+export const constrain = (val, lo, hi) => { 
+    if (lo < val && val < hi) return val
+    if (val <= lo) return lo
+    if (val >= hi) return hi
+}
