@@ -9,7 +9,7 @@ export const fonts = {
 
 export const map = (val, ilo, ihi, olo, ohi) => { 
     return olo + ((val - ilo) / (ihi - ilo)) * (ohi - olo)
-  }
+}
   
 export const constrain = (val, lo, hi) => { 
     if (lo < val && val < hi) return val
