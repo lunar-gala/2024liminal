@@ -93,10 +93,31 @@ scene.add(rectLight);
 
 const rectLightHelper = new RectAreaLightHelper(rectLight);
 rectLight.add(rectLightHelper);
+let cameraTargetPosition = null;
 
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
+};
+
+function createStaticText(text, position) {
+    const textGeometry = new TextGeometry(text, textOptions);
+    const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+    textMesh.position.set(position.x, position.y, position.z);
+    scene.add(textMesh);
+}
+
+// Create static text objects
+createStaticText('About', new THREE.Vector3(-20, 0, 0));
+createStaticText('Tickets', new THREE.Vector3(-10, 0, 0));
+createStaticText('People', new THREE.Vector3(10, 0, 0));
+createStaticText('Livestream', new THREE.Vector3(20, 0, 0));
+
+const textPositions = {
+    'About': new THREE.Vector3(-20, 0, 0),
+    'Tickets': new THREE.Vector3(-10, 0, 0),
+    'People': new THREE.Vector3(10, 0, 0),
+    'Livestream': new THREE.Vector3(20, 0, 0),
 };
 
 window.addEventListener('resize', () => {
@@ -132,6 +153,7 @@ let zoomStart = 5;
 let zoomEnd = 2;
 let zoomDuration = 2000; // 3 seconds in milliseconds
 let zoomStartTime = -1;
+let changed = 0
 
 window.addEventListener('mousedown', () => {
     isZoomingIn = true;
@@ -141,21 +163,30 @@ window.addEventListener('mousedown', () => {
 });
 
 window.addEventListener('mouseup', () => {
+    if (changed == 1){
+        changed = 0;
+        camera.position.z = 0;
+    }
+    camera.position.x = 0;
+    if (cameraTargetPosition != null){
+        cameraTargetPosition = null;
+    }
     isZoomingIn = false;
     zoomStart = camera.position.z;
     zoomEnd = 5;
     zoomStartTime = Date.now();
 });
 
-const downwardSpeed = 0.005;
+const downwardSpeed = 0.01;
 const cubeHeight = gapBetweenCubes * numberOfCubes;
 
 const tick = () => {
     controls.update();
-
+    console.log(camera.position.z);
     const elapsedTime = Date.now() - zoomStartTime;
     const fraction = elapsedTime / zoomDuration;
-
+    
+    // Handle zooming in and out
     if (isZoomingIn && fraction < 1) {
         camera.position.z = zoomStart + (zoomEnd - zoomStart) * fraction;
     } else if (!isZoomingIn && fraction < 1) {
@@ -168,20 +199,28 @@ const tick = () => {
         camera.position.z = 5;
     }
 
-    if (!isZoomingIn && camera.position.z === 5) {
-        cubes.forEach((cube) => {
-            cube.position.y -= downwardSpeed;
-            if (cube.position.y < -cubeHeight / 2) {
-                cube.position.y = (numberOfCubes - 1) * gapBetweenCubes - gapBetweenCubes * numberOfCubes / 2;
-            }
-        });
+    if (cameraTargetPosition != null){
+        changed = 1
+        camera.lookAt(cameraTargetPosition);
     }
 
+    // Move the cubes every frame
+    cubes.forEach((cube) => {
+        cube.position.y -= downwardSpeed;
+        if (cube.position.y < -cubeHeight / 2) {
+            cube.position.y = (numberOfCubes - 1) * gapBetweenCubes - gapBetweenCubes * numberOfCubes / 2;
+        }
+    });
+
+    // Render the scene with the current camera
     renderer.render(scene, camera);
+
+    // Request the next frame
     window.requestAnimationFrame(tick);
 };
 
 tick();
+
 
 function navigateToClosestPanel() {
     let closestCube = null;
@@ -194,8 +233,21 @@ function navigateToClosestPanel() {
             closestCube = cube;
         }
     });
-    console.log(closestCube.userData.label)
-    if (closestCube && closestCube.userData.label && panelUrls[closestCube.userData.label]) {
-        window.location.href = panelUrls[closestCube.userData.label];
+
+    if (closestCube && closestCube.userData.label) {
+        const label = closestCube.userData.label;
+        console.log(label); // Log the label of the closest cube
+
+        // If the label matches one of the static texts, move the camera to its position
+        if (textPositions[label]) {
+            cameraTargetPosition = textPositions[label].clone();
+            const viewPosition = cameraTargetPosition.clone().add(new THREE.Vector3(0, 0, 10)); // Adjust these values as needed
+            
+            console.log(camera.rotation.x, camera.rotation.y, camera.rotation.z);
+            camera.position.copy(viewPosition); // Position the camera at a good viewing distance
+            console.log(cameraTargetPosition)
+            camera.lookAt(cameraTargetPosition); // Make the camera look at the text
+            camera.updateMatrixWorld();
+        }
     }
 }
