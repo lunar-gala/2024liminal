@@ -18,23 +18,6 @@ const Pane = ({ position, size, force, id }) => {
 
   useFrame(({ delta, pointer }) => {
 
-    // const x = (pointer.x * state.viewport.width) / 2
-    // const y = (pointer.y * state.viewport.height) / 2
-
-    // // console.log(x)
-
-    // let dist = x - position[0]
-    // if (dist > 3) dist = 3
-    // if (dist < -3) dist = -3
-
-    // let inv_dist = (dist > 0) ? 3-dist : -(3+dist)
-    // // if (id == 1) console.log(inv_dist)
-    // dist = constrain(dist, 0.01, 1) // avoid divide by zero errors
-    // // speed = constrain(speed, 0.01, 0.1)
-
-
-    // let mouseOffset = dist * 
-
     let theta_z = ((noise(state.clock.elapsedTime / 2 - position[0] / 10, id/10) + 0.5) / 10)
     let theta_x = noise(state.clock.elapsedTime / 2 - position[0] / 10 + 1000, id/10) / 20
     // console.log(theta)
