@@ -1,8 +1,17 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# lunar gala 2024 website
+file tree:
+| packages...
+| public...
+| src
+| -– App.jsx <-- main app file, npm run dev in /liminal runs overall page
+| –– index.jsx
+| –– ...
+| –– about <-- subpage folders each have complete react build
+| –– | –– packages
+| –– | –– public
+| –– | –– src
+| –– | –– | –– App.jsx <-- about app file, npm run in /about runs only about page, w/o nav
+| –– | –– | –– ... <-- might need other files but no necessarily, as /liminal/about/src/App.jsx imports /liminal/src/index.jsx, etc...
+| –– tickets
+| –– people
+| –– lines
