@@ -9,11 +9,11 @@ file tree:
 │   ├── App.jsx <-- main app file, npm run dev in /liminal runs overall page
 │   ├── index.jsx
 │   ├── ...
-├── about
+├── about <-- npm run in /about runs only about page, w/o nav
 │   ├── packages...
 │   ├── public...
 │   ├── src
-│   │   ├── App.jsx <-- about app file, npm run in /about runs only about page, w/o nav
+│   │   ├── App.jsx <-- about app file
 │   │   ├── ... <-- might need other files but no necessarily, as /liminal/about/src/App.jsx imports /liminal/src/index.jsx, etc...
 ├── tickets
 ├── people
