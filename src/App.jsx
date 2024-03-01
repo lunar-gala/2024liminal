@@ -81,14 +81,12 @@ export default App
 /**
  * NAV
  */
-
 const AuthPages = {
   "about": true,
   "tix": true,
   "people": true,
   "lines": true,
 };
-
 
 function Pages({ transition }) {
 
@@ -97,23 +95,18 @@ function Pages({ transition }) {
       <Switch location={location}>
         <Route path="/">
           <HomePage />
-          {/* <Sensor /> */}
         </Route>
         <Route path="/about">
           <AboutPage />
-          {/* <Sensor /> */}
         </Route>
         <Route path="/tickets">
           <TixPage />
-          {/* <Sensor /> */}
         </Route>
         <Route path="/people">
           <PeoplePage />
-          {/* <Sensor /> */}
         </Route>
         <Route path="/lines">
           <LinesPage />
-          {/* <Sensor /> */}
         </Route>
       </Switch>
       <Sensor />
