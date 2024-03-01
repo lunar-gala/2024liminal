@@ -16,7 +16,6 @@ const noise = createNoise2D();
 function chimesMoveFunction(position, size, id, state, ref) {
 
     let d = 5;
-    
     let theta_z = ((noise(state.clock.elapsedTime / 2 - position[0] / 10, id/10) + 0.5) / 10)
     let theta_x = noise(state.clock.elapsedTime / 2 - position[0] / 10 + 1000, id/10) / 20
     // console.log(theta)
