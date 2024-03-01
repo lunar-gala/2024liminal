@@ -1,5 +1,13 @@
 import { useState } from 'react'
 import { Canvas } from "@react-three/fiber"
+import { 
+  Stats, 
+  Text, 
+  Loader, 
+  useTexture, 
+  useGLTF, 
+  Shadow 
+} from '@react-three/drei'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'

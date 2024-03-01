@@ -1,6 +1,6 @@
 // utilities
 import './App.css'
-import { fonts, map, constrain, Cover, Pane } from './index.js'
+import { fonts, map, constrain, Cover, Pane, redirect, sendBack } from './index.jsx'
 
 // react imports
 import React, 
@@ -23,7 +23,6 @@ import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
 
 // nav
 import { useLocation, Switch, Route } from "wouter"
-import { createBrowserHistory } from 'history';
 import { useTransition } from "@react-spring/core"
 import { a } from "@react-spring/three"
 
@@ -32,8 +31,6 @@ import { AboutPage } from "../about/src/App.jsx"
 import { TixPage } from "../tickets/src/App.jsx"
 import { PeoplePage } from "../people/src/App.jsx"
 import { LinesPage } from "../lines/src/App.jsx"
-
-const history = createBrowserHistory()
 
 const App = () => {
 
@@ -122,22 +119,6 @@ function Pages({ transition }) {
       <Sensor />
     </a.group>
   ))
-}
-
-function redirect(id) {
-  const pages = ["about", "tickets", "people", "lines"];
-  console.log(pages[id])
-
-  const location = {
-    pathname: "/" + pages[id],
-    state: { fromDashboard: true }
-  }
-
-  return history.replace(location)
-}
-
-function sendBack() {
-  return history.replace("/")
 }
 
 // mesh element that covers the screen and calls sendBack() 

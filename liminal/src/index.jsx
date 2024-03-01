@@ -3,6 +3,9 @@ import styled from "styled-components"
 import { a } from "@react-spring/web"
 import React, { useRef } from "react"
 import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory()
 
 const fonts = {
     Kumuna: "/fonts/Kommuna/Kommuna Demo 400 Narrow.otf",
@@ -30,6 +33,22 @@ const Cover = styled(a.div)`
   height: 100%;
 `
 
+function redirect(id) {
+    const pages = ["about", "tickets", "people", "lines"];
+    console.log(pages[id])
+
+    const location = {
+        pathname: "/" + pages[id],
+        state: { fromDashboard: true }
+    }
+
+    return history.replace(location)
+}
+  
+function sendBack() {
+    return history.replace("/")
+}
+
 const Pane = ({ position, size, moveFunction, id }) => {
 
     const state = useThree()
@@ -53,4 +72,4 @@ const Pane = ({ position, size, moveFunction, id }) => {
     )
 }
 
-export { fonts, map, constrain, Cover, Pane}
+export { fonts, map, constrain, Cover, Pane, history, redirect, sendBack}

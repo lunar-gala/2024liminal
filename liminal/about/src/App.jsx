@@ -1,5 +1,13 @@
 import { useState } from 'react'
 import { Canvas } from "@react-three/fiber"
+import { 
+  Stats, 
+  Text, 
+  Loader, 
+  useTexture, 
+  useGLTF, 
+  Shadow 
+} from '@react-three/drei'
 import './App.css'
 import { createNoise2D } from 'simplex-noise'
 import { fonts, map, constrain, Cover, Pane } from '../../src/index.jsx'
@@ -7,6 +15,8 @@ import { fonts, map, constrain, Cover, Pane } from '../../src/index.jsx'
 const noise = createNoise2D();
 function chimesMoveFunction(position, size, id, state, ref) {
 
+    let d = 5;
+    
     let theta_z = ((noise(state.clock.elapsedTime / 2 - position[0] / 10, id/10) + 0.5) / 10)
     let theta_x = noise(state.clock.elapsedTime / 2 - position[0] / 10 + 1000, id/10) / 20
     // console.log(theta)
