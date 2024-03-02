@@ -65,9 +65,9 @@ const Pane = ({ position, size, moveFunction, id }) => {
         onClick = { (e) => sendBack() }
         onPointerDown = { (e) => redirect(id) } 
         >
-        
-        <boxGeometry args={size}/>
-        <meshStandardMaterial color={"#E4F2F4"} />
+            
+            <boxGeometry args={size}/>
+            <meshStandardMaterial color={"#E4F2F4"} />
         </mesh>
     )
 }
