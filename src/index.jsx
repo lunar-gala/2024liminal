@@ -14,6 +14,14 @@ const fonts = {
     Wordmark_Rounded: "/fonts/Wordmark/NewEdge666-RegularRounded.otf",
 }
 
+const max = (a, b) => {
+    return a > b ? a : b
+}
+
+const min = (a, b) => {
+    return a < b ? a : b
+}
+
 const map = (val, ilo, ihi, olo, ohi) => { 
     return olo + ((val - ilo) / (ihi - ilo)) * (ohi - olo)
 }
@@ -72,4 +80,4 @@ const Pane = ({ position, size, moveFunction, id }) => {
     )
 }
 
-export { fonts, map, constrain, Cover, Pane, history, redirect, sendBack}
+export { fonts, map, constrain, Cover, Pane, history, redirect, sendBack, min, max,}
