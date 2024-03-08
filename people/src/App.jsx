@@ -13,6 +13,7 @@ import {
   Shadow,
   Edges
 } from '@react-three/drei'
+import { animated, useSpring, useSpringRef, a } from "@react-spring/three"
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -38,12 +39,26 @@ const textPositions = [
   [3, 9]  // beuty
 ]
 
-const paneThickness = 0.01;
+const paneThickness = 0.01
 
-const gridRectWidthScalar = 0.01;
-const gridRectHeightScalar = 0.05;
+const gridRectWidthScalar = 0.01
+const gridRectHeightScalar = 0.05
 
-const Rect = ({ row, col, moveFunction, id }) => {
+let stack = { 
+  xTarget: 0,
+  xCurr: 0,
+  dx: 0,
+
+  yTarget: 0,
+  yCurr: 0,
+  dy: 0,
+
+  zTarget: 0,
+  zCurr: 0,
+  dz: -paneThickness * 2
+}
+
+const Rect = ({ row, col, moveFunction, id}) => {
 
   const state = useThree()
   const ref = useRef()
@@ -55,8 +70,6 @@ const Rect = ({ row, col, moveFunction, id }) => {
   const size = [ rWidth, rHeight, paneThickness ]
   const position = [ 2.5 * rWidth * row, -1.3 * rHeight * col, 0 ]
 
-
-
   useFrame(({ delta, pointer }) => {
       if (moveFunction != null) moveFunction(position, id, state, ref);
   })
@@ -65,10 +78,10 @@ const Rect = ({ row, col, moveFunction, id }) => {
       <mesh 
         position = {position} 
         ref = {ref} 
-        // onPointerOver = { (e) => redirect(id) } 
+        // onPointerOver={ updateCards(id) }
       >
         <boxGeometry args={size}/>
-        <meshStandardMaterial color={"white"} />
+        <meshBasicMaterial color={"white"} toneMapped={false} />
         <Edges
           scale={1}
           threshold={15}
@@ -76,6 +89,18 @@ const Rect = ({ row, col, moveFunction, id }) => {
         />
       </mesh>
   )
+}
+
+function updateCards(id) {
+  // console.log(id)
+  stack.xCurr = stack.xTarget
+  stack.yCurr = stack.yTarget
+  stack.zCurr = stack.zTarget
+
+  stack.xTarget = id * stack.dx
+  stack.yTarget = id * stack.dy
+  stack.zTarget = id * stack.dz
+
 }
 
 function makeGrid() {
@@ -91,35 +116,36 @@ function makeGrid() {
         
         gridRects.push( <Rect row={row} col={col} 
                               moveFunction={null} 
-                              key={i} id={i}/>
+                              key={i} id={i} />
                       )
         i++;
       }
     }
   }
 
-  console.log(i)
-
   return gridRects;
 }
 
-const Card = ({ key, id }) => {
+const Card = ({ id }) => {
 
   const state = useThree()
   const ref = useRef()
   const { viewport } = useThree()
 
-  const cardWidth = 0.33 * viewport.width
-  const cardHeight = min(0.69 * viewport.height, 1.4*cardWidth)
+  const cardWidth = 0.25 * viewport.width
+  const cardHeight = 1.4*cardWidth // min(0.69 * viewport.height, 1.4*cardWidth)
 
   const size = [ cardWidth, cardHeight, paneThickness ]
   
-  const dx = gridRectWidthScalar * viewport.width // maybe make this not width dependent
-  const dy = dx
-  const dz = -paneThickness * 2
+  const dx = - gridRectWidthScalar * viewport.width // maybe make this not width dependent
+  const dy = - dx
+  const dz = stack.dz
+ 
+  // init stack
+  stack.dx = dx
+  stack.dy = dy
 
-  const position = [ id * -dx, id * dy, id * dz ]
-  
+  const position = [ id * dx, id * dy, id * dz ]
   
   return (
     <mesh
@@ -127,7 +153,7 @@ const Card = ({ key, id }) => {
       ref = {ref}
     >
       <boxGeometry args={size}/>
-      <meshStandardMaterial color={"white"} />
+      <meshBasicMaterial color={"white"} toneMapped={false} />
         <Edges
           scale={1}
           threshold={15}
@@ -140,24 +166,18 @@ const Card = ({ key, id }) => {
 function makeCards() {
   const cards = []
   for (let i = 0; i < numPeople; i++) {
-    cards.push(<Card key={i} id={i} />)
+    cards.push(<Card id={i} key={i} />)
   }
 
   return cards;
 }
 
-// IMPLEMENT MEEEE
-function updateCards(id) {
-
-}
-
-
 export function PeoplePage() {
+
+  const { viewport } = useThree()
 
   const gridRects = makeGrid()
   const cards = makeCards()
-
-  const { viewport } = useThree()
 
   // magic numbers go burr
   const rectWidth = gridRectWidthScalar * viewport.width * 2.5
@@ -166,18 +186,59 @@ export function PeoplePage() {
 
   const cardWidth = 0.33 * viewport.width
   const cardHeight = 0.69 * viewport.height
-
-  const zOffset = 0
   
+  // const { stackPosition } = useSpring({ 
+  //   stackPosition: [stack.xTarget, stack.yTarget, stack.zTarget], 
+  //   from: { stackPosition: [stack.xCurr, stack.yCurr, stack.zCurr] } })
+
+  // const stackApi = useSpringRef()
+  const [ spring, api ] = useSpring(
+    () => ({
+      x: 0,
+      y: 0,
+      z: 0,
+      config: { 
+        mass: 5, 
+        tension: 350, 
+        friction: 40 
+      },
+    }),
+    []
+  )
+
+  const slideStack = (xT, yT, zT) => {
+    api.start({
+      x: xT,
+      y: yT,
+      z: zT,
+      config: {
+        friction: 10,
+      },
+    })
+  }
+
+
+  console.log(spring.z.animation.to)
   
   return (
     <>
-      {/* <directionalLight position={[0, 0, 5]} intensity={1} /> */}
-      <group position={[-2.6 * rectWidth - cardWidth/2, 0, zOffset]}>
+      <animated.group position={ [ 
+        -2.6 * rectWidth - cardWidth/4 + stack.xTarget, // + spring.x.animation.to, 
+        -cardWidth/8 + stack.yTarget, // + spring.y.animation.to, 
+        0 + stack.zTarget // spring.z.animation.to
+      ] }
+      >
         {cards}
-      </group>
-      <group position={[2.8 * rectWidth, gridHeight/2, 0]}>
-        {gridRects}
+      </animated.group>
+      <group position={[2.8 * rectWidth, gridHeight/2, 0]} >
+        {gridRects /* {
+          gridRects.map((rect) => rect.onPointerOver = { 
+              slideStack(rect.id * stack.dx, 
+                                rect.id * stack.dy, 
+                                rect.id * stack.dz)
+            }
+          )
+        } */}
       </group>
     </>
   )
@@ -187,7 +248,6 @@ export function PeoplePage() {
  * DO NOT MODIFY APP
  */
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
