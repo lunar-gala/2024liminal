@@ -62,6 +62,7 @@ const App = () => {
     <>
       <Cover>
         <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+          <color attach="background" args={["white"]} />
           <ambientLight intensity={1}/>
           <directionalLight position={[0, 0, 5]} intensity={0.5} />
           <Suspense fallback={null}>
@@ -161,8 +162,8 @@ function HomePage() {
 
   const panes = []
   for (let i=0; i<4; i++){
-    let position = [map(i, 0, 4, -6, 6), 0, 0]
-    let size = [1, 7, 0.05]
+    let position = [0, map(i, 0, 4, -3, 6), 0]
+    let size = [7, 0.05, 7]
     let force = null // noise(state.clock.elapsedTime + position[0], 1)
     
     panes.push(<Pane position={position} size={size} moveFunction={null} key={i} id={i}/>)
@@ -177,7 +178,6 @@ function HomePage() {
   )
   
 }
-
 
 
 
