@@ -1,25 +1,17 @@
 // utilities
 import './App.css'
-import { fonts, map, constrain, Cover, Pane, redirect, sendBack } from './index.jsx'
+import { map, Cover, Pane, sendBack } from './index.jsx'
 
 // react imports
 import React, 
 { Suspense, 
-  Children, 
-  useLayoutEffect, 
-  useMemo, 
-  useState, 
-  useRef 
+  StrictMode,
 } from "react"
 import { 
   Stats, 
-  Text, 
   Loader, 
-  useTexture, 
-  useGLTF, 
-  Shadow 
 } from '@react-three/drei'
-import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
+import { Canvas, } from "@react-three/fiber"
 
 // nav
 import { useLocation, Switch, Route } from "wouter"
@@ -60,8 +52,10 @@ const App = () => {
   const transition = useTransition(location, transition_settings)
   return (
     <>
+    <StrictMode>
       <Cover>
         <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+          <color attach="background" args={["white"]} />
           <ambientLight intensity={1}/>
           <directionalLight position={[0, 0, 5]} intensity={0.5} />
           <Suspense fallback={null}>
@@ -71,6 +65,7 @@ const App = () => {
       </Cover>
       {/* <Nav /> */}
       <Loader />
+    </StrictMode>
     </>
   )
 
