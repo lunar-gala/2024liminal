@@ -61,7 +61,7 @@ const App = () => {
   return (
     <>
       <Cover>
-        <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
+        <Canvas camera={{ position: [0, 0, 20], fov: 50 }} gl={{ localClippingEnabled: true }} >
           <color attach="background" args={["white"]} /> // bg
 
           <ambientLight intensity={1}/>

@@ -8,7 +8,6 @@
       "name": "liminal",
       "version": "0.0.0",
       "dependencies": {
-        "@r3f-cutter/r3f-cutter": "^1.0.8",
         "@react-spring/core": "^9.7.3",
         "@react-spring/three": "^9.7.3",
         "@react-spring/web": "^9.7.3",
@@ -2974,11 +2973,6 @@
       "engines": {
         "node": ">= 8"
       }
-    },
-    "node_modules/@r3f-cutter/r3f-cutter": {
-      "version": "1.0.8",
-      "resolved": "https://registry.npmjs.org/@r3f-cutter/r3f-cutter/-/r3f-cutter-1.0.8.tgz",
-      "integrity": "sha512-7Xikh6uzxO+G4HOXuYYmJDTYdspYLSY2geXN5kOkCRNU+uELCRoYYxfXw+9kds0nYsIHoJVzC4ALPmnRldAhzg=="
     },
     "node_modules/@react-native-community/cli": {
       "version": "12.3.2",

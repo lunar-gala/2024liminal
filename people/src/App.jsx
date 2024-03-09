@@ -13,11 +13,13 @@ import {
   Shadow,
   Edges
 } from '@react-three/drei'
-import { animated, useSpring, useSpringRef, a } from "@react-spring/three"
+import Cutter from '@r3f-cutter/r3f-cutter';
+import { animated, useSpring, useSpringValue, useSpringRef, a } from "@react-spring/three"
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { fonts, map, constrain, Cover, Pane, max, min } from '../../src/index.jsx'
+import * as THREE from 'three'
 
 const numPeople = 168;
 
@@ -45,88 +47,13 @@ const gridRectWidthScalar = 0.01
 const gridRectHeightScalar = 0.05
 
 let stack = { 
-  xTarget: 0,
-  xCurr: 0,
   dx: 0,
-
-  yTarget: 0,
-  yCurr: 0,
   dy: 0,
-
-  zTarget: 0,
-  zCurr: 0,
-  dz: -paneThickness * 2
+  dz: -paneThickness * 2,
+  currId: 0
 }
 
-const Rect = ({ row, col, moveFunction, id}) => {
-
-  const state = useThree()
-  const ref = useRef()
-  const { viewport } = useThree()
-
-  const rWidth = gridRectWidthScalar * viewport.width
-  const rHeight = gridRectHeightScalar * viewport.height // rWidth * 3 // maybe make adaptive to height?
-
-  const size = [ rWidth, rHeight, paneThickness ]
-  const position = [ 2.5 * rWidth * row, -1.3 * rHeight * col, 0 ]
-
-  useFrame(({ delta, pointer }) => {
-      if (moveFunction != null) moveFunction(position, id, state, ref);
-  })
-
-  return (
-      <mesh 
-        position = {position} 
-        ref = {ref} 
-        // onPointerOver={ updateCards(id) }
-      >
-        <boxGeometry args={size}/>
-        <meshBasicMaterial color={"white"} toneMapped={false} />
-        <Edges
-          scale={1}
-          threshold={15}
-          color="black"
-        />
-      </mesh>
-  )
-}
-
-function updateCards(id) {
-  // console.log(id)
-  stack.xCurr = stack.xTarget
-  stack.yCurr = stack.yTarget
-  stack.zCurr = stack.zTarget
-
-  stack.xTarget = id * stack.dx
-  stack.yTarget = id * stack.dy
-  stack.zTarget = id * stack.dz
-
-}
-
-function makeGrid() {
-  const gridRects = []
-
-  let i = 0;
-  for (let col = 0; col < 14; col++) {
-    for (let row = 0; row < 16; row++) {
-
-      if (textPositions[col].length == 0 || 
-          row < textPositions[col][0] || 
-          row > textPositions[col][1] ) {
-        
-        gridRects.push( <Rect row={row} col={col} 
-                              moveFunction={null} 
-                              key={i} id={i} />
-                      )
-        i++;
-      }
-    }
-  }
-
-  return gridRects;
-}
-
-const Card = ({ id }) => {
+const Card = ({ myid, id }) => {
 
   const state = useThree()
   const ref = useRef()
@@ -145,39 +72,115 @@ const Card = ({ id }) => {
   stack.dx = dx
   stack.dy = dy
 
-  const position = [ id * dx, id * dy, id * dz ]
+  const position = [ myid * dx, myid * dy, myid * dz ]
+
+  const cutterPlane = new THREE.Plane(new THREE.Vector3(0, 0, -1), 0)
   
   return (
-    <mesh
-      position = {position}
-      ref = {ref}
-    >
-      <boxGeometry args={size}/>
-      <meshBasicMaterial color={"white"} toneMapped={false} />
-        <Edges
-          scale={1}
-          threshold={15}
-          color="black"
+    // <Cutter plane={cutterPlane}>
+      <mesh
+        position={position}
+        ref={ref}
+        visible={myid > id ? true : false}
+      >
+        
+        <boxGeometry args={size}/>
+        <meshBasicMaterial 
+          color={"white"} 
+          toneMapped={false} 
+          // clippingPlanes={[cutterPlane]}
         />
-    </mesh>
+          <Edges
+            scale={1}
+            threshold={15}
+            color="black"
+            // clippingPlanes={[cutterPlane]}
+          />
+      </mesh>
+    // </Cutter>
   )
 }
 
-function makeCards() {
+const AnimatedCard = animated(Card)
+
+function makeCards(id) {
   const cards = []
   for (let i = 0; i < numPeople; i++) {
-    cards.push(<Card id={i} key={i} />)
+    cards.push(<AnimatedCard id={id} myid={i} key={i} />)
   }
 
   return cards;
 }
 
-export function PeoplePage() {
+const Cards = ( ) => {
 
   const { viewport } = useThree()
 
+  const id = useSpringValue(0)
+
+  const cards = makeCards(id)
+
+  const handleEnter = (newid) => {
+    id.start(newid)
+  }
+
+  const Rect = ({ row, col, moveFunction, id}) => {
+
+    const state = useThree()
+    const ref = useRef()
+    const { viewport } = useThree()
+  
+    const rWidth = gridRectWidthScalar * viewport.width
+    const rHeight = gridRectHeightScalar * viewport.height // rWidth * 3 // maybe make adaptive to height?
+  
+    const size = [ rWidth, rHeight, paneThickness ]
+    const position = [ 2.5 * rWidth * row, -1.3 * rHeight * col, 0 ]
+  
+    useFrame(({ delta, pointer }) => {
+        if (moveFunction != null) moveFunction(position, id, state, ref);
+    })
+  
+    return (
+        <mesh 
+          position = {position} 
+          ref = {ref} 
+          onPointerOver={() => handleEnter(id)}
+        >
+          <boxGeometry args={size}/>
+          <meshBasicMaterial color={"white"} toneMapped={false} />
+          <Edges
+            scale={1}
+            threshold={15}
+            color="black"
+          />
+        </mesh>
+    )
+  }
+
+  function makeGrid() {
+    const gridRects = []
+  
+    let i = 0;
+    for (let col = 0; col < 14; col++) {
+      for (let row = 0; row < 16; row++) {
+  
+        if (textPositions[col].length == 0 || 
+            row < textPositions[col][0] || 
+            row > textPositions[col][1] ) {
+          
+          gridRects.push( <Rect row={row} col={col} 
+                                moveFunction={null} 
+                                key={i} id={i} />
+                        )
+          i++;
+        }
+      }
+    }
+  
+    return gridRects;
+  }
+
   const gridRects = makeGrid()
-  const cards = makeCards()
 
   // magic numbers go burr
   const rectWidth = gridRectWidthScalar * viewport.width * 2.5
@@ -186,59 +189,52 @@ export function PeoplePage() {
 
   const cardWidth = 0.33 * viewport.width
   const cardHeight = 0.69 * viewport.height
-  
-  // const { stackPosition } = useSpring({ 
-  //   stackPosition: [stack.xTarget, stack.yTarget, stack.zTarget], 
-  //   from: { stackPosition: [stack.xCurr, stack.yCurr, stack.zCurr] } })
 
-  // const stackApi = useSpringRef()
-  const [ spring, api ] = useSpring(
-    () => ({
-      x: 0,
-      y: 0,
-      z: 0,
-      config: { 
-        mass: 5, 
-        tension: 350, 
-        friction: 40 
-      },
-    }),
-    []
-  )
-
-  const slideStack = (xT, yT, zT) => {
-    api.start({
-      x: xT,
-      y: yT,
-      z: zT,
-      config: {
-        friction: 10,
-      },
-    })
+  const Grid = () => {
+    return (
+      <group position={[0.07 * viewport.height, rectHeight * 6.5, 0]}>
+        {gridRects}
+      </group>
+    )
   }
 
+  const CardsInner = ({cards, id}) => {
+    
+    return (
+      <>
+        <group>
+          { cards }
+        </group>
+      </>
+    )
+  }
 
-  console.log(spring.z.animation.to)
+  const AnimatedCards = animated(CardsInner)
+
+  return (
+    <>
+      <Grid />
+      <group position={[-2.6 * rectWidth - cardWidth/4, -cardWidth/8, 0 ]}>    
+        <animated.group 
+          position-x={id.to(value => value * -stack.dx)} 
+          position-y={id.to(value => value * -stack.dy)} 
+          position-z={id.to(value => value * -stack.dz)}
+        >
+          <AnimatedCards cards={cards} id={id}/>
+          {/* <AnimatedCards cards={ cards.slice(id.to(value => value)) } /> */}
+          {/* { cards.slice(id.to(value => `${Math.floor(value)}`)) } */}
+        </animated.group>
+      </group>
+    </>
+  )
+}
+
+export function PeoplePage() {
   
   return (
     <>
-      <animated.group position={ [ 
-        -2.6 * rectWidth - cardWidth/4 + stack.xTarget, // + spring.x.animation.to, 
-        -cardWidth/8 + stack.yTarget, // + spring.y.animation.to, 
-        0 + stack.zTarget // spring.z.animation.to
-      ] }
-      >
-        {cards}
-      </animated.group>
-      <group position={[2.8 * rectWidth, gridHeight/2, 0]} >
-        {gridRects /* {
-          gridRects.map((rect) => rect.onPointerOver = { 
-              slideStack(rect.id * stack.dx, 
-                                rect.id * stack.dy, 
-                                rect.id * stack.dz)
-            }
-          )
-        } */}
+      <group>
+        <Cards />
       </group>
     </>
   )
