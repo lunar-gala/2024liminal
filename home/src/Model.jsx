@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Clone, useGLTF, MeshTransmissionMaterial } from "@react-three/drei";
+import { Clone, useGLTF, MeshTransmissionMaterial, RoundedBox } from "@react-three/drei";
 import {
   EffectComposer,
   Bloom,
@@ -25,23 +25,23 @@ export default function Model(props) {
     camera.layers.enable(0); // Enable the bloom layer on the camera
 
     const planes = [];
-    const radius = 1; // radius of the circle
-    const numPlanes = 15; // number of planes
+    const radius = .5; // radius of the circle
+    const numPlanes = 12; // number of planes
     var angle = (2 * Math.PI) / numPlanes;
 
     for (let i = 0; i < numPlanes; i++) {
       angle = ((2 * Math.PI) / numPlanes) * i; // angle for each plane
       var x = radius * Math.cos(angle);
       var z = radius * Math.sin(angle);
-      console.log("x: ", x, "z: ", z, "angle: ", angle);
-      console.log("planes: ", planes);
       planes.push(
         <mesh key={i} position={[x, 0, z]} rotation={[0, -angle, 0]}>
-          <boxGeometry args={[0.45, 2, 0.01]} />
+          {/* <boxGeometry args={[0.45, 1.5, 0.01]} /> */}
+          <RoundedBox args={[0.45, 1.5, 0.01]} radius={0.005} smoothness={2}>
           <MeshTransmissionMaterial
             background={new THREE.Color(config.bg)}
             {...config}
           />
+          </RoundedBox>
         </mesh>
       );
     }
@@ -75,6 +75,20 @@ export default function Model(props) {
     bg: "#ffffff",
   });
 
+  
+
+  const glowPosition = useControls({
+    position: {value: [0, 0, 0.2], step: 0.01}
+  });
+  
+  // const glowSize = useControls({
+  //   glowSizing: {value: [2, 0.85, 0.01], step: 0.01}
+  // })
+  // const paneSize = useControls({
+  //   paneSizing: {value: [0.45, 2, 0.01], step: 0.01}
+  // })
+
+
   const { rotation } = useControls({
     rotation: {
       value: [0, 0, 1.57], // initial value
@@ -95,8 +109,8 @@ export default function Model(props) {
       </group>
 
       {/* glowing panel */}
-      <mesh position={[0, 0, 0.45]}>
-        <boxGeometry args={[2, 0.85, 0.01]} />
+      <mesh {...glowPosition}>
+        <boxGeometry args={[1.52, 0.40, 0.01]} />
         <meshStandardMaterial
           emissive="white"
           color={"white"}
