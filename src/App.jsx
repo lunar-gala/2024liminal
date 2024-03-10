@@ -4,20 +4,14 @@ import { fonts, map, constrain, Cover, Pane, redirect, sendBack } from './index.
 
 // react imports
 import React, 
-{ Suspense, 
-  Children, 
-  useLayoutEffect, 
-  useMemo, 
+{ Suspense,
+  useEffect,
   useState, 
   useRef 
 } from "react"
 import { 
   Stats, 
-  Text, 
   Loader, 
-  useTexture, 
-  useGLTF, 
-  Shadow 
 } from '@react-three/drei'
 import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
 
@@ -34,39 +28,57 @@ import { LinesPage } from "../lines/src/App.jsx"
 
 const App = () => {
 
+  // is mobile
+  const [width, setWidth] = useState(window.innerWidth)
+
+  function handleWindowSizeChange() {
+      setWidth(window.innerWidth)
+  }
+  useEffect(() => {
+      window.addEventListener('resize', handleWindowSizeChange)
+      return () => {
+          window.removeEventListener('resize', handleWindowSizeChange)
+      }
+  }, [])
+
+  console.log(width)
+
+  const isMobile = width <= 768
+
   // Current route
   const [location] = useLocation()
 
   // transition duration
-  const duration = 1000;
+  const duration = 2000;
 
   const go_in = {
-    from: { position: [0, 0, -10], rotation: [0, 0, 0], scale: [0, 0, 0] },
-    enter: { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    leave: { position: [0, 0, -10], rotation: [0, 0, 0], scale: [0, 0, 0] },
-    // config: { friction: 1000, duration: duration },
+    from: { position: [0, 0, -10], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
+    enter: { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1], opacity: 1 },
+    leave: { position: [0, 0, 100], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
+    config: () => (n) => n === "opacity" && { friction: 1000, duration: duration },
   }
 
   const go_out = {
-    from: { position: [0, 0, 10], rotation: [0, 0, 0], scale: [0, 0, 0] },
-    enter: { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1] },
-    leave: { position: [0, 0, 10], rotation: [0, 0, 0], scale: [0, 0, 0] },
-    // config: { friction: 1000, duration: duration },
+    from: { position: [0, 0, 10], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
+    enter: { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1], opacity: 1 },
+    leave: { position: [0, 0, -100], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
+    config: () => (n) => n === "opacity" && { friction: 1000, duration: duration },
   }
 
-  const transition_settings = (location == '/') ? go_out : go_in
+  const transition_settings = (location == '/') ? go_out : go_in;
   
   // Animated shape props
   const transition = useTransition(location, transition_settings)
   return (
     <>
       <Cover>
-        <Canvas camera={{ position: [0, 0, 20], fov: 50 }}>
-          <color attach="background" args={["white"]} />
+        <Canvas camera={{ position: [0, 0, 20], fov: 50 }} gl={{ localClippingEnabled: true }} >
+          <color attach="background" args={["white"]} /> // bg
+
           <ambientLight intensity={1}/>
           <directionalLight position={[0, 0, 5]} intensity={0.5} />
           <Suspense fallback={null}>
-            <Pages transition={transition} />
+            <Pages transition={transition} isMobile={isMobile} />
           </Suspense>
         </Canvas>
       </Cover>
@@ -89,7 +101,7 @@ const AuthPages = {
   "lines": true,
 };
 
-function Pages({ transition }) {
+function Pages({ transition, isMobile }) {
 
   return transition(({ opacity, ...props }, location) => (
     <a.group {...props}>
@@ -104,7 +116,7 @@ function Pages({ transition }) {
           <TixPage />
         </Route>
         <Route path="/people">
-          <PeoplePage />
+          <PeoplePage isMobile={isMobile} />
         </Route>
         <Route path="/lines">
           <LinesPage />
@@ -162,8 +174,8 @@ function HomePage() {
 
   const panes = []
   for (let i=0; i<4; i++){
-    let position = [0, map(i, 0, 4, -3, 6), 0]
-    let size = [7, 0.05, 7]
+    let position = [0, map(i, 0, 4, -6, 8), 0]
+    let size = [10, 0.05, 7]
     let force = null // noise(state.clock.elapsedTime + position[0], 1)
     
     panes.push(<Pane position={position} size={size} moveFunction={null} key={i} id={i}/>)
@@ -178,6 +190,7 @@ function HomePage() {
   )
   
 }
+
 
 
 
