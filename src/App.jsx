@@ -4,20 +4,14 @@ import { fonts, map, constrain, Cover, Pane, redirect, sendBack } from './index.
 
 // react imports
 import React, 
-{ Suspense, 
-  Children, 
-  useLayoutEffect, 
-  useMemo, 
+{ Suspense,
+  useEffect,
   useState, 
   useRef 
 } from "react"
 import { 
   Stats, 
-  Text, 
   Loader, 
-  useTexture, 
-  useGLTF, 
-  Shadow 
 } from '@react-three/drei'
 import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
 
@@ -33,6 +27,23 @@ import { PeoplePage } from "../people/src/App.jsx"
 import { LinesPage } from "../lines/src/App.jsx"
 
 const App = () => {
+
+  // is mobile
+  const [width, setWidth] = useState(window.innerWidth)
+
+  function handleWindowSizeChange() {
+      setWidth(window.innerWidth)
+  }
+  useEffect(() => {
+      window.addEventListener('resize', handleWindowSizeChange)
+      return () => {
+          window.removeEventListener('resize', handleWindowSizeChange)
+      }
+  }, [])
+
+  console.log(width)
+
+  const isMobile = width <= 768
 
   // Current route
   const [location] = useLocation()
@@ -67,7 +78,7 @@ const App = () => {
           <ambientLight intensity={1}/>
           <directionalLight position={[0, 0, 5]} intensity={0.5} />
           <Suspense fallback={null}>
-            <Pages transition={transition} />
+            <Pages transition={transition} isMobile={isMobile} />
           </Suspense>
         </Canvas>
       </Cover>
@@ -90,7 +101,7 @@ const AuthPages = {
   "lines": true,
 };
 
-function Pages({ transition }) {
+function Pages({ transition, isMobile }) {
 
   return transition(({ opacity, ...props }, location) => (
     <a.group {...props}>
@@ -105,7 +116,7 @@ function Pages({ transition }) {
           <TixPage />
         </Route>
         <Route path="/people">
-          <PeoplePage />
+          <PeoplePage isMobile={isMobile} />
         </Route>
         <Route path="/lines">
           <LinesPage />

@@ -229,13 +229,20 @@ const Cards = ( ) => {
   )
 }
 
-export function PeoplePage() {
+export function PeoplePage({isMobile}) {
+
+  console.log(isMobile)
   
-  return (
+  if (!isMobile) return (
     <>
       <group>
         <Cards />
       </group>
+    </>
+  )
+  return (
+    <>
+      {/* <MobilePeople /> */}
     </>
   )
 }
