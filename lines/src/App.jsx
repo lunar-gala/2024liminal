@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Canvas } from "@react-three/fiber"
+import { Canvas, useThree } from "@react-three/fiber"
 import { 
   Stats, 
   Text, 
@@ -13,11 +13,25 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { fonts, map, constrain, Cover, Pane } from '../../src/index.jsx'
 
-
-export function LinesPage() {
+const Pair = ({position}) => {
+  
+  const { viewport } = useThree()
+  
   return (
     <>
-      <Text>lines page</Text>
+      <Pane position={[position.x - viewport.width * 0.33, position.y, position.z]}/>
+      <Pane position={[position.x + viewport.width * 0.33, position.y, position.z]}/>
+    </>
+  )
+}
+
+export function LinesPage() {
+
+  
+
+  return (
+    <>
+      <Pair position={[0,0,0]}/>
     </>
   )
 }
