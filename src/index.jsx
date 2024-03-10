@@ -4,23 +4,35 @@ import { a } from "@react-spring/web"
 import React, { useRef } from "react"
 import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
 import { createBrowserHistory } from 'history';
-import { Text } from '@react-three/drei'
 
-// general utils
-export function map(val, ilo, ihi, olo, ohi) { 
+const history = createBrowserHistory()
+
+const fonts = {
+    Kumuna: "/fonts/Kommuna/Kommuna Demo 400 Narrow.otf",
+    RobotoMono: "/fonts/RobotoMono/RobotoMono-VariableFont_wght.ttf",
+    Wordmark: "/fonts/Wordmark/NewEdge666-Regular.otf",
+    Wordmark_Rounded: "/fonts/Wordmark/NewEdge666-RegularRounded.otf",
+}
+
+const max = (a, b) => {
+    return a > b ? a : b
+}
+
+const min = (a, b) => {
+    return a < b ? a : b
+}
+
+const map = (val, ilo, ihi, olo, ohi) => { 
     return olo + ((val - ilo) / (ihi - ilo)) * (ohi - olo)
 }
   
-export function constrain(val, lo, hi) { 
+const constrain = (val, lo, hi) => { 
     if (lo < val && val < hi) return val
     if (val <= lo) return lo
     if (val >= hi) return hi
 }
 
-// nav utils
-export const history = createBrowserHistory()
-
-export const Cover = styled(a.div)`
+const Cover = styled(a.div)`
   position: absolute;
   will-change: background, transform;
   top: 0;
@@ -29,7 +41,7 @@ export const Cover = styled(a.div)`
   height: 100%;
 `
 
-export function redirect(id) {
+function redirect(id) {
     const pages = ["about", "tickets", "people", "lines"];
     console.log(pages[id])
 
@@ -41,21 +53,11 @@ export function redirect(id) {
     return history.replace(location)
 }
   
-export function sendBack() {
+function sendBack() {
     return history.replace("/")
 }
 
-// reference constants
-export const fonts = {
-    Kumuna: "/fonts/Kommuna/Kommuna Demo 400 Narrow.otf",
-    RobotoMono: "/fonts/RobotoMono/RobotoMono-VariableFont_wght.ttf",
-    Wordmark: "/fonts/Wordmark/NewEdge666-Regular.otf",
-    Wordmark_Rounded: "/fonts/Wordmark/NewEdge666-RegularRounded.otf",
-}
-
-// components
-
-export const Pane = ({ position, size, moveFunction, id }) => {
+const Pane = ({ position, size, moveFunction, id }) => {
 
     const state = useThree()
     const ref = useRef()
@@ -78,19 +80,4 @@ export const Pane = ({ position, size, moveFunction, id }) => {
     )
 }
 
-export const RobotoMono = ({ position, width, fontSize, text, ...props }) => {
-    return (
-        <Text 
-            fontSize={fontSize != null ? fontSize : 0.1}
-            position={position != null ? position : [0,0,0]}
-            font={fonts.RobotoMono}
-            characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!"
-            color={props.color == null ? "black" : props.color}
-            anchorX={props.anchorX == null ? "center" : props.anchorX}
-            anchorY={props.anchorY == null ? "middle" : props.anchorY}
-            maxWidth={width != null ? width : Infinity}
-            textAlign={props.textAlign == null ? "justify" : props.textAlign}
-            text={text}
-        />
-    )
-}
+export { fonts, map, constrain, Cover, Pane, history, redirect, sendBack, min, max,}
