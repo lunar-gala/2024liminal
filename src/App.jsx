@@ -38,23 +38,23 @@ const App = () => {
   const [location] = useLocation()
 
   // transition duration
-  const duration = 2000;
+  const duration = 1000;
 
   const go_in = {
-    from: { position: [0, 0, -10], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
-    enter: { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1], opacity: 1 },
-    leave: { position: [0, 0, 100], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
-    config: () => (n) => n === "opacity" && { friction: 1000, duration: duration },
+    from: { position: [0, 0, -10], rotation: [0, 0, 0], scale: [0, 0, 0] },
+    enter: { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    leave: { position: [0, 0, -10], rotation: [0, 0, 0], scale: [0, 0, 0] },
+    // config: { friction: 1000, duration: duration },
   }
 
   const go_out = {
-    from: { position: [0, 0, 10], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
-    enter: { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1], opacity: 1 },
-    leave: { position: [0, 0, -100], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
-    config: () => (n) => n === "opacity" && { friction: 1000, duration: duration },
+    from: { position: [0, 0, 10], rotation: [0, 0, 0], scale: [0, 0, 0] },
+    enter: { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1] },
+    leave: { position: [0, 0, 10], rotation: [0, 0, 0], scale: [0, 0, 0] },
+    // config: { friction: 1000, duration: duration },
   }
 
-  const transition_settings = (location == '/') ? go_out : go_in;
+  const transition_settings = (location == '/') ? go_out : go_in
   
   // Animated shape props
   const transition = useTransition(location, transition_settings)
