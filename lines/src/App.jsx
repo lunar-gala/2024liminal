@@ -77,7 +77,32 @@ export function LinesPage() {
     )
   }
   
+<<<<<<< Updated upstream
   const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered}) => {
+=======
+  const Pair = ({position, opacity}) => {
+
+    useFrame(() => {
+      if (stayHovered) {
+        ref.current.position.z += 0
+      }
+      else if (forwardHovered) {
+        ref.current.position.z += 0.1
+      }
+      else if (backwardHovered) {
+        ref.current.position.z -= 0.1
+      }
+      else {
+        ref.current.position.z += 0.01
+      }
+      if (ref.current.position.z > 5) {
+        ref.current.position.z = -81
+      }
+      if (ref.current.position.z < -81) {
+        ref.current.position.z = 5
+      }
+    })
+>>>>>>> Stashed changes
     
     return (
       <>
