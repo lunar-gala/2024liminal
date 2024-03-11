@@ -77,7 +77,7 @@ export function LinesPage() {
     )
   }
   
-  const Pair = ({position, opacity}) => {
+  const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered}) => {
     
     return (
       <>
