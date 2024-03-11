@@ -82,6 +82,8 @@ export function LinesPage() {
   }
   
   const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered}) => {
+
+    const ref = useRef()
     
     useFrame(() => {
       if (stayHovered) {
