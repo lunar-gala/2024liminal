@@ -57,7 +57,7 @@ export function sendBack() {
     return history.replace("/")
 }
 
-export const Pane = ({ position, size, moveFunction, id }) => {
+export const Pane = ({ position, size, opacity, moveFunction, id }) => {
 
     const state = useThree()
     const ref = useRef()
@@ -71,11 +71,11 @@ export const Pane = ({ position, size, moveFunction, id }) => {
         position = {position} 
         ref = {ref} 
         onClick = { (e) => sendBack() }
-        onPointerDown = { (e) => redirect(id) } 
+        onPointerDown = { (e) => redirect(id) }
         >
         
             <boxGeometry args={size}/>
-            <meshStandardMaterial color={"#E4F2F4"} />
+            <meshPhongMaterial color={"#E4F2F4"} opacity={opacity} transparent/>
         </mesh>
     )
 }

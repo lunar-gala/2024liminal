@@ -15,23 +15,27 @@ const endPoint = nLines * (distBetweenPairs-1)
 
 export function LinesPage() {
 
+  const [ height, setHeight ] = useState(window.innerHeight)
+  const { viewport } = useThree()
+
   const scroll = useSpringValue(0, {
     config: {
-      mass: 2,
-      friction: 5,
-      tension: 80,
-      duration: 10000
+      mass: 1,
+      friction: 1000,
+      tension: 20,
+      duration: 10000,
+      clam: true,
+      
     },
   })
 
-  function goForward() {
-    // console.log('forward')
-    scroll.start(endPoint)
-  }
-  
-  function goBackward() {
-    // console.log('backward')
-    scroll.start(0)
+  function handleMove(pointerY) {
+    console.log(pointerY)
+    if (pointerY <= height * (3/4)) {
+      scroll.start(endPoint)
+    } else {
+      scroll.start(0)
+    }
   }
 
   function handleLeave() {
@@ -39,7 +43,6 @@ export function LinesPage() {
     scroll.stop()
   }
 
-  const { viewport } = useThree()
   const paneHeight = viewport.height * 0.58
   const paneWidth = paneHeight * 0.85
   const paneThickness = 0.01;
@@ -57,7 +60,7 @@ export function LinesPage() {
     return (
       <>
         <group 
-          onPointerOver={ (e) => console.log(e) } // goForward() }
+          onPointerOver={ (e) => handleMove(e.y) }
           onPointerLeave={ (e) => handleLeave() }
         >
           <mesh ref={pathRef} position={[0, -paneHeight/2, 0]} >
@@ -74,39 +77,36 @@ export function LinesPage() {
     )
   }
   
-  const Pair = ({position}) => {
+  const Pair = ({position, opacity}) => {
     
     return (
       <>
-        <group 
-          // onPointerOver={goForward}
-          // onPointerLeave={handleLeave}
-        >
+        <group>
           <Pane 
             position={ [ position[0] - (paneWidth * 1.75/2), position[1], position[2] ] } 
             size={ [paneWidth, paneHeight, paneThickness] } 
+            opacity={opacity}
             moveFunction={null} id={0}
           />
-        </group>
-        <group
-          // onPointerOver={goBackward} 
-          // onPointerLeave={handleLeave}
-        >
+
           <Pane position={
             [position[0] + (paneWidth * 1.75/2), position[1], position[2]]} 
             size={[ paneWidth, paneHeight, paneThickness]} 
+            opacity={opacity}
             moveFunction={null} id={1}
           />
         </group>
       </>
     )
   }
+
+  const AnimatedPair = animated(Pair)
   
   function makePairs() {
   
     let pairs = []
     for (let i = 0; i < nLines; i++) {
-      pairs.push(<Pair position={[ 0, 0, i * -distBetweenPairs]} key={i} />)
+      pairs.push(<AnimatedPair position={[ 0, 0, i * -distBetweenPairs]} opacity={scroll.to((value) => map(Math.abs(value - (i * distBetweenPairs)), 0, 3 * distBetweenPairs, 1, 0))} key={i} />)
     }
   
     return pairs
