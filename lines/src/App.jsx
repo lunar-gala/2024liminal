@@ -104,11 +104,13 @@ export function LinesPage() {
       if (ref.current.position.z < -81) {
         ref.current.position.z = 5
       }
+
+      ref.current.position.z = constrain(ref.current.position.z, 0, endPoint)
     })
     
     return (
       <>
-        <group>
+        <group ref={ref}>
           <Pane 
             position={ [ position[0] - (paneWidth * 1.75/2), position[1], position[2] ] } 
             size={ [paneWidth, paneHeight, paneThickness] } 
