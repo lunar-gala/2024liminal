@@ -131,7 +131,16 @@ export function LinesPage() {
   
     let pairs = []
     for (let i = 0; i < nLines; i++) {
-      pairs.push(<AnimatedPair position={[ 0, 0, i * -distBetweenPairs]} opacity={scroll.to((value) => map(Math.abs(value - (i * distBetweenPairs)), 0, 3 * distBetweenPairs, 1, 0))} key={i} />)
+      pairs.push(
+        <AnimatedPair 
+          position={[ 0, 0, i * -distBetweenPairs]} 
+          opacity={scroll.to((value) => map(Math.abs(value - (i * distBetweenPairs)), 0, 3 * distBetweenPairs, 1, 0))} 
+          forwardHovered = {isForwardHovered}
+          backwardHovered = {isBackwardHovered}
+          stayHovered = {isStayHovered}
+          key={i} 
+        />
+      )
     }
   
     return pairs
