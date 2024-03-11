@@ -64,8 +64,8 @@ export function LinesPage() {
     return (
       <>
         <group 
-          onPointerOver={ (e) => handleMove(e.y) }
-          onPointerLeave={ (e) => handleLeave() }
+          onPointerOver={ (e) => setIsForwardHovered(true) }
+          onPointerLeave={ (e) => setIsForwardHovered(false) }
         >
           <mesh ref={pathRef} position={[0, -paneHeight/2, 0]} >
               <boxGeometry args={[pathWidth, 100, 0.01]} />
@@ -81,32 +81,31 @@ export function LinesPage() {
     )
   }
   
-  const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered}) => {
+  const Pair = ({position, forwardHovered, opacity, backwardHovered, stayHovered}) => {
 
     const ref = useRef()
     
     useFrame(() => {
+      let z = ref.current.position.z
+
       if (stayHovered) {
-        ref.current.position.z += 0
+        z += 0
       }
       else if (forwardHovered) {
-        ref.current.position.z += 0.1
+        z += 0.1
       }
       else if (backwardHovered) {
-        ref.current.position.z -= 0.1
+        z -= 0.1
       }
       else {
-        ref.current.position.z += 0.01
-      }
-      if (ref.current.position.z > 5) {
-        ref.current.position.z = -81
-      }
-      if (ref.current.position.z < -81) {
-        ref.current.position.z = 5
+        z += 0.01
       }
 
-      ref.current.position.z = constrain(ref.current.position.z, 0, endPoint)
+      ref.current.position.z = z
+
     })
+
+    
     
     return (
       <>
