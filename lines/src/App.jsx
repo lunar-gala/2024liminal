@@ -16,6 +16,11 @@ const endPoint = nLines * (distBetweenPairs-1)
 export function LinesPage() {
 
   const [ height, setHeight ] = useState(window.innerHeight)
+
+  const [isForwardHovered, setIsForwardHovered] = useState(false)
+  const [isBackwardHovered, setIsBackwardHovered] = useState(false)
+  const [isStayHovered, setIsStayHovered] = useState(false)
+
   const { viewport } = useThree()
 
   const scroll = useSpringValue(0, {
@@ -24,8 +29,7 @@ export function LinesPage() {
       friction: 1000,
       tension: 20,
       duration: 10000,
-      clam: true,
-      
+      clamp: true,
     },
   })
 
