@@ -76,7 +76,7 @@ const PathStay = ({stayHover, stayUnhover}) => {
   )
 }
 
-const LinesPage = () => {
+export const LinesPage = () => {
   const [isForwardHovered, setIsForwardHovered] = useState(false)
   const [isBackwardHovered, setIsBackwardHovered] = useState(false)
   const [isStayHovered, setIsStayHovered] = useState(false)
@@ -103,8 +103,8 @@ const LinesPage = () => {
 
   return (
     <>
-      <ambientLight intensity={1}/>
-      <directionalLight position={[0, 0, 5]} intensity={0.5}/>
+      {/* <ambientLight intensity={1}/>
+      <directionalLight position={[0, 0, 5]} intensity={0.5}/> */}
       <PathForward
         forwardHover={() => setIsForwardHovered(true)} 
         forwardUnhover={() => setIsForwardHovered(false)}
