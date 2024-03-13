@@ -51,11 +51,11 @@ export function LinesPage() {
   const paneWidth = paneHeight * 0.85
   const paneThickness = 0.01;
 
+  const pathWidth = paneWidth * 0.75
+
   const Path = () => {
 
     const pathRef = useRef();
-  
-    const pathWidth = paneWidth * 0.75
 
     useFrame(() => {
       pathRef.current.rotation.x = Math.PI / 2;
@@ -67,8 +67,8 @@ export function LinesPage() {
           onPointerOver={ (e) => setIsForwardHovered(true) }
           onPointerLeave={ (e) => setIsForwardHovered(false) }
         >
-          <mesh ref={pathRef} position={[0, -paneHeight/2, 0]} >
-              <boxGeometry args={[pathWidth, 100, 0.01]} />
+          <mesh ref={pathRef} position={[0, -paneHeight/2, -10]} >
+              <boxGeometry args={[pathWidth, 50, 0.01]} />
               <Edges
                 scale={1}
                 threshold={15}
@@ -82,15 +82,29 @@ export function LinesPage() {
   }
 
   const PathForward = ({forwardHover, forwardUnhover}) => {
+    
+    const pathRef = useRef();
+
+    useFrame(() => {
+      pathRef.current.rotation.x = Math.PI / 2;
+    });
+
     return (
       <mesh 
-        position = {[0, -0.5, -1]} 
-        rotation-x = {-1.57}
+        ref={pathRef} 
+        position={[0, -paneHeight/2, -10]}
         onPointerOver = {forwardHover}
-        onPointerOut = {forwardUnhover}>
-        <boxGeometry args = {[1, 8, 0.05]} />
-        <meshStandardMaterial color = {"orange"} />
+        onPointerOut = {forwardUnhover}
+      >
+          <boxGeometry args={[pathWidth, 50, 0.01]} />
+          <Edges
+            scale={1}
+            threshold={15}
+            color="black"
+          />
+          <meshBasicMaterial attach={"material"} color={"orange"} toneMapped={false} /> 
       </mesh>
+
     )
   }
   
@@ -196,10 +210,22 @@ export function LinesPage() {
 
   return (
     <>
+      <PathForward
+        forwardHover={() => setIsForwardHovered(true)} 
+        forwardUnhover={() => setIsForwardHovered(false)}
+      />
+      <PathBackward
+        backwardHover={() => setIsBackwardHovered(true)} 
+        backwardUnhover={() => setIsBackwardHovered(false)}
+      />
+      <PathStay
+        stayHover={() => setIsStayHovered(true)}
+        stayUnhover={() => setIsStayHovered(false)}
+      />
       <group>
         {Pairs}
       </group>
-      <Path />
+      {/* <Path /> */}
     </>
   )
 }
