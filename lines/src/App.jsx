@@ -80,6 +80,46 @@ export function LinesPage() {
       </>
     )
   }
+
+  const PathForward = ({forwardHover, forwardUnhover}) => {
+    return (
+      <mesh 
+        position = {[0, -0.5, -1]} 
+        rotation-x = {-1.57}
+        onPointerOver = {forwardHover}
+        onPointerOut = {forwardUnhover}>
+        <boxGeometry args = {[1, 8, 0.05]} />
+        <meshStandardMaterial color = {"orange"} />
+      </mesh>
+    )
+  }
+  
+  const PathBackward = ({backwardHover, backwardUnhover}) => {
+    return (
+      <mesh 
+        position = {[0, -0.5, 5]} 
+        rotation-x = {-1.57}
+        onPointerOver = {backwardHover}
+        onPointerOut = {backwardUnhover}>
+        <boxGeometry args = {[1, 2, 0.05]} />
+        <meshStandardMaterial color = {"hotpink"} />
+      </mesh>
+    )
+  }
+  
+  const PathStay = ({stayHover, stayUnhover}) => {
+    return (
+      <mesh 
+        position = {[0, -0.5, 3.7]} 
+        rotation-x = {-1.57}
+        onPointerOver = {stayHover}
+        onPointerOut = {stayUnhover}>
+        <boxGeometry args = {[1, 0.4, 0.05]} />
+        <meshStandardMaterial color = {"red"} />
+      </mesh>
+    )
+  }
+  
   
   const Pair = ({position, forwardHovered, backwardHovered, stayHovered}) => {
 
