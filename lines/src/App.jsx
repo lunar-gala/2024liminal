@@ -156,13 +156,6 @@ export function LinesPage() {
       }
 
     })
-
-    // useEffect(() => {
-    //   // console.log(ref.current.position.z)
-    //   setStyle({
-    //     opacity: map(Math.abs(ref.current.position.z), 0, 3 * distBetweenPairs, 1, 0)
-    //   })
-    // }, [ref.current])
     
     return (
       <>
