@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Canvas, useThree, useFrame } from "@react-three/fiber"
 import { 
   Edges,
@@ -81,31 +81,34 @@ export function LinesPage() {
     )
   }
   
-  const Pair = ({position, forwardHovered, opacity, backwardHovered, stayHovered}) => {
+  const Pair = ({position, forwardHovered, backwardHovered, stayHovered}) => {
 
+    const [style, setStyle] = useState({})
     const ref = useRef()
     
     useFrame(() => {
-      let z = ref.current.position.z
 
       if (stayHovered) {
-        z += 0
+        ref.current.position.z += 0
       }
       else if (forwardHovered) {
-        z += 0.1
+        ref.current.position.z += 0.1
       }
       else if (backwardHovered) {
-        z -= 0.1
+        ref.current.position.z -= 0.1
       }
       else {
-        z += 0.01
+        ref.current.position.z += 0.01
       }
-
-      ref.current.position.z = z
 
     })
 
-    
+    // useEffect(() => {
+    //   // console.log(ref.current.position.z)
+    //   setStyle({
+    //     opacity: map(Math.abs(ref.current.position.z), 0, 3 * distBetweenPairs, 1, 0)
+    //   })
+    // }, [ref.current])
     
     return (
       <>
@@ -113,14 +116,14 @@ export function LinesPage() {
           <Pane 
             position={ [ position[0] - (paneWidth * 1.75/2), position[1], position[2] ] } 
             size={ [paneWidth, paneHeight, paneThickness] } 
-            opacity={opacity}
+            opacity={style.opacity}
             moveFunction={null} id={0}
           />
 
           <Pane position={
             [position[0] + (paneWidth * 1.75/2), position[1], position[2]]} 
             size={[ paneWidth, paneHeight, paneThickness]} 
-            opacity={opacity}
+            opacity={style.opacity}
             moveFunction={null} id={1}
           />
         </group>
@@ -137,7 +140,6 @@ export function LinesPage() {
       pairs.push(
         <AnimatedPair 
           position={[ 0, 0, i * -distBetweenPairs]} 
-          opacity={scroll.to((value) => map(Math.abs(value - (i * distBetweenPairs)), 0, 3 * distBetweenPairs, 1, 0))} 
           forwardHovered = {isForwardHovered}
           backwardHovered = {isBackwardHovered}
           stayHovered = {isStayHovered}
@@ -154,9 +156,9 @@ export function LinesPage() {
 
   return (
     <>
-      <animated.group position-z={scroll}>
+      <group>
         {Pairs}
-      </animated.group>
+      </group>
       <Path />
     </>
   )
