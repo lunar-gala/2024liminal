@@ -32,11 +32,11 @@ const imageUrls = [
 ];
 
 const names = [
-  "Creativve person 1",
-  "Creasdfdsativve person 2",
-  "Creativve person 3",
-  "Creativve person 4",
-  "Creativve person 5",
+  "Creative person 1",
+  "Creative person 2",
+  "Creative person 3",
+  "Creative person 4",
+  "Creative person 5",
 ];
 
 const teams = [
@@ -134,25 +134,28 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
       />
 
       <Text
-      position={[-1.9, -2.75, paneThickness * 0.5 + 0.03]}
+      position={[-3.1, -2.75, paneThickness * 0.5 + 0.03]}
       fontSize={0.45}
       color="black"
+      anchorX="left"
     >
       {name}
     </Text>
 
     <Text
-      position={[-0.9, -3.75, paneThickness * 0.5 + 0.03]}
+      position={[-2.1, -3.75, paneThickness * 0.5 + 0.03]}
       fontSize={0.45}
       color="black"
+      anchorX="left"
     >
       {team}
     </Text>
 
     <Text
-      position={[0.1, -4.75, paneThickness * 0.5 + 0.03]}
+      position={[-1.1, -4.75, paneThickness * 0.5 + 0.03]}
       fontSize={0.45}
       color="black"
+      anchorX="left"
     >
       {subteam}
     </Text>
@@ -179,8 +182,6 @@ function makeCards(id) {
 const Cards = ( ) => {
 
   const { viewport } = useThree()
-
-  const [selectedId, setSelectedId] = useState(null);
 
   const id = useSpringValue(0)
 
