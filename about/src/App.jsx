@@ -132,7 +132,6 @@ export function AboutPage() {
         {text4Components}
       </group>
       <RobotoMono position={[-panesSpan/2 - paneWidth/2, viewport.height * -0.44, 0]} fontSize={RobotoMonoSize} text={about_text_5.toUpperCase()} anchorX={"left"} />
-
       {/* <Stats /> */}
     </>
   )
