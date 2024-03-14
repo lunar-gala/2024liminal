@@ -11,7 +11,8 @@ import {
   useTexture, 
   useGLTF, 
   Shadow,
-  Edges
+  Edges,
+  Image
 } from '@react-three/drei'
 import Cutter from '@r3f-cutter/r3f-cutter';
 import { animated, useSpring, useSpringValue, useSpringRef, a } from "@react-spring/three"
@@ -20,6 +21,39 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { fonts, map, constrain, Cover, Pane, max, min } from '../../src/index.jsx'
 import * as THREE from 'three'
+
+
+const imageUrls = [
+  "people/src/assets/headshots/Creative1.png",
+  "people/src/assets/headshots/Creative2.png",
+  "people/src/assets/headshots/Creative3.png",
+  "people/src/assets/headshots/Creative4.png",
+  "people/src/assets/headshots/Creative5.png",
+];
+
+const names = [
+  "Creativve person 1",
+  "Creasdfdsativve person 2",
+  "Creativve person 3",
+  "Creativve person 4",
+  "Creativve person 5",
+];
+
+const teams = [
+  "Creative",
+  "Creative",
+  "Creative",
+  "Creative",
+  "Creative",
+]
+
+const subteams = [
+  "Design",
+  "Design",
+  "Web",
+  "Web",
+  "Web",
+]
 
 const numPeople = 168;
 
@@ -53,68 +87,100 @@ let stack = {
   currId: 0
 }
 
-const Card = ({ myid, id }) => {
+const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
+  const state = useThree();
+  const ref = useRef();
+  const { viewport } = useThree();
 
-  const state = useThree()
-  const ref = useRef()
-  const { viewport } = useThree()
+  const cardWidth = 0.25 * viewport.width;
+  const cardHeight = 1.4 * cardWidth;
 
-  const cardWidth = 0.25 * viewport.width
-  const cardHeight = 1.4*cardWidth // min(0.69 * viewport.height, 1.4*cardWidth)
+  const imageHeight = cardHeight * 0.5; // 50% of the card's height
+  const imageWidth = imageHeight * (cardWidth / cardHeight); 
 
-  const size = [ cardWidth, cardHeight, paneThickness ]
+  const size = [cardWidth, cardHeight, paneThickness];
   
-  const dx = - gridRectWidthScalar * viewport.width // maybe make this not width dependent
-  const dy = - dx
-  const dz = stack.dz
+  const dx = -gridRectWidthScalar * viewport.width;
+  const dy = -dx;
+  const dz = stack.dz;
  
   // init stack
-  stack.dx = dx
-  stack.dy = dy
+  stack.dx = dx;
+  stack.dy = dy;
 
-  const position = [ myid * dx, myid * dy, myid * dz ]
+  const position = [myid * dx, myid * dy, myid * dz];
+  const textOffsetY = -cardHeight * 0.5;
 
-  const cutterPlane = new THREE.Plane(new THREE.Vector3(0, 0, -1), 0)
-  
   return (
-    // <Cutter plane={cutterPlane}>
-      <mesh
-        position={position}
-        ref={ref}
-        visible={myid > id ? true : false}
-      >
-        
-        <boxGeometry args={size}/>
-        <meshBasicMaterial 
-          color={"white"} 
-          toneMapped={false} 
-          // clippingPlanes={[cutterPlane]}
-        />
-          <Edges
-            scale={1}
-            threshold={15}
-            color="black"
-            // clippingPlanes={[cutterPlane]}
-          />
-      </mesh>
-    // </Cutter>
-  )
-}
+    <mesh
+      position={position}
+      ref={ref}
+      visible={myid > id ? true : false}
+    >
+      <boxGeometry args={size}/>
+      <meshBasicMaterial 
+        color={"white"} 
+        toneMapped={false}
+      />
+      <Edges
+        scale={1}
+        threshold={15}
+        color="black"
+      />
+      <Image 
+        position={[0, 2, paneThickness * 0.5 + 0.01]} // Slightly in front of the card to prevent z-fighting
+        url={imageUrl} // The URL of the image to display
+        scale={[cardWidth * 0.8, cardHeight*0.6, 1]} // Scale image to fit the card, adjust as needed
+      />
+
+      <Text
+      position={[-1.9, -2.75, paneThickness * 0.5 + 0.03]}
+      fontSize={0.45}
+      color="black"
+    >
+      {name}
+    </Text>
+
+    <Text
+      position={[-0.9, -3.75, paneThickness * 0.5 + 0.03]}
+      fontSize={0.45}
+      color="black"
+    >
+      {team}
+    </Text>
+
+    <Text
+      position={[0.1, -4.75, paneThickness * 0.5 + 0.03]}
+      fontSize={0.45}
+      color="black"
+    >
+      {subteam}
+    </Text>
+    </mesh>
+  );
+};
 
 const AnimatedCard = animated(Card)
 
 function makeCards(id) {
-  const cards = []
+  const cards = [];
   for (let i = 0; i < numPeople; i++) {
-    cards.push(<AnimatedCard id={id} myid={i} key={i} />)
+    const imageUrl = imageUrls[i % imageUrls.length];
+    const name = names[i % names.length];
+    const team = teams[i % teams.length];
+    const subteam = subteams[i % subteams.length];
+    cards.push(<AnimatedCard id={id} myid={i} key={i} imageUrl={imageUrl} name={name} team={team} subteam={subteam} />);
   }
 
   return cards;
 }
 
+
 const Cards = ( ) => {
 
   const { viewport } = useThree()
+
+  const [selectedId, setSelectedId] = useState(null);
 
   const id = useSpringValue(0)
 
