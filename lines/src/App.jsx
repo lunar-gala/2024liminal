@@ -137,25 +137,38 @@ export function LinesPage() {
   
   const Pair = ({position, forwardHovered, backwardHovered, stayHovered}) => {
 
-    const [style, setStyle] = useState({})
+    // const [style, setStyle] = useState({})
     const ref = useRef()
     
-    useFrame(() => {
+    // useFrame(() => {
 
-      if (stayHovered) {
-        ref.current.position.z += 0
-      }
-      else if (forwardHovered) {
-        ref.current.position.z += 0.1
-      }
-      else if (backwardHovered) {
-        ref.current.position.z -= 0.1
-      }
-      else {
-        ref.current.position.z += 0.01
-      }
+    //   if (stayHovered) {
+    //     ref.current.position.z += 0
+    //   }
+    //   else if (forwardHovered) {
+    //     ref.current.position.z += 0.1
+    //   }
+    //   else if (backwardHovered) {
+    //     ref.current.position.z -= 0.1
+    //   }
+    //   else {
+    //     ref.current.position.z += 0.01
+    //   }
 
-    })
+    // })
+
+    if (stayHovered) {
+      scroll.stop()
+    }
+    else if (forwardHovered) {
+      scroll.start(endPoint)
+    }
+    else if (backwardHovered) {
+      scroll.start(0)
+    }
+    else {
+      scroll.start(endPoint)
+    }
     
     return (
       <>
@@ -163,14 +176,14 @@ export function LinesPage() {
           <Pane 
             position={ [ position[0] - (paneWidth * 1.75/2), position[1], position[2] ] } 
             size={ [paneWidth, paneHeight, paneThickness] } 
-            opacity={style.opacity}
+            opacity={opacity}
             moveFunction={null} id={0}
           />
 
           <Pane position={
             [position[0] + (paneWidth * 1.75/2), position[1], position[2]]} 
             size={[ paneWidth, paneHeight, paneThickness]} 
-            opacity={style.opacity}
+            opacity={opacity}
             moveFunction={null} id={1}
           />
         </group>
