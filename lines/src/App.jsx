@@ -33,20 +33,6 @@ export function LinesPage() {
     },
   })
 
-  function handleMove(pointerY) {
-    console.log(pointerY)
-    if (pointerY <= height * (3/4)) {
-      scroll.start(endPoint)
-    } else {
-      scroll.start(0)
-    }
-  }
-
-  function handleLeave() {
-    // console.log('stop')
-    scroll.stop()
-  }
-
   const paneHeight = viewport.height * 0.58
   const paneWidth = paneHeight * 0.85
   const paneThickness = 0.01;
@@ -135,7 +121,7 @@ export function LinesPage() {
   }
   
   
-  const Pair = ({position, forwardHovered, backwardHovered, stayHovered}) => {
+  const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered}) => {
 
     // const [style, setStyle] = useState({})
     const ref = useRef()
@@ -167,7 +153,7 @@ export function LinesPage() {
       scroll.start(0)
     }
     else {
-      scroll.start(endPoint)
+      // scroll.start(endPoint)
     }
     
     return (
@@ -199,6 +185,7 @@ export function LinesPage() {
     for (let i = 0; i < nLines; i++) {
       pairs.push(
         <AnimatedPair 
+          opacity={scroll.to((value) => map(Math.abs(value - i * distBetweenPairs), 0, 3*distBetweenPairs, 1, 0))}
           position={[ 0, 0, i * -distBetweenPairs]} 
           forwardHovered = {isForwardHovered}
           backwardHovered = {isBackwardHovered}
