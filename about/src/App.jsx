@@ -6,7 +6,7 @@ import {
 } from '@react-three/drei'
 import './App.css'
 import { createNoise2D } from 'simplex-noise'
-import { fonts, map, Pane, RobotoMono, Kommuna, WordMarkRounded } from '../../src/index.jsx'
+import { map, Pane, RobotoMono, Kommuna, WordMarkRounded } from '../../src/index.jsx'
 
 const noise = createNoise2D();
 function chimesMoveFunction(position, size, id, state, ref) {
@@ -135,37 +135,8 @@ export function AboutPage() {
       <group position={[0, viewport.height * -0.25, 0]}>
         {text4Components}
       </group>
-      <RobotoMono position={[-panesSpan/2 - paneWidth/2, viewport.height * -0.44, 0]} fontSize={RobotoMonoSize} text={about_text_5.toUpperCase()} anchorX={"left"} />
+      <Kommuna position={[-panesSpan/2 - paneWidth/2, viewport.height * -0.44, 0]} fontSize={RobotoMonoSize} text={about_text_5.toUpperCase()} anchorX={"left"} />
 
-      {/* <Text
-        scale={[0.4, 0.4, 0.4]}
-        position={[0, -1, 0]}
-        font={fonts.RobotoMono}
-        characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!"
-        color="black" // default
-        anchorX="center" // default
-        anchorY="middle" // default
-        maxWidth={32}
-        textAlign="center"
-      >
-        {about_text_2}
-        {'\n'}{'\n'}{'\n'}
-        <Text
-          position={[-2.3, -2.8, 0]}
-          textAlign="center"
-          color="black"
-        >
-        welcome   to
-        </Text>
-        <Text 
-          font={fonts.Wordmark}
-          position={[3.5, -2.8, 0]}
-          color="black"
-          
-        >
-            LIMINAL
-        </Text>
-      </Text> */}
       {/* <Stats /> */}
     </>
   )

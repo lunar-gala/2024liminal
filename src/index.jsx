@@ -47,7 +47,7 @@ export function sendBack() {
 
 // reference constants
 export const fonts = {
-    Kumuna: "/fonts/Kommuna/KommunaNarrow1.10.otf",
+    Kommuna: "/fonts/Kommuna/KommunaNarrow1.10.otf",
     RobotoMono: "/fonts/RobotoMono/RobotoMono-VariableFont_wght.ttf",
     Wordmark: "/fonts/Wordmark/NewEdge666-Regular.otf",
     Wordmark_Rounded: "/fonts/Wordmark/NewEdge666-RegularRounded.otf",
@@ -101,7 +101,7 @@ export const Kommuna = ({ position, width, fontSize, text, ...props }) => {
             fontSize={fontSize != null ? fontSize : 0.1}
             position={position != null ? position : [0,0,0]}
             font={fonts.Kommuna}
-            characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!"
+            characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789![]"
             color={props.color == null ? "black" : props.color}
             anchorX={props.anchorX == null ? "center" : props.anchorX}
             anchorY={props.anchorY == null ? "middle" : props.anchorY}
