@@ -6,7 +6,7 @@ import {
 } from '@react-three/drei'
 import './App.css'
 import { createNoise2D } from 'simplex-noise'
-import { map, Pane, RobotoMono, Kommuna, WordMarkRounded } from '../../src/index.jsx'
+import { map, Pane, RobotoMono, LIMINAL } from '../../src/index.jsx'
 
 const noise = createNoise2D();
 function chimesMoveFunction(position, size, id, state, ref) {
@@ -112,14 +112,10 @@ export function AboutPage() {
     <>
       <ambientLight intensity={1}/>
       <directionalLight position={[0, 0, 5]} intensity={0.5} />
+      <LIMINAL viewport={viewport} />
       <group position={[0, viewport.height * 0.04, -0.15]}>
         {panes}
       </group>
-      {/* <TextItem url="/../text1.png" scale={viewport.width / 1512} position={[[0, 0.25 * viewport.height, 0]]} />
-      <TextItem url="/../text2.png" scale={viewport.width / 1512} position={[[0, 0, 0]]} />
-      <TextItem url="/../text3.png" scale={viewport.width / 1512} position={[[0, -0.25 * viewport.height, 0]]} />
-      <TextItem url="/../text4.png" scale={viewport.width / 1512} position={[[0, -0.4 * viewport.height, 0]]}/> */}
-      {/* <RobotoMono fontSize={RobotoMonoSize} position={[0, 0.3 * viewport.height, 0]} width={panesSpan} text={about_text_1.toUpperCase()}/> */}
       <group position={[0, 0.33 * viewport.height, 0]}>
         {text11Components}
       </group>
@@ -135,7 +131,7 @@ export function AboutPage() {
       <group position={[0, viewport.height * -0.25, 0]}>
         {text4Components}
       </group>
-      <Kommuna position={[-panesSpan/2 - paneWidth/2, viewport.height * -0.44, 0]} fontSize={RobotoMonoSize} text={about_text_5.toUpperCase()} anchorX={"left"} />
+      <RobotoMono position={[-panesSpan/2 - paneWidth/2, viewport.height * -0.44, 0]} fontSize={RobotoMonoSize} text={about_text_5.toUpperCase()} anchorX={"left"} />
 
       {/* <Stats /> */}
     </>

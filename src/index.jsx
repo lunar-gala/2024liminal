@@ -146,10 +146,12 @@ export const WordMarkRounded = ({ position, width, fontSize, text, ...props }) =
     )
 }
 
-export const LIMINAL = ({}) => {
+export const LIMINAL = ({viewport}) => {
     return (
         <WordMark 
             text={"LIMINAL"}
+            position={[0, viewport.height * 0.45, 0]}
+            fontSize={0.9}
         />
     )
 }
