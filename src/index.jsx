@@ -47,7 +47,7 @@ export function sendBack() {
 
 // reference constants
 export const fonts = {
-    Kumuna: "/fonts/Kommuna/Kommuna Demo 400 Narrow.otf",
+    Kumuna: "/fonts/Kommuna/KommunaNarrow1.10.otf",
     RobotoMono: "/fonts/RobotoMono/RobotoMono-VariableFont_wght.ttf",
     Wordmark: "/fonts/Wordmark/NewEdge666-Regular.otf",
     Wordmark_Rounded: "/fonts/Wordmark/NewEdge666-RegularRounded.otf",
@@ -129,7 +129,7 @@ export const WordMark = ({ position, width, fontSize, text, ...props }) => {
     )
 }
 
-export const WordMark_Rounded = ({ position, width, fontSize, text, ...props }) => {
+export const WordMarkRounded = ({ position, width, fontSize, text, ...props }) => {
     return (
         <Text 
             fontSize={fontSize != null ? fontSize : 0.1}

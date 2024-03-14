@@ -6,7 +6,7 @@ import {
 } from '@react-three/drei'
 import './App.css'
 import { createNoise2D } from 'simplex-noise'
-import { fonts, map, Pane, RobotoMono } from '../../src/index.jsx'
+import { fonts, map, Pane, RobotoMono, Kommuna, WordMarkRounded } from '../../src/index.jsx'
 
 const noise = createNoise2D();
 function chimesMoveFunction(position, size, id, state, ref) {
