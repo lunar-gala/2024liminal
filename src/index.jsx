@@ -94,3 +94,62 @@ export const RobotoMono = ({ position, width, fontSize, text, ...props }) => {
         />
     )
 }
+
+export const Kommuna = ({ position, width, fontSize, text, ...props }) => {
+    return (
+        <Text 
+            fontSize={fontSize != null ? fontSize : 0.1}
+            position={position != null ? position : [0,0,0]}
+            font={fonts.Kommuna}
+            characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!"
+            color={props.color == null ? "black" : props.color}
+            anchorX={props.anchorX == null ? "center" : props.anchorX}
+            anchorY={props.anchorY == null ? "middle" : props.anchorY}
+            maxWidth={width != null ? width : Infinity}
+            textAlign={props.textAlign == null ? "justify" : props.textAlign}
+            text={text}
+        />
+    )
+}
+
+export const WordMark = ({ position, width, fontSize, text, ...props }) => {
+    return (
+        <Text 
+            fontSize={fontSize != null ? fontSize : 0.1}
+            position={position != null ? position : [0,0,0]}
+            font={fonts.Wordmark}
+            characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!"
+            color={props.color == null ? "black" : props.color}
+            anchorX={props.anchorX == null ? "center" : props.anchorX}
+            anchorY={props.anchorY == null ? "middle" : props.anchorY}
+            maxWidth={width != null ? width : Infinity}
+            textAlign={props.textAlign == null ? "justify" : props.textAlign}
+            text={text}
+        />
+    )
+}
+
+export const WordMark_Rounded = ({ position, width, fontSize, text, ...props }) => {
+    return (
+        <Text 
+            fontSize={fontSize != null ? fontSize : 0.1}
+            position={position != null ? position : [0,0,0]}
+            font={fonts.Wordmark_Rounded}
+            characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!"
+            color={props.color == null ? "black" : props.color}
+            anchorX={props.anchorX == null ? "center" : props.anchorX}
+            anchorY={props.anchorY == null ? "middle" : props.anchorY}
+            maxWidth={width != null ? width : Infinity}
+            textAlign={props.textAlign == null ? "justify" : props.textAlign}
+            text={text}
+        />
+    )
+}
+
+export const LIMINAL = ({}) => {
+    return (
+        <WordMark 
+            text={"LIMINAL"}
+        />
+    )
+}
