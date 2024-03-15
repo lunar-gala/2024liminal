@@ -49,7 +49,7 @@ const App = () => {
   const [location] = useLocation()
 
   // transition duration
-  const duration = 2000;
+  const duration = 2000; // add transition and then change opacity so that the pages transition out and the opacity becomes more vague
 
   const go_in = {
     from: { position: [0, 0, -10], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
@@ -65,7 +65,7 @@ const App = () => {
     config: () => (n) => n === "opacity" && { friction: 1000, duration: duration },
   }
 
-  const transition_settings = (location == '/') ? go_out : go_in;
+  const transition_settings = (location == '/') ? go_out : go_in; // add another transition from landing to title
   
   // Animated shape props
   const transition = useTransition(location, transition_settings)
@@ -108,21 +108,26 @@ function Pages({ transition, isMobile }) {
       <Switch location={location}>
         <Route path="/">
           <HomePage />
+          <Sensor />
         </Route>
+
         <Route path="/about">
           <AboutPage />
+          <Sensor />
         </Route>
         <Route path="/tickets">
           <TixPage />
+          <Sensor />
         </Route>
         <Route path="/people">
           <PeoplePage isMobile={isMobile} />
+          <Sensor />
         </Route>
         <Route path="/lines">
           <LinesPage />
+          <Sensor />
         </Route>
       </Switch>
-      <Sensor />
     </a.group>
   ))
 }
@@ -171,7 +176,7 @@ function PrivateRoute({ children, page, ...rest }) {
  */
 
 function HomePage() {
-
+  
   const panes = []
   for (let i=0; i<4; i++){
     let position = [0, map(i, 0, 4, -6, 8), 0]
