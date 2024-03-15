@@ -41,6 +41,7 @@ const App = () => {
       }
   }, [])
 
+  // comment
   console.log(width)
 
   const isMobile = width <= 768
