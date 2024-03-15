@@ -91,6 +91,57 @@ export const Pane = ({ position, size, moveFunction, id, opacity }) => {
     )
 }
 
+export function text2components(text, size, startPosition, endPosition, justify) {
+    justify = justify != null ? justify : false
+  
+    let textArr = text.split(" ").map((word) => word.toUpperCase()) // split and capitalize strings
+    // map each word to a one-word component, with evenly distributed x positions
+    let componentArr = []
+  
+    if (justify) {
+      // lmao
+      let charWidth = 0.625 * size
+      let textLength = 0;
+      for (let i = 0; i < textArr.length; i++) {
+        textLength += textArr[i].length * charWidth
+      }
+  
+      let targetLength = endPosition - startPosition
+      let paddingNeeded = targetLength - textLength
+      let spaceLength = paddingNeeded / (textArr.length-1) // for n words there are n-1 spaces
+  
+      let currX = 0;
+      for (let i = 0; i < textArr.length; i++) {
+        let word = textArr[i]
+        let component = <RobotoMono 
+                          fontSize={size} 
+                          position={[currX - targetLength/2, 0, 0]} 
+                          text={word} 
+                          key={i}
+                          anchorX="left"
+                        />
+        componentArr.push(component)
+  
+        currX += spaceLength + textArr[i].length * charWidth
+      }
+  
+    } else {
+      for (let i = 0; i < textArr.length; i++) {
+        let word = textArr[i]
+        let component = <RobotoMono 
+                          fontSize={size} 
+                          position={[map(i, 0, textArr.length-1, startPosition, endPosition), 0, 0]} 
+                          text={word} 
+                          key={i}
+                          anchorX="center"
+                        />
+        componentArr.push(component)
+      }
+    }
+    
+    return componentArr
+  }
+
 export const RobotoMono = ({ position, width, fontSize, text, ...props }) => {
     return (
         <Text 
