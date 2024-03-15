@@ -16,7 +16,7 @@ export default function Model(props) {
   const model = useGLTF("./LG-Home-01.glb");
 
   useFrame(({ delta, pointer, clock }) => {
-    // groupRef.current.rotation.x = clock.getElapsedTime() / 8;
+    groupRef.current.rotation.x = clock.getElapsedTime() / 8;
   });
 
   function Scene() {
@@ -29,11 +29,16 @@ export default function Model(props) {
     const numPlanes = 12; // number of planes
     var angle = (2 * Math.PI) / numPlanes;
 
+    const textRadScale = 1.35
+
     // Generate the planes
+    const pages = ["tickets", "about", "people", "lines"]
     for (let i = 0; i < numPlanes; i++) {
       angle = ((2 * Math.PI) / numPlanes) * i; // angle for each plane
       var x = radius * Math.cos(angle);
       var z = radius * Math.sin(angle);
+
+      let text = pages[i%4]
       console.log(angle)
       planes.push(
         // Plane Mesh
@@ -48,14 +53,13 @@ export default function Model(props) {
         </mesh>
         
         <Text3D
-          font="./NewEdge-666-Regular.json"
+          font="./NewEdge-666-Regular-2.json"
           size={0.1}
           height={0.01}
-          // position={[x, 0.5, z]}
-          position={textConfig.positiontext}
-          rotation={textConfig.rotationtext}>
-          TICKETS
-          <meshNormalMaterial />
+          position={[-x*textRadScale, 0.7, -z*textRadScale]}
+          rotation={[0,-angle,-1.56]}>
+          {text.toUpperCase()}
+          <meshBasicMaterial color="white" />
         </Text3D>
         </>
       );
@@ -67,8 +71,8 @@ export default function Model(props) {
   }
 
   const textConfig = useControls({
-    positiontext: {value: [0, 0.5, 0]},
-    rotationtext: {value: [4.35,4.5,0]}
+    positiontext: {value: [0.01, .09, -0.60]},
+    rotationtext: {value: [4.84,4.71,0.11]}
   });
 
   // Lower 'samples' and 'resolution' for better performance (less lag)
