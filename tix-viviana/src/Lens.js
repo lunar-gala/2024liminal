@@ -1,12 +1,9 @@
 import { useRef, useState } from 'react'
 import { useFrame, useThree, createPortal } from '@react-three/fiber'
-import { Html, Text, useGLTF, useFBO, MeshTransmissionMaterial } from '@react-three/drei'
+import { useGLTF, useFBO, MeshTransmissionMaterial } from '@react-three/drei'
 import { easing } from 'maath'
 import { useControls } from 'leva'
 import * as THREE from 'three'
-import TicketButton from './TicketButton.js'
-import Selector from './Selector.js'
-import Typography from './Typography.js'
 import TicketButtonHTML from './TicketButtonHTML.js'
 
 
