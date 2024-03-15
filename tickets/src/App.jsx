@@ -154,7 +154,7 @@ function Lens({ children, damping = 0.15, ...props }) {
   // If we just did const nodes, then it would contain all properties returned by useGLTF, not just nodes.
   // Each node represents an object in the 3D scene. A node can represent a camera, a piece of geometry \
   // (like a mesh), a light, or a sub-scene (a group of other nodes).
-  const { nodes } = useGLTF('/LG-tickets-cursor.glb')
+  const { nodes } = useGLTF("/assets/LG-tickets-cursor.glb")
 
 
   // The FBO will have a texture property that you can use as a texture in your materials, allowing you to use \
