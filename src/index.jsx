@@ -7,6 +7,15 @@ import { createBrowserHistory } from 'history';
 import { Text } from '@react-three/drei'
 
 // general utils
+
+export const max = (a, b) => {
+    return a > b ? a : b
+}
+
+export const min = (a, b) => {
+    return a < b ? a : b
+}
+
 export function map(val, ilo, ihi, olo, ohi) { 
     return olo + ((val - ilo) / (ihi - ilo)) * (ohi - olo)
 }
