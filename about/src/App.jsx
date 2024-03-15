@@ -31,7 +31,7 @@ export function AboutPage() {
 
   const panesSpan = viewport.width * (1 - 2*0.07) // 7% margins
   const panesSection = panesSpan / 8
-  const paneHeight = 0.29 * viewport.height // paneWidth * 5
+  const paneHeight = 0.32 * viewport.height // paneWidth * 5
   const paneWidth = paneHeight / 5
 
   const RobotoMonoSize = 0.5 // viewport.width * 0.017
@@ -64,7 +64,7 @@ export function AboutPage() {
       <ambientLight intensity={1}/>
       <directionalLight position={[0, 0, 5]} intensity={0.5} />
       <LIMINAL viewport={viewport} />
-      <group position={[0, viewport.height * 0.04, -0.15]}>
+      <group position={[0, viewport.height * 0.04, -1]}>
         {panes}
       </group>
       <group position={[0, 0.33 * viewport.height, 0]}>
