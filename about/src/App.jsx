@@ -7,6 +7,8 @@ import {
 import './App.css'
 import { createNoise2D } from 'simplex-noise'
 import { map, Pane, RobotoMono, LIMINAL, text2components } from '../../src/index.jsx'
+import tons from './assets/tons.png'
+import s from './assets/s.png'
 
 const noise = createNoise2D();
 function chimesMoveFunction(position, size, id, state, ref) {
@@ -80,7 +82,11 @@ export function AboutPage() {
       <group position={[0, viewport.height * -0.25, 0]}>
         {text4Components}
       </group>
-      <RobotoMono position={[-panesSpan/2 - paneWidth/2, viewport.height * -0.44, 0]} fontSize={RobotoMonoSize} text={about_text_5.toUpperCase()} anchorX={"left"} />
+      <group position={[-panesSpan/2 - paneWidth/2, viewport.height * -0.44, 0]}>
+        <RobotoMono fontSize={RobotoMonoSize} text={about_text_5.toUpperCase()} anchorX={"left"} />
+        <Image url = {tons} position = {[8.5, 0, 0]} scale = {[4, 1, 1]} toneMapped={false}/>
+        <Image url = {s} position = {[11.5, 0, 0]} scale = {[2, 2, 2]} toneMapped={false}/>
+      </group>
       {/* <Stats /> */}
     </>
   )
