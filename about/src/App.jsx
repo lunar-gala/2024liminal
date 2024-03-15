@@ -51,11 +51,11 @@ export function AboutPage() {
   const about_text_4 = "welcome to liminal"
   const about_text_5 = "in collaboration with"
 
-  const text11Components = text2components(about_text_11, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
-  const text12Components = text2components(about_text_12, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
-  const text2Components = text2components(about_text_2, RobotoMonoSize, -panesSpan/2 + panesSection/2, panesSpan/2 - panesSection/2, false)
-  const text3Components = text2components(about_text_3, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
-  const text4Components = text2components(about_text_4, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
+  const text11 = text2components(text2components, about_text_11, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
+  const text12 = text2components(text2components, about_text_12, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
+  const text2 = text2components(text2components, about_text_2, RobotoMonoSize, -panesSpan/2 + panesSection/2, panesSpan/2 - panesSection/2, false)
+  const text3 = text2components(text2components, about_text_3, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
+  const text4 = text2components(text2components, about_text_4, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
 
   return (
     <>
@@ -66,19 +66,19 @@ export function AboutPage() {
         {panes}
       </group>
       <group position={[0, 0.33 * viewport.height, 0]}>
-        {text11Components}
+        {text11}
       </group>
       <group position={[0, 0.29 * viewport.height, 0]}>
-        {text12Components}
+        {text12}
       </group>
       <group position={[0, viewport.height * 0.04, 0]}>
-        {text2Components}
+        {text2}
       </group>
       <group position={[0, viewport.height * -0.2, 0]}>
-        {text3Components}
+        {text3}
       </group>
       <group position={[0, viewport.height * -0.25, 0]}>
-        {text4Components}
+        {text4}
       </group>
       <RobotoMono position={[-panesSpan/2 - paneWidth/2, viewport.height * -0.44, 0]} fontSize={RobotoMonoSize} text={about_text_5.toUpperCase()} anchorX={"left"} />
       {/* <Stats /> */}

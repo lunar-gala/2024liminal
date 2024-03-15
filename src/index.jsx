@@ -91,7 +91,7 @@ export const Pane = ({ position, size, moveFunction, id, opacity }) => {
     )
 }
 
-export function text2components(text, size, startPosition, endPosition, justify) {
+export function text2components(Component, text, size, startPosition, endPosition, justify) {
     justify = justify != null ? justify : false
   
     let textArr = text.split(" ").map((word) => word.toUpperCase()) // split and capitalize strings
@@ -113,7 +113,7 @@ export function text2components(text, size, startPosition, endPosition, justify)
       let currX = 0;
       for (let i = 0; i < textArr.length; i++) {
         let word = textArr[i]
-        let component = <RobotoMono 
+        let component = <Component 
                           fontSize={size} 
                           position={[currX - targetLength/2, 0, 0]} 
                           text={word} 
@@ -128,7 +128,7 @@ export function text2components(text, size, startPosition, endPosition, justify)
     } else {
       for (let i = 0; i < textArr.length; i++) {
         let word = textArr[i]
-        let component = <RobotoMono 
+        let component = <Component 
                           fontSize={size} 
                           position={[map(i, 0, textArr.length-1, startPosition, endPosition), 0, 0]} 
                           text={word} 
@@ -143,6 +143,7 @@ export function text2components(text, size, startPosition, endPosition, justify)
   }
 
 export const RobotoMono = ({ position, width, fontSize, text, ...props }) => {
+    console.log(props)
     return (
         <Text 
             fontSize={fontSize != null ? fontSize : 0.1}
@@ -155,6 +156,8 @@ export const RobotoMono = ({ position, width, fontSize, text, ...props }) => {
             maxWidth={width != null ? width : Infinity}
             textAlign={props.textAlign == null ? "justify" : props.textAlign}
             text={text}
+            onPointerOver={props.onPointerOver}
+            onPointerOut={props.onPointerOut}
         />
     )
 }
