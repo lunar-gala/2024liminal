@@ -14,7 +14,6 @@ import {
   Edges,
   Image
 } from '@react-three/drei'
-import Cutter from '@r3f-cutter/r3f-cutter';
 import { animated, useSpring, useSpringValue, useSpringRef, a } from "@react-spring/three"
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
