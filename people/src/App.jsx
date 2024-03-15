@@ -19,7 +19,7 @@ import { animated, useSpring, useSpringValue, useSpringRef, a } from "@react-spr
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { fonts, map, constrain, Cover, Pane, max, min } from '../../src/index.jsx'
+import { map } from '../../src/index.jsx'
 import * as THREE from 'three'
 
 
