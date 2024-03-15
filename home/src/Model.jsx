@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Clone, useGLTF, MeshTransmissionMaterial, RoundedBox, Text3D } from "@react-three/drei";
+import { Clone, useGLTF, MeshTransmissionMaterial, RoundedBox, Text3D, Plane } from "@react-three/drei";
 import {
   EffectComposer,
   Bloom,
@@ -19,55 +19,30 @@ export default function Model(props) {
     groupRef.current.rotation.x = clock.getElapsedTime() / 8;
   });
 
-  function Scene() {
-    const { camera } = useThree();
-    camera.layers.enable(1); // Enable the bloom layer on the camera
-    camera.layers.enable(0); // Enable the bloom layer on the camera
-
-    const planes = [];
-    const radius = .5; // radius of the circle
-    const numPlanes = 12; // number of planes
-    var angle = (2 * Math.PI) / numPlanes;
-
+  function Pane({key, position, rotation, text, config, x, z, angle}) {
     const textRadScale = 1.35
-
-    // Generate the planes
-    const pages = ["tickets", "about", "people", "lines"]
-    for (let i = 0; i < numPlanes; i++) {
-      angle = ((2 * Math.PI) / numPlanes) * i; // angle for each plane
-      var x = radius * Math.cos(angle);
-      var z = radius * Math.sin(angle);
-
-      let text = pages[i%4]
-      console.log(angle)
-      planes.push(
-        // Plane Mesh
-        <>
-        <mesh key={i} position={[x, 0, z]} rotation={[0, -angle, 0]}>
+    return(
+      <>
+        <mesh key={key} position={position} rotation={rotation}>
           <RoundedBox args={[0.45, 1.5, 0.01]} radius={0.005} smoothness={2}>
           <MeshTransmissionMaterial
-            background={new THREE.Color(config.bg)}
+            background={new THREE.Color("#ffffff")}
             {...config}
           />
           </RoundedBox>
         </mesh>
         
         <Text3D
-          font="./NewEdge-666-Regular-2.json"
+          font="./NewEdge-666-Regular.json"
           size={0.1}
           height={0.01}
           position={[-x*textRadScale, 0.7, -z*textRadScale]}
           rotation={[0,-angle,-1.56]}>
-          {text.toUpperCase()}
+          {text}
           <meshBasicMaterial color="white" />
         </Text3D>
         </>
-      );
-    }
-
-    return <>
-      {planes}
-    </>;
+    )
   }
 
   const textConfig = useControls({
@@ -121,6 +96,58 @@ export default function Model(props) {
     color: "#b3cfff",
     bg: "#ffffff",
   });
+
+  function Scene() {
+    const { camera } = useThree();
+    camera.layers.enable(1); // Enable the bloom layer on the camera
+    camera.layers.enable(0); // Enable the bloom layer on the camera
+
+    const planes = [];
+    const radius = .5; // radius of the circle
+    const numPlanes = 12; // number of planes
+    var angle = (2 * Math.PI) / numPlanes;
+
+    const textRadScale = 1.35
+
+    // Generate the planes
+    const pages = ["TICKETS", "ABOUT", "PEOPLE", "LINES"]
+    for (let i = 0; i < numPlanes; i++) {
+      angle = ((2 * Math.PI) / numPlanes) * i; // angle for each plane
+      var x = radius * Math.cos(angle);
+      var z = radius * Math.sin(angle);
+
+      let text = pages[i%4]
+
+      planes.push(
+        // Plane Mesh
+        <Pane key={i} position={[x, 0, z]} rotation={[0, -angle, 0]} text={text} config={config} x={x} z={z} angle={angle} />
+        // <>
+        // <mesh key={i} position={[x, 0, z]} rotation={[0, -angle, 0]}>
+        //   <RoundedBox args={[0.45, 1.5, 0.01]} radius={0.005} smoothness={2}>
+        //   <MeshTransmissionMaterial
+        //     background={new THREE.Color(config.bg)}
+        //     {...config}
+        //   />
+        //   </RoundedBox>
+        // </mesh>
+        
+        // <Text3D
+        //   font="./NewEdge-666-Regular-2.json"
+        //   size={0.1}
+        //   height={0.01}
+        //   position={[-x*textRadScale, 0.7, -z*textRadScale]}
+        //   rotation={[0,-angle,-1.56]}>
+        //   {text.toUpperCase()}
+        //   <meshBasicMaterial color="white" />
+        // </Text3D>
+        // </>
+      );
+    }
+
+    return <>
+      {planes}
+    </>;
+  }
 
   
 
