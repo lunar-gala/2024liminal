@@ -134,31 +134,31 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
       />
 
       <Text
-      position={[-3.1, -2.75, paneThickness * 0.5 + 0.03]}
-      fontSize={0.45}
-      color="black"
-      anchorX="left"
-    >
-      {name}
-    </Text>
+        position={[-3.1, -2.75, paneThickness * 0.5 + 0.03]}
+        fontSize={0.45}
+        color="black"
+        anchorX="left"
+      >
+        {name}
+      </Text>
 
-    <Text
-      position={[-2.1, -3.75, paneThickness * 0.5 + 0.03]}
-      fontSize={0.45}
-      color="black"
-      anchorX="left"
-    >
-      {team}
-    </Text>
+      <Text
+        position={[-2.1, -3.75, paneThickness * 0.5 + 0.03]}
+        fontSize={0.45}
+        color="black"
+        anchorX="left"
+      >
+        {team}
+      </Text>
 
-    <Text
-      position={[-1.1, -4.75, paneThickness * 0.5 + 0.03]}
-      fontSize={0.45}
-      color="black"
-      anchorX="left"
-    >
-      {subteam}
-    </Text>
+      <Text
+        position={[-1.1, -4.75, paneThickness * 0.5 + 0.03]}
+        fontSize={0.45}
+        color="black"
+        anchorX="left"
+      >
+        {subteam}
+      </Text>
     </mesh>
   );
 };
@@ -183,7 +183,14 @@ const Cards = ( ) => {
 
   const { viewport } = useThree()
 
-  const id = useSpringValue(0)
+  const id = useSpringValue(0, {
+    config: {
+      mass: 1,
+      friction: 1,
+      tension: 5,
+      clamp: true,
+    },
+  })
 
   const cards = makeCards(id)
 
@@ -283,9 +290,9 @@ const Cards = ( ) => {
       <Grid />
       <group position={[-2.6 * rectWidth - cardWidth/4, -cardWidth/8, 0 ]}>    
         <animated.group 
-          position-x={id.to(value => value * -stack.dx)} 
-          position-y={id.to(value => value * -stack.dy)} 
-          position-z={id.to(value => value * -stack.dz)}
+          position-x={id.to(value => (value) * -stack.dx)} 
+          position-y={id.to(value => (value) * -stack.dy)} 
+          position-z={id.to(value => (value) * -stack.dz)}
         >
           <AnimatedCards cards={cards} id={id}/>
           {/* <AnimatedCards cards={ cards.slice(id.to(value => value)) } /> */}
