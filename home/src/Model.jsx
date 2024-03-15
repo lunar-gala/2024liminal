@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Clone, useGLTF, MeshTransmissionMaterial, RoundedBox } from "@react-three/drei";
+import { Clone, useGLTF, MeshTransmissionMaterial, RoundedBox, Text3D } from "@react-three/drei";
 import {
   EffectComposer,
   Bloom,
@@ -16,7 +16,7 @@ export default function Model(props) {
   const model = useGLTF("./LG-Home-01.glb");
 
   useFrame(({ delta, pointer, clock }) => {
-    groupRef.current.rotation.x = clock.getElapsedTime() / 8;
+    // groupRef.current.rotation.x = clock.getElapsedTime() / 8;
   });
 
   function Scene() {
@@ -29,13 +29,16 @@ export default function Model(props) {
     const numPlanes = 12; // number of planes
     var angle = (2 * Math.PI) / numPlanes;
 
+    // Generate the planes
     for (let i = 0; i < numPlanes; i++) {
       angle = ((2 * Math.PI) / numPlanes) * i; // angle for each plane
       var x = radius * Math.cos(angle);
       var z = radius * Math.sin(angle);
+      console.log(angle)
       planes.push(
+        // Plane Mesh
+        <>
         <mesh key={i} position={[x, 0, z]} rotation={[0, -angle, 0]}>
-          {/* <boxGeometry args={[0.45, 1.5, 0.01]} /> */}
           <RoundedBox args={[0.45, 1.5, 0.01]} radius={0.005} smoothness={2}>
           <MeshTransmissionMaterial
             background={new THREE.Color(config.bg)}
@@ -43,6 +46,18 @@ export default function Model(props) {
           />
           </RoundedBox>
         </mesh>
+        
+        <Text3D
+          font="./NewEdge-666-Regular.json"
+          size={0.1}
+          height={0.01}
+          // position={[x, 0.5, z]}
+          position={textConfig.positiontext}
+          rotation={textConfig.rotationtext}>
+          TICKETS
+          <meshNormalMaterial />
+        </Text3D>
+        </>
       );
     }
 
@@ -51,13 +66,18 @@ export default function Model(props) {
     </>;
   }
 
+  const textConfig = useControls({
+    positiontext: {value: [0, 0.5, 0]},
+    rotationtext: {value: [4.35,4.5,0]}
+  });
+
   // Lower 'samples' and 'resolution' for better performance (less lag)
   const config = useControls({
     meshPhysicalMaterial: false,
     transmissionSampler: false,
     backside: false,
     samples: { value: 16, min: 1, max: 32, step: 1 },
-    resolution: { value: 2048, min: 256, max: 2048, step: 256 },
+    resolution: { value: 756, min: 256, max: 2048, step: 256 },
     transmission: { value: 1.0, min: 0, max: 1 },
     roughness: { value: 0.28, min: 0, max: 1, step: 0.01 },
     thickness: { value: 0.53, min: 0, max: 10, step: 0.01 },
