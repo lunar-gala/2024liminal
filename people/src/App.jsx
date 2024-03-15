@@ -19,7 +19,7 @@ import { animated, useSpring, useSpringValue, useSpringRef, a } from "@react-spr
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { map } from '../../src/index.jsx'
+import { LIMINAL, Kommuna } from '../../src/index.jsx'
 import * as THREE from 'three'
 
 
@@ -305,10 +305,13 @@ const Cards = ( ) => {
 
 export function PeoplePage({isMobile}) {
 
+  const { viewport } = useThree();
+
   console.log(isMobile)
   
   if (!isMobile) return (
     <>
+      <LIMINAL viewport={viewport} />
       <group>
         <Cards />
       </group>

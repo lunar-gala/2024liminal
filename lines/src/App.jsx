@@ -8,7 +8,7 @@ import {
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { fonts, map, constrain, Cover, Pane } from '../../src/index.jsx'
+import { map, Pane, LIMINAL } from '../../src/index.jsx'
 import { animated, useSpring, useSpringValue, } from '@react-spring/three'
 import Meliora_Aliturae_Left from './images/Meliora_Aliturae_Left.jpg'
 import Meliora_Aliturae_Right from './images/Meliora_Aliturae_Right.jpg'
@@ -265,6 +265,7 @@ export function LinesPage() {
 
   return (
     <>
+      <LIMINAL viewport={viewport} />
       <group>
         {Pairs}
       </group>
