@@ -64,7 +64,7 @@ export const fonts = {
 
 // components
 
-export const Pane = ({ position, size, moveFunction, id }) => {
+export const Pane = ({ position, size, moveFunction, id, opacity }) => {
 
     const state = useThree()
     const ref = useRef()
@@ -75,14 +75,18 @@ export const Pane = ({ position, size, moveFunction, id }) => {
 
     return (
         <mesh 
-        position = {position} 
-        ref = {ref} 
-        onClick = { (e) => sendBack() }
-        onPointerDown = { (e) => redirect(id) } 
+            position = {position} 
+            ref = {ref} 
+            onClick = { (e) => sendBack() }
+            onPointerDown = { (e) => redirect(id) } 
         >
         
         <boxGeometry args={size}/>
-        <meshStandardMaterial color={"#E4F2F4"} />
+        <meshStandardMaterial 
+            color={"#E4F2F4"} 
+            opacity={opacity}
+            transparent={true} 
+        />
         </mesh>
     )
 }

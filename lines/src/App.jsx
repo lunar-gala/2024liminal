@@ -214,9 +214,9 @@ export function LinesPage() {
           <mesh position={ [ -paneWidth * 1.75/2, 0, 0.01 ] }>
             <boxGeometry args = {[paneWidth, paneHeight, paneThickness]}/>
             <meshStandardMaterial 
-              map = {left}
-              opacity = {opacity}
-              transparent = {true} 
+              map={left}
+              opacity={opacity}
+              transparent={true} 
             />
           </mesh>
 
@@ -229,9 +229,9 @@ export function LinesPage() {
           <mesh position={ [paneWidth * 1.75/2, 0, 0.01] }>
             <boxGeometry args = {[paneWidth, paneHeight, paneThickness]}/>
             <meshStandardMaterial 
-              map = {right}
-              opacity = {opacity}
-              transparent = {true} 
+              map={right}
+              opacity={opacity}
+              transparent={true} 
             />
           </mesh>
         </group>
@@ -247,7 +247,7 @@ export function LinesPage() {
     for (let i = 0; i < nLines; i++) {
       pairs.push(
         <AnimatedPair 
-          opacity={scroll.to((value) => map(Math.abs(value - i * distBetweenPairs), 0, 3*distBetweenPairs, 0.99, 0))}
+          opacity={scroll.to((value) => map(Math.abs(value - i * distBetweenPairs), 0, 3*distBetweenPairs, 1, 0))}
           position={scroll.to((value) => [ 0, 0, i * -distBetweenPairs + value ] )} 
           forwardHovered = {isForwardHovered}
           backwardHovered = {isBackwardHovered}
