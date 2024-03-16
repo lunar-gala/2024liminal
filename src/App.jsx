@@ -1,80 +1,76 @@
 // utilities
-import './App.css'
-import { fonts, map, constrain, Cover, Pane, redirect, sendBack } from './index.jsx'
+import './App.css';
+import { fonts, map, constrain, Cover, Pane, redirect, sendBack } from './index.jsx';
 
 // react imports
-import React, 
-{ Suspense,
-  useEffect,
-  useState, 
-  useRef 
-} from "react"
-import { 
-  Stats, 
-  Loader, 
-} from '@react-three/drei'
-import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
+import React, { Suspense, useEffect, useState, useRef } from 'react';
+
+import { Stats, Loader } from '@react-three/drei';
+import { Canvas, useFrame, useThree, extend } from '@react-three/fiber';
 
 // nav
-import { useLocation, Switch, Route } from "wouter"
-import { useTransition } from "@react-spring/core"
-import { a } from "@react-spring/three"
+import { useLocation, Switch, Route } from 'wouter';
+import { useTransition } from '@react-spring/core';
+import { a } from '@react-spring/three';
 
 // pages
-import { AboutPage } from "../about/src/App.jsx"
-import { TixPage } from "../tickets/src/App.jsx"
-import { PeoplePage } from "../people/src/App.jsx"
-import { LinesPage } from "../lines/src/App.jsx"
+import { AboutPage } from '../about/src/App.jsx';
+import { TixPage } from '../tickets/src/App.jsx';
+import { PeoplePage } from '../people/src/App.jsx';
+import { LinesPage } from '../lines/src/App.jsx';
 
 const App = () => {
-
-  // is mobile
-  const [width, setWidth] = useState(window.innerWidth)
+  const [width, setWidth] = useState(window.innerWidth);
+  const [showImage, setShowImage] = useState(true); // State to control image visibility
 
   function handleWindowSizeChange() {
-      setWidth(window.innerWidth)
+    setWidth(window.innerWidth);
   }
+  
+
   useEffect(() => {
-      window.addEventListener('resize', handleWindowSizeChange)
-      return () => {
-          window.removeEventListener('resize', handleWindowSizeChange)
-      }
-  }, [])
+    window.addEventListener('resize', handleWindowSizeChange);
+    const timer = setTimeout(() => {
+      setShowImage(false); // Hide the image after 3 seconds
+    }, 6000); // 3000 ms = 3 seconds
 
-  // comment
-  console.log(width)
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+      clearTimeout(timer); // Clean up the timer
+    };
+  }, []);
 
-  const isMobile = width <= 768
+  console.log(width);
 
-  // Current route
-  const [location] = useLocation()
-
-  // transition duration
-  const duration = 2000; // add transition and then change opacity so that the pages transition out and the opacity becomes more vague
+  const isMobile = width <= 768;
+  const [location] = useLocation();
+  const duration = 6000;
 
   const go_in = {
     from: { position: [0, 0, -10], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
     enter: { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1], opacity: 1 },
     leave: { position: [0, 0, 100], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
-    config: () => (n) => n === "opacity" && { friction: 1000, duration: duration },
-  }
+    config: () => (n) => n === 'opacity' && { friction: 1000, duration: duration },
+  };
 
   const go_out = {
     from: { position: [0, 0, 10], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
     enter: { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1], opacity: 1 },
     leave: { position: [0, 0, -100], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
-    config: () => (n) => n === "opacity" && { friction: 1000, duration: duration },
-  }
+    config: () => (n) => n === 'opacity' && { friction: 1000, duration: duration },
+  };
 
-  const transition_settings = (location == '/') ? go_out : go_in; // add another transition from landing to title
-  
-  // Animated shape props
-  const transition = useTransition(location, transition_settings)
+  const transition_settings = location === '/' ? go_out : go_in;
+  const transition = useTransition(location, transition_settings);
+
   return (
     <>
+      {showImage && (
+        <img src="/src/assets/fade.png" className="full-screen-image" alt="Full Screen" />
+      )}
       <Cover>
         <Canvas camera={{ position: [0, 0, 20], fov: 50 }} gl={{ localClippingEnabled: true }} >
-          <color attach="background" args={["white"]} /> // bg
+          <color attach="background" args={["white"]} />
 
           <ambientLight intensity={1}/>
           <directionalLight position={[0, 0, 5]} intensity={0.5} />
@@ -83,13 +79,14 @@ const App = () => {
           </Suspense>
         </Canvas>
       </Cover>
-      {/* <Nav /> */}
       <Loader />
     </>
-  )
+  );
+};
 
-}
-export default App
+export default App;
+
+// Additional components like Pages, Sensor, etc. remain unchanged
 
 
 /**
@@ -103,7 +100,6 @@ const AuthPages = {
 };
 
 function Pages({ transition, isMobile }) {
-
   return transition(({ opacity, ...props }, location) => (
     <a.group {...props}>
       <Switch location={location}>
