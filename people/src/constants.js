@@ -47,6 +47,8 @@ jsonData.forEach(item => {
   }
 
   urls.push(i);
+  //for later iside the team assignment function
+  //urls.push(`people/src/assets/headshots/Production_${item["First Name"]}${item["Last Name"].jpg}`);
 });
 
 const content = `

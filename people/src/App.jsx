@@ -62,10 +62,9 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
   const { viewport } = useThree();
 
   const cardWidth = 0.25 * viewport.width;
-  const cardHeight = 1.4 * cardWidth;
+  const cardHeight = 1.5 * cardWidth;
 
-  const imageHeight = cardHeight * 0.5; // 50% of the card's height
-  const imageWidth = imageHeight * (cardWidth / cardHeight); 
+  const imageHeight = cardHeight * 0.5;
 
   const size = [cardWidth, cardHeight, paneThickness];
   
@@ -88,7 +87,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
     >
       <boxGeometry args={size}/>
       <meshBasicMaterial 
-        color={"white"} 
+        color={"#EAEBF7"} 
         toneMapped={false}
       />
       <Edges
@@ -97,14 +96,14 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
         color="black"
       />
       <Image 
-        position={[0, 2, paneThickness * 0.5 + 0.01]} // Slightly in front of the card to prevent z-fighting
-        url={imageUrl} // The URL of the image to display
-        scale={[cardWidth * 0.8, cardHeight*0.6, 1]} // Scale image to fit the card, adjust as needed
+        position={[0, 1.5, paneThickness * 0.5 + 0.01]} 
+        url={imageUrl} 
+        scale={[cardWidth*0.85, cardWidth, 1]}
       />
 
       <Text
-      position={[-3.1, -2.75, paneThickness * 0.5 + 0.03]}
-      fontSize={0.45}
+      position={[-3.3, -3.8, paneThickness * 0.5 + 0.03]}
+      fontSize={0.4}
       color="black"
       anchorX="left"
     >
@@ -112,21 +111,21 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
     </Text>
 
     <Text
-      position={[-2.1, -3.75, paneThickness * 0.5 + 0.03]}
-      fontSize={0.45}
-      color="black"
-      anchorX="left"
-    >
-      {team}
-    </Text>
-
-    <Text
-      position={[-1.1, -4.75, paneThickness * 0.5 + 0.03]}
-      fontSize={0.45}
+      position={[-2.8, -4.8, paneThickness * 0.5 + 0.03]}
+      fontSize={0.4}
       color="black"
       anchorX="left"
     >
       {subteam}
+    </Text>
+
+    <Text
+      position={[-2.3, -5.8, paneThickness * 0.5 + 0.03]}
+      fontSize={0.4}
+      color="black"
+      anchorX="left"
+    >
+      {team}
     </Text>
     </mesh>
   );
@@ -137,7 +136,7 @@ const AnimatedCard = animated(Card)
 function makeCards(id) {
   const cards = [];
   for (let i = 0; i < numPeople; i++) {
-    const imageUrl = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5e5ff9cd-a751-4cd4-b9c5-00aa21620b7b/deu3q3u-6f1ca041-b5b7-46d7-ab06-f8547a7114cc.jpg/v1/fill/w_748,h_734,q_75,strp/cool_pfp_for_anyone__by_snowierev_deu3q3u-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzM0IiwicGF0aCI6IlwvZlwvNWU1ZmY5Y2QtYTc1MS00Y2Q0LWI5YzUtMDBhYTIxNjIwYjdiXC9kZXUzcTN1LTZmMWNhMDQxLWI1YjctNDZkNy1hYjA2LWY4NTQ3YTcxMTRjYy5qcGciLCJ3aWR0aCI6Ijw9NzQ4In1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.bIIhpuZAj8GkKnWaCQ-QqVf-q58InCQZthNWr5mno7w";
+    const imageUrl = "people/src/assets/headshots/Creative_ErvinSong.jpg";
     const name = names[i % names.length];
     const theteam = team[i % team.length];
     const subteam = title[i % title.length];
