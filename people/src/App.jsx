@@ -22,38 +22,7 @@ import './App.css'
 import { fonts, map, constrain, Cover, Pane, max, min } from '../../src/index.jsx'
 import * as THREE from 'three'
 
-
-const imageUrls = [
-  "people/src/assets/headshots/Creative1.png",
-  "people/src/assets/headshots/Creative2.png",
-  "people/src/assets/headshots/Creative3.png",
-  "people/src/assets/headshots/Creative4.png",
-  "people/src/assets/headshots/Creative5.png",
-];
-
-const names = [
-  "Creative person 1",
-  "Creative person 2",
-  "Creative person 3",
-  "Creative person 4",
-  "Creative person 5",
-];
-
-const teams = [
-  "Creative",
-  "Creative",
-  "Creative",
-  "Creative",
-  "Creative",
-]
-
-const subteams = [
-  "Design",
-  "Design",
-  "Web",
-  "Web",
-  "Web",
-]
+import { urls, names, team, title } from './newConstants.js'
 
 const numPeople = 168;
 
@@ -168,11 +137,11 @@ const AnimatedCard = animated(Card)
 function makeCards(id) {
   const cards = [];
   for (let i = 0; i < numPeople; i++) {
-    const imageUrl = imageUrls[i % imageUrls.length];
+    const imageUrl = "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5e5ff9cd-a751-4cd4-b9c5-00aa21620b7b/deu3q3u-6f1ca041-b5b7-46d7-ab06-f8547a7114cc.jpg/v1/fill/w_748,h_734,q_75,strp/cool_pfp_for_anyone__by_snowierev_deu3q3u-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzM0IiwicGF0aCI6IlwvZlwvNWU1ZmY5Y2QtYTc1MS00Y2Q0LWI5YzUtMDBhYTIxNjIwYjdiXC9kZXUzcTN1LTZmMWNhMDQxLWI1YjctNDZkNy1hYjA2LWY4NTQ3YTcxMTRjYy5qcGciLCJ3aWR0aCI6Ijw9NzQ4In1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmltYWdlLm9wZXJhdGlvbnMiXX0.bIIhpuZAj8GkKnWaCQ-QqVf-q58InCQZthNWr5mno7w";
     const name = names[i % names.length];
-    const team = teams[i % teams.length];
-    const subteam = subteams[i % subteams.length];
-    cards.push(<AnimatedCard id={id} myid={i} key={i} imageUrl={imageUrl} name={name} team={team} subteam={subteam} />);
+    const theteam = team[i % team.length];
+    const subteam = title[i % title.length];
+    cards.push(<AnimatedCard id={id} myid={i} key={i} imageUrl={imageUrl} name={name} team={theteam} subteam={subteam} />);
   }
 
   return cards;
