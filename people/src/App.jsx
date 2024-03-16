@@ -87,7 +87,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
     >
       <boxGeometry args={size}/>
       <meshBasicMaterial 
-        color={"#EAEBF7"} 
+        color={"white"} 
         toneMapped={false}
       />
       <Edges
@@ -101,8 +101,20 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
         scale={[cardWidth*0.85, cardWidth, 1]}
       />
 
+      <Image
+        position={[-3.2, -4.7, paneThickness * 0.5 + 0.01]}
+        url={"people/src/assets/curve2.png"} 
+        scale={[cardWidth*0.1, cardWidth*0.12135*2, 1]}
+        />
+
+      <Image
+        position={[-2.45, -5.2, paneThickness * 0.5 + 0.01]}
+        url={"people/src/assets/curve1.png"} 
+        scale={[cardWidth*0.06, cardWidth*0.06*(4/3), 1]}
+        />
+
       <Text
-      position={[-3.3, -3.8, paneThickness * 0.5 + 0.03]}
+      position={[-3.3, -3.7, paneThickness * 0.5 + 0.03]}
       fontSize={0.4}
       color="black"
       anchorX="left"
@@ -111,7 +123,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
     </Text>
 
     <Text
-      position={[-2.8, -4.8, paneThickness * 0.5 + 0.03]}
+      position={[-2.4, -4.8, paneThickness * 0.5 + 0.03]}
       fontSize={0.4}
       color="black"
       anchorX="left"
@@ -120,7 +132,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
     </Text>
 
     <Text
-      position={[-2.3, -5.8, paneThickness * 0.5 + 0.03]}
+      position={[-1.5, -5.8, paneThickness * 0.5 + 0.03]}
       fontSize={0.4}
       color="black"
       anchorX="left"
