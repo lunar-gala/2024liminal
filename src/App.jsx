@@ -21,6 +21,7 @@ import { useTransition } from "@react-spring/core"
 import { a } from "@react-spring/three"
 
 // pages
+import { HomePage } from "../home/src/App.jsx"
 import { AboutPage } from "../about/src/App.jsx"
 import { TixPage } from "../tickets/src/App.jsx"
 import { PeoplePage } from "../people/src/App.jsx"
@@ -73,8 +74,7 @@ const App = () => {
     <>
       <Cover>
         <Canvas camera={{ position: [0, 0, 20], fov: 50 }} gl={{ localClippingEnabled: true }} >
-          <color attach="background" args={["white"]} /> // bg
-
+          {/* <color attach="background" args={["white"]} /> // bg */}
           <ambientLight intensity={1}/>
           <directionalLight position={[0, 0, 5]} intensity={0.5} />
           <Suspense fallback={null}>
@@ -170,7 +170,7 @@ function PrivateRoute({ children, page, ...rest }) {
  * should go in seperate files
  */
 
-function HomePage() {
+function HomePage_Standin() {
 
   const panes = []
   for (let i=0; i<4; i++){
@@ -190,7 +190,3 @@ function HomePage() {
   )
   
 }
-
-
-
-

@@ -1,0 +1,82 @@
+{
+  "hash": "66f37525",
+  "configHash": "8b02eb6b",
+  "lockfileHash": "3e955cd9",
+  "browserHash": "8d2aadbc",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "2ae706a1",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "a4385659",
+      "needsInterop": true
+    },
+    "@react-three/fiber": {
+      "src": "../../node_modules/@react-three/fiber/dist/react-three-fiber.esm.js",
+      "file": "@react-three_fiber.js",
+      "fileHash": "2ddbbd29",
+      "needsInterop": false
+    },
+    "@react-three/drei": {
+      "src": "../../node_modules/@react-three/drei/index.js",
+      "file": "@react-three_drei.js",
+      "fileHash": "05dcb4b8",
+      "needsInterop": false
+    },
+    "leva": {
+      "src": "../../node_modules/leva/dist/leva.esm.js",
+      "file": "leva.js",
+      "fileHash": "3dcac6fe",
+      "needsInterop": false
+    },
+    "three": {
+      "src": "../../node_modules/three/build/three.module.js",
+      "file": "three.js",
+      "fileHash": "2b82169d",
+      "needsInterop": false
+    },
+    "@react-three/postprocessing": {
+      "src": "../../node_modules/@react-three/postprocessing/dist/index.js",
+      "file": "@react-three_postprocessing.js",
+      "fileHash": "6f1be2f7",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-7T4CTAIN": {
+      "file": "chunk-7T4CTAIN.js"
+    },
+    "chunk-NNCPRCJM": {
+      "file": "chunk-NNCPRCJM.js"
+    },
+    "chunk-PXJLUKTU": {
+      "file": "chunk-PXJLUKTU.js"
+    },
+    "chunk-JGUEVOTI": {
+      "file": "chunk-JGUEVOTI.js"
+    },
+    "chunk-GIHQRK7D": {
+      "file": "chunk-GIHQRK7D.js"
+    },
+    "chunk-CVAAIOKW": {
+      "file": "chunk-CVAAIOKW.js"
+    },
+    "chunk-FQO5W7GE": {
+      "file": "chunk-FQO5W7GE.js"
+    },
+    "chunk-MWXPQBVI": {
+      "file": "chunk-MWXPQBVI.js"
+    },
+    "vision_bundle-V3PWMATS": {
+      "file": "vision_bundle-V3PWMATS.js"
+    },
+    "chunk-ZS7NZCD4": {
+      "file": "chunk-ZS7NZCD4.js"
+    }
+  }
+}
