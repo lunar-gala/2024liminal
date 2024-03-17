@@ -119,28 +119,7 @@ export default function Model(props) {
       let text = pages[i%4]
 
       planes.push(
-        // Plane Mesh
-        <Pane key={i} position={[x, 0, z]} rotation={[0, -angle, 0]} text={text} config={config} x={x} z={z} angle={angle} />
-        // <>
-        // <mesh key={i} position={[x, 0, z]} rotation={[0, -angle, 0]}>
-        //   <RoundedBox args={[0.45, 1.5, 0.01]} radius={0.005} smoothness={2}>
-        //   <MeshTransmissionMaterial
-        //     background={new THREE.Color(config.bg)}
-        //     {...config}
-        //   />
-        //   </RoundedBox>
-        // </mesh>
-        
-        // <Text3D
-        //   font="./NewEdge-666-Regular-2.json"
-        //   size={0.1}
-        //   height={0.01}
-        //   position={[-x*textRadScale, 0.7, -z*textRadScale]}
-        //   rotation={[0,-angle,-1.56]}>
-        //   {text.toUpperCase()}
-        //   <meshBasicMaterial color="white" />
-        // </Text3D>
-        // </>
+        <Pane key={i} position={[x, 0, z]} rotation={[0, -angle, 0]} text={text} config={configBlueOld} x={x} z={z} angle={angle} />
       );
     }
 
