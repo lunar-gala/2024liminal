@@ -105,12 +105,14 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
         position={[-3.2, -4.7, paneThickness * 0.5 + 0.01]}
         url={"people/src/assets/curve2.png"} 
         scale={[cardWidth*0.1, cardWidth*0.12135*2, 1]}
+        toneMapped={false}
         />
 
       <Image
         position={[-2.45, -5.2, paneThickness * 0.5 + 0.01]}
         url={"people/src/assets/curve1.png"} 
         scale={[cardWidth*0.06, cardWidth*0.06*(4/3), 1]}
+        toneMapped={false}
         />
 
       <Text
