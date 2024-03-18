@@ -24,7 +24,7 @@ import * as THREE from 'three'
 
 import { urls, names, team, title } from './newConstants.js'
 
-const numPeople = 168;
+const numPeople = 161;
 
 // the starting and ending index of each text block
 const textPositions = [
@@ -56,13 +56,15 @@ let stack = {
   currId: 0
 }
 
+
 const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
   const state = useThree();
   const ref = useRef();
   const { viewport } = useThree();
 
   const cardWidth = 0.25 * viewport.width;
-  const cardHeight = 1.5 * cardWidth;
+  //use viewport height
+  const cardHeight = 0.7*viewport.height;
 
   const imageHeight = cardHeight * 0.5;
 
@@ -77,7 +79,6 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
   stack.dy = dy;
 
   const position = [myid * dx, myid * dy, myid * dz];
-  const textOffsetY = -cardHeight * 0.5;
 
   return (
     <mesh
@@ -98,7 +99,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
       <Image 
         position={[0, 1.5, paneThickness * 0.5 + 0.01]} 
         url={imageUrl} 
-        scale={[cardWidth*0.85, cardWidth, 1]}
+        scale={[cardWidth*0.85, cardHeight*0.65, 1]}
       />
 
       <Image
@@ -143,17 +144,18 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
     </Text>
     </mesh>
   );
-};
+}; 
 
 const AnimatedCard = animated(Card)
 
 function makeCards(id) {
   const cards = [];
   for (let i = 0; i < numPeople; i++) {
-    const imageUrl = "people/src/assets/headshots/Creative_ErvinSong.jpg";
-    const name = names[i % names.length];
-    const theteam = team[i % team.length];
-    const subteam = title[i % title.length];
+    console.log(names[i % names.length], team[i % team.length], title[i % title.length], urls[i % urls.length])
+    const imageUrl = urls[(i+158) % urls.length];
+    const name = names[(i+157) % names.length];
+    const theteam = team[(i+157) % team.length];
+    const subteam = title[(i+157) % title.length];
     cards.push(<AnimatedCard id={id} myid={i} key={i} imageUrl={imageUrl} name={name} team={theteam} subteam={subteam} />);
   }
 

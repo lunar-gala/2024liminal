@@ -1,10 +1,9 @@
-// Import fs and path modules using ES Module syntax
+
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-// Convert the __dirname in ES Module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -25,30 +24,37 @@ jsonData.forEach(item => {
 
   // Your conditional logic here is fine, just ensure it matches your exact requirements
   if (i <= 2) {
-    title.push("Producers");
-  } else if (i <= 31) {
+    title.push("Executive");
+    urls.push(`people/src/assets/headshots/Executive_${item["First Name"]}${item["Last Name"]}.jpg`);
+  } else if (i <= 27) {
     title.push("Production");
-  } else if (i <= 38) {
+    urls.push(`people/src/assets/headshots/Production_${item["First Name"]}${item["Last Name"]}.jpg`);
+  } else if (i <= 30) {
     title.push("Cinematography");
-  } else if (i <= 60) {
+    urls.push(`people/src/assets/headshots/Cinematography_${item["First Name"]}${item["Last Name"]}.jpg`);
+  } else if (i <= 62) {
     title.push("Creative");
-  } else if (i <= 69) {
+    urls.push(`people/src/assets/headshots/Creative_${item["First Name"]}${item["Last Name"]}.jpg`);
+  } else if (i <= 68) {
     title.push("PR");
-  } else if (i <= 99) {
+    urls.push(`people/src/assets/headshots/PR_${item["First Name"]}${item["Last Name"]}.jpg`);
+  } else if (i <= 94) {
     title.push("Design");
-  } else if (i <= 121) {
+    urls.push(`people/src/assets/headshots/Design_${item["First Name"]}${item["Last Name"]}.png`);
+  } else if (i <= 114) {
     title.push("Model");
-  } else if (i <= 131) {
+    urls.push(`people/src/assets/headshots/Model_${item["First Name"]}${item["Last Name"]}.jpg`);
+  } else if (i <= 122) {
     title.push("Hair/Makeup");
-  } else if (i <= 181) {
+    urls.push(`people/src/assets/headshots/Hair_Makeup_${item["First Name"]}${item["Last Name"]}.jpeg`);
+  } else if (i <= 168) {
     title.push("Dance");
+    urls.push(`people/src/assets/headshots/Dance_${item["First Name"]}${item["Last Name"]}.jpg`);
   } else {
     title.push("N/A");
+    urls.push(`people/src/assets/headshots/easteregg.jpg`);
   }
 
-  urls.push(i);
-  //for later iside the team assignment function
-  //urls.push(`people/src/assets/headshots/Production_${item["First Name"]}${item["Last Name"].jpg}`);
 });
 
 const content = `
