@@ -49,10 +49,7 @@ export function LinesPage() {
   
     return (
       <>
-        <group 
-          onPointerOver={ (e) => setIsForwardHovered(true) }
-          onPointerLeave={ (e) => setIsForwardHovered(false) }
-        >
+        <group>
           <mesh ref={pathRef} position={[0, -paneHeight/2, -10]} >
               <boxGeometry args={[pathWidth, 50, 0.01]} />
               <Edges
