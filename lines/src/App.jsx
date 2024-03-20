@@ -281,7 +281,7 @@ export function LinesPage() {
         stayHover={() => setIsStayHovered(true)}
         stayUnhover={() => setIsStayHovered(false)}
       />
-      <Path />
+      {/** <Path /> */}
     </>
   )
 }
