@@ -8,36 +8,41 @@ import {
 import { useThree, useFrame } from "@react-three/fiber";
 import { useControls } from "leva";
 import * as THREE from "three";
+import { fonts } from '../../src/index.jsx'
 
-export default function Model(...props) {
+export default function Model() {
   const groupRef = useRef();
-  // const bloomPanelRef = useRef();
-  // const { nodes, materials } = useGLTF("./LG-Home-01.glb");
-  // const model = useGLTF("./LG-Home-01.glb");
+  const { viewport } = useThree();
+  
+  const paneWidth = viewport.width * 0.75
+  const paneHeight = 0.3 * paneWidth
+  const textSize = 0.22 * paneHeight
+  const textRadScale = 0.9 * paneWidth
+  const textY = 0.47 * paneWidth
 
   useFrame(({ delta, pointer, clock }) => {
     groupRef.current.rotation.x = clock.getElapsedTime() / 8;
   });
 
   function Pane({position, rotation, text, config, x, z, angle}) {
-    const textRadScale = 1.35
+    
     return(
       <>
         <mesh position={position} rotation={rotation}>
-          <RoundedBox args={[0.45, 1.5, 0.01]} radius={0.005} smoothness={2}>
-          <MeshTransmissionMaterial
-            background={new THREE.Color("#ffffff")}
-            {...config}
-          />
+          <RoundedBox args={[paneHeight, paneWidth, 0.01]} radius={0.005} smoothness={2}>
+            <MeshTransmissionMaterial
+              background={new THREE.Color("#ffffff")}
+              {...config}
+            />
           </RoundedBox>
         </mesh>
         
         <Text3D
-          font="./NewEdge-666-Regular.json"
-          size={0.1}
+          font="./fonts/Wordmark/NewEdge-666-Regular.json"
+          size={textSize}
           height={0.01}
-          position={[-x*textRadScale, 0.7, -z*textRadScale]}
-          rotation={[0,-angle,-1.56]}>
+          position={[-x*textRadScale, textY, -z*textRadScale]}
+          rotation={[0,-angle,-Math.PI / 2]}>
           {text}
           <meshBasicMaterial color="white" />
         </Text3D>
@@ -46,8 +51,8 @@ export default function Model(...props) {
   }
 
   const textConfig = useControls({
-    positiontext: {value: [0.01, .09, -0.60]},
-    rotationtext: {value: [4.84,4.71,0.11]}
+    positiontext: {value: [0.01, .06 * paneWidth, -0.4 * paneWidth]},
+    rotationtext: {value: [3.2 * paneWidth,3.14 * paneWidth, 0.07 * paneWidth]}
   });
 
   // Lower 'samples' and 'resolution' for better performance (less lag)
@@ -103,11 +108,9 @@ export default function Model(...props) {
     camera.layers.enable(0); // Enable the bloom layer on the camera
 
     const planes = [];
-    const radius = .5; // radius of the circle
+    const radius = paneWidth / 3; // radius of the circle
     const numPlanes = 12; // number of planes
     var angle = (2 * Math.PI) / numPlanes;
-
-    const textRadScale = 1.35
 
     // Generate the planes
     const pages = ["TICKETS", "ABOUT", "PEOPLE", "LINES"]
@@ -123,12 +126,12 @@ export default function Model(...props) {
       );
     }
 
-    return <>
-      {planes}
-    </>;
+    return (
+      <>
+        {planes}
+      </>
+    )
   }
-
-  
 
   const glowPosition = useControls({
     position: {value: [0, 0, 0.2], step: 0.01}
@@ -163,7 +166,7 @@ export default function Model(...props) {
 
       {/* glowing panel */}
       <mesh {...glowPosition}>
-        <boxGeometry args={[1.52, 0.40, 0.01]} />
+        <boxGeometry args={[paneWidth, 0.25 * paneWidth, 0.01]} />
         <meshStandardMaterial
           emissive="white"
           color={"white"}

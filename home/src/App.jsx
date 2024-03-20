@@ -1,9 +1,8 @@
 import { CameraControls } from '@react-three/drei'
 import './App.css'
-import blenderModel from './OLD-blenderModel.jsx'
 import Model from './Model.jsx'
 
-export function HomePage() {
+export function HomePage(viewport) {
   return (
     <>
       <Model />
@@ -17,7 +16,7 @@ export default function App() {
     <>
       <CameraControls />
       <ambientLight intensity={ 0.5 } />
-      <Model />
+      <Model viewport={viewport} />
     </>
   )
 }
