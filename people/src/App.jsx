@@ -24,24 +24,24 @@ import * as THREE from 'three'
 
 import { urls, names, team, title } from './newConstants.js'
 
-const numPeople = 161;
+const numPeople = 163;
 
 // the starting and ending index of each text block
 const textPositions = [
-  [2, 7], // producers
+  [[0, 6], [9,14]], // producers and Design
   [],
-  [4, 11], // production
-  [8, 15], // cinematogaphy
+  [[9,15]],// creative
+  [], 
   [],
-  [],
-  [5, 11], // creative
-  [8, 11], // pr
-  [],
-  [3, 8], // design
-  [],
-  [0, 4], // model
-  [11, 15],// dance
-  [3, 9]  // beuty
+  [[1,6]], // model
+  [[11,15]], //PR 
+  [[6,11]],
+  [],// DANCE
+  [], 
+  [[1,9]], // PRodcuction
+  [], 
+  [[2,10]],// cinema
+  [[0,7]]//beauty  
 ]
 
 const paneThickness = 0.01
@@ -150,12 +150,13 @@ const AnimatedCard = animated(Card)
 
 function makeCards(id) {
   const cards = [];
+  console.log(urls.length, names.length, team.length, title.length)
   for (let i = 0; i < numPeople; i++) {
-    console.log(names[i % names.length], team[i % team.length], title[i % title.length], urls[i % urls.length])
-    const imageUrl = urls[(i+158) % urls.length];
-    const name = names[(i+157) % names.length];
-    const theteam = team[(i+157) % team.length];
-    const subteam = title[(i+157) % title.length];
+    const imageUrl = urls[(i+161) % urls.length];
+    const name = names[(i+160) % names.length];
+    const theteam = team[(i+160) % team.length];
+    const subteam = title[(i+160) % title.length];
+    console.log(i, imageUrl, name, theteam, subteam)
     cards.push(<AnimatedCard id={id} myid={i} key={i} imageUrl={imageUrl} name={name} team={theteam} subteam={subteam} />);
   }
 
@@ -212,17 +213,22 @@ const Cards = ( ) => {
     const gridRects = []
   
     let i = 0;
-    for (let col = 0; col < 14; col++) {
+    for (let col = 0; col < textPositions.length; col++) {
       for (let row = 0; row < 16; row++) {
+        let includeRect = true;
   
-        if (textPositions[col].length == 0 || 
-            row < textPositions[col][0] || 
-            row > textPositions[col][1] ) {
-          
-          gridRects.push( <Rect row={row} col={col} 
-                                moveFunction={null} 
-                                key={i} id={i} />
-                        )
+        // Loop through each range for the current row
+        for (let range of textPositions[col]) {
+          // If row is within the current range, mark it to skip
+          if (row >= range[0] && row <= range[1]) {
+            includeRect = false;
+            break;
+          }
+        }
+  
+        // If the row is not in any of the ranges, include the rect
+        if (includeRect) {
+          gridRects.push(<Rect row={row} col={col} moveFunction={null} key={i} id={i} />)
           i++;
         }
       }

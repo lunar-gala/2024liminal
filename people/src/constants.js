@@ -26,33 +26,35 @@ jsonData.forEach(item => {
   if (i <= 2) {
     title.push("Executive");
     urls.push(`people/src/assets/headshots/Executive_${item["First Name"]}${item["Last Name"]}.jpg`);
-  } else if (i <= 27) {
-    title.push("Production");
-    urls.push(`people/src/assets/headshots/Production_${item["First Name"]}${item["Last Name"]}.jpg`);
-  } else if (i <= 30) {
-    title.push("Cinematography");
-    urls.push(`people/src/assets/headshots/Cinematography_${item["First Name"]}${item["Last Name"]}.jpg`);
-  } else if (i <= 62) {
-    title.push("Creative");
-    urls.push(`people/src/assets/headshots/Creative_${item["First Name"]}${item["Last Name"]}.jpg`);
-  } else if (i <= 68) {
-    title.push("PR");
-    urls.push(`people/src/assets/headshots/PR_${item["First Name"]}${item["Last Name"]}.jpg`);
-  } else if (i <= 94) {
+  } else if (i <= 28) {
     title.push("Design");
     urls.push(`people/src/assets/headshots/Design_${item["First Name"]}${item["Last Name"]}.png`);
-  } else if (i <= 114) {
+  } else if (i <= 61) {
+    title.push("Creative");
+    urls.push(`people/src/assets/headshots/Creative_${item["First Name"]}${item["Last Name"]}.jpg`);
+  }else if (i <= 81) {
     title.push("Model");
     urls.push(`people/src/assets/headshots/Model_${item["First Name"]}${item["Last Name"]}.jpg`);
-  } else if (i <= 122) {
-    title.push("Hair/Makeup");
-    urls.push(`people/src/assets/headshots/Hair_Makeup_${item["First Name"]}${item["Last Name"]}.jpeg`);
-  } else if (i <= 168) {
+  }else if (i <= 87) {
+    title.push("PR");
+    urls.push(`people/src/assets/headshots/PR_${item["First Name"]}${item["Last Name"]}.jpg`);
+  }else if (i <= 124) {
     title.push("Dance");
     urls.push(`people/src/assets/headshots/Dance_${item["First Name"]}${item["Last Name"]}.jpg`);
-  } else {
+  } else if (i <= 149) {
+    title.push("Production");
+    urls.push(`people/src/assets/headshots/Production_${item["First Name"]}${item["Last Name"]}.jpg`);
+  }  else if (i <= 153) {
+    title.push("Cinematography");
+    urls.push(`people/src/assets/headshots/Cinematography_${item["First Name"]}${item["Last Name"]}.jpg`);
+  } 
+  else if (i <= 162) {
+    title.push("Hair/Makeup");
+    urls.push(`people/src/assets/headshots/Hair_Makeup_${item["First Name"]}${item["Last Name"]}.jpeg`);
+  }
+  else {
     title.push("N/A");
-    urls.push(`people/src/assets/headshots/easteregg.jpg`);
+    urls.push(`people/src/assets/headshots/Creative_AChair.jpg`);
   }
 
 });
