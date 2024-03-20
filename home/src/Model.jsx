@@ -51,6 +51,29 @@ export default function Model(props) {
   });
 
   // Lower 'samples' and 'resolution' for better performance (less lag)
+  const configv2 = useControls({
+    meshPhysicalMaterial: false,
+    transmissionSampler: false,
+    backside: false,
+    samples: { value: 8, min: 1, max: 32, step: 1 },
+    resolution: { value: 768, min: 256, max: 2048, step: 256 },
+    transmission: { value: .94, min: 0, max: 1 },
+    roughness: { value: 0.24, min: 0, max: 1, step: 0.01 },
+    thickness: { value: .4, min: 0, max: 10, step: 0.01 },
+    ior: { value: 1.28, min: 1, max: 5, step: 0.01 },
+    chromaticAberration: { value: 0.16, min: 0, max: 1 },
+    anisotropy: { value: 0.25, min: 0, max: 1, step: 0.01 },
+    anisotropicBlur: { value: 0.09, min: 0, max: 1, step: 0.01 },
+    distortion: { value: 0.23, min: 0, max: 1, step: 0.01 },
+    distortionScale: { value: 0.14, min: 0.01, max: 1, step: 0.01 },
+    temporalDistortion: { value: 0.19, min: 0, max: 1, step: 0.01 },
+    clearcoat: { value: 0.0, min: 0, max: 1 },
+    attenuationDistance: { value: .38, min: 0, max: 10, step: 0.01 },
+    attenuationColor: "#ffffff",
+    color: "#92969d",
+    bg: "#ffffff",
+  });
+
   const config = useControls({
     meshPhysicalMaterial: false,
     transmissionSampler: false,
@@ -96,7 +119,7 @@ export default function Model(props) {
       let text = pages[i%4]
 
       planes.push(
-        <Pane key={i} position={[x, 0, z]} rotation={[0, -angle, 0]} text={text} config={config} x={x} z={z} angle={angle} />
+        <Pane key={i} position={[x, 0, z]} rotation={[0, -angle, 0]} text={text} config={configv2} x={x} z={z} angle={angle} />
       );
     }
 
