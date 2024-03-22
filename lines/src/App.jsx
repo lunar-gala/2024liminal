@@ -5,11 +5,10 @@ import {
   Image,
   useTexture
 } from '@react-three/drei'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { map, Pane, LIMINAL } from '../../src/index.jsx'
 import { animated, useSpring, useSpringValue, } from '@react-spring/three'
+
 import Meliora_Aliturae_Left from './images/Meliora_Aliturae_Left.jpg'
 import Meliora_Aliturae_Right from './images/Meliora_Aliturae_Right.jpg'
 import Nandini_Left from './images/Nandini_Left.jpg'

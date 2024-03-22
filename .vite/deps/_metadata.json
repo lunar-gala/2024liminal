@@ -1,0 +1,70 @@
+{
+  "hash": "7bea5f48",
+  "configHash": "d11708f1",
+  "lockfileHash": "213b0820",
+  "browserHash": "9aa4bf84",
+  "optimized": {
+    "@react-three/drei": {
+      "src": "../../home/node_modules/@react-three/drei/index.js",
+      "file": "@react-three_drei.js",
+      "fileHash": "df63ce17",
+      "needsInterop": false
+    },
+    "react": {
+      "src": "../../home/node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "5f6f6b35",
+      "needsInterop": true
+    },
+    "@react-three/postprocessing": {
+      "src": "../../home/node_modules/@react-three/postprocessing/dist/index.js",
+      "file": "@react-three_postprocessing.js",
+      "fileHash": "da66aa1f",
+      "needsInterop": false
+    },
+    "@react-three/fiber": {
+      "src": "../../home/node_modules/@react-three/fiber/dist/react-three-fiber.esm.js",
+      "file": "@react-three_fiber.js",
+      "fileHash": "4b11ea4b",
+      "needsInterop": false
+    },
+    "leva": {
+      "src": "../../home/node_modules/leva/dist/leva.esm.js",
+      "file": "leva.js",
+      "fileHash": "392b5031",
+      "needsInterop": false
+    },
+    "three": {
+      "src": "../../home/node_modules/three/build/three.module.js",
+      "file": "three.js",
+      "fileHash": "8be000c1",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-LQ7BVMN2": {
+      "file": "chunk-LQ7BVMN2.js"
+    },
+    "chunk-LYUCU25P": {
+      "file": "chunk-LYUCU25P.js"
+    },
+    "chunk-GN5I2HDV": {
+      "file": "chunk-GN5I2HDV.js"
+    },
+    "chunk-ANSQGMNS": {
+      "file": "chunk-ANSQGMNS.js"
+    },
+    "chunk-VL7GVAGL": {
+      "file": "chunk-VL7GVAGL.js"
+    },
+    "chunk-7UA6ESDC": {
+      "file": "chunk-7UA6ESDC.js"
+    },
+    "vision_bundle-KUUZDZUE": {
+      "file": "vision_bundle-KUUZDZUE.js"
+    },
+    "chunk-ZS7NZCD4": {
+      "file": "chunk-ZS7NZCD4.js"
+    }
+  }
+}

@@ -24,16 +24,18 @@ export default function Model() {
     groupRef.current.rotation.x = clock.getElapsedTime() / 8;
   });
 
+
   function Pane({position, rotation, text, config, x, z, angle}) {
     
     return(
       <>
         <mesh position={position} rotation={rotation}>
           <RoundedBox args={[paneHeight, paneWidth, 0.01]} radius={0.005} smoothness={2}>
-            <MeshTransmissionMaterial
+            <MeshStandardMaterial />
+            {/* <MeshTransmissionMaterial
               background={new THREE.Color("#ffffff")}
               {...config}
-            />
+            /> */}
           </RoundedBox>
         </mesh>
         
@@ -61,46 +63,40 @@ export default function Model() {
     transmissionSampler: false,
     backside: false,
     samples: { value: 16, min: 1, max: 32, step: 1 },
-    resolution: { value: 756, min: 256, max: 2048, step: 256 },
-    transmission: { value: 1.0, min: 0, max: 1 },
-    roughness: { value: 0.18, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 6.93, min: 0, max: 10, step: 0.01 },
-    ior: { value: 1.09, min: 1, max: 5, step: 0.01 },
-    chromaticAberration: { value: 0.2, min: 0, max: 1 },
-    anisotropy: { value: 0.24, min: 0, max: 1, step: 0.01 },
-    anisotropicBlur: { value: 0.0, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.15, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.21, min: 0.01, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.26, min: 0, max: 1, step: 0.01 },
-    clearcoat: { value: 0.41, min: 0, max: 1 },
-    attenuationDistance: { value: 3.24, min: 0, max: 10, step: 0.01 },
+    resolution: { value: 1024, min: 256, max: 2048, step: 256 },
+    transmission: { value: .94, min: 0, max: 1 },
+    roughness: { value: 0.24, min: 0, max: 1, step: 0.01 },
+    thickness: { value: .4, min: 0, max: 10, step: 0.01 },
+    ior: { value: 1.28, min: 1, max: 5, step: 0.01 },
+    chromaticAberration: { value: 0.16, min: 0, max: 1 },
+    anisotropy: { value: 0.25, min: 0, max: 1, step: 0.01 },
+    anisotropicBlur: { value: 0.89, min: 0, max: 1, step: 0.01 },
+    distortion: { value: 0.23, min: 0, max: 1, step: 0.01 },
+    distortionScale: { value: 0.14, min: 0.01, max: 1, step: 0.01 },
+    temporalDistortion: { value: 0.19, min: 0, max: 1, step: 0.01 },
+    clearcoat: { value: 1.0, min: 0, max: 1 },
+    attenuationDistance: { value: 4.53, min: 0, max: 10, step: 0.01 },
     attenuationColor: "#ffffff",
-    color: "#b3cfff",
+    color: "#92969d",
     bg: "#ffffff",
   });
 
-  const configBlueOld = useControls({
-    meshPhysicalMaterial: false,
-    transmissionSampler: false,
-    backside: false,
-    samples: { value: 16, min: 1, max: 32, step: 1 },
-    resolution: { value: 756, min: 256, max: 2048, step: 256 },
-    transmission: { value: 1.0, min: 0, max: 1 },
-    roughness: { value: 0.28, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 0.53, min: 0, max: 10, step: 0.01 },
-    ior: { value: 1.74, min: 1, max: 5, step: 0.01 },
-    chromaticAberration: { value: 0.0, min: 0, max: 1 },
-    anisotropy: { value: 0.03, min: 0, max: 1, step: 0.01 },
-    anisotropicBlur: { value: 0.88, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.42, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.3, min: 0.01, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.06, min: 0, max: 1, step: 0.01 },
-    clearcoat: { value: 0.48, min: 0, max: 1 },
-    attenuationDistance: { value: 3.24, min: 0, max: 10, step: 0.01 },
-    attenuationColor: "#ffffff",
-    color: "#b3cfff",
-    bg: "#ffffff",
-  });
+  const lambertConfig = {
+    transparent: true,
+    opacity: 0.86,
+    depthTest: true,
+    depthWrite: true,
+    alphaTest: 0,
+    alphaHash: true,
+    visible: true,
+    side: THREE.DoubleSide,
+    color: '#0b1926',
+    emissive: '#000000',
+    fog: true,
+    combine: THREE.MultiplyOperation,
+    reflectifity: 1,
+    refractionRatio: 1
+  }
 
   function Scene() {
     const { camera } = useThree();
@@ -122,7 +118,7 @@ export default function Model() {
       let text = pages[i%4]
 
       planes.push(
-        <Pane key={i} position={[x, 0, z]} rotation={[0, -angle, 0]} text={text} config={configBlueOld} x={x} z={z} angle={angle} />
+        <Pane key={i} position={[x, 0, z]} rotation={[0, -angle, 0]} text={text} config={config} x={x} z={z} angle={angle} />
       );
     }
 
