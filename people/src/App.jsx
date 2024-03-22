@@ -14,64 +14,34 @@ import {
   Edges,
   Image
 } from '@react-three/drei'
+import Cutter from '@r3f-cutter/r3f-cutter';
 import { animated, useSpring, useSpringValue, useSpringRef, a } from "@react-spring/three"
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { LIMINAL, Kommuna } from '../../src/index.jsx'
+import { fonts, map, constrain, Cover, Pane, max, min } from '../../src/index.jsx'
 import * as THREE from 'three'
 
+import { urls, names, team, title } from './newConstants.js'
 
-const imageUrls = [
-  "people/src/assets/headshots/Creative1.png",
-  "people/src/assets/headshots/Creative2.png",
-  "people/src/assets/headshots/Creative3.png",
-  "people/src/assets/headshots/Creative4.png",
-  "people/src/assets/headshots/Creative5.png",
-];
-
-const names = [
-  "Creative person 1",
-  "Creative person 2",
-  "Creative person 3",
-  "Creative person 4",
-  "Creative person 5",
-];
-
-const teams = [
-  "Creative",
-  "Creative",
-  "Creative",
-  "Creative",
-  "Creative",
-]
-
-const subteams = [
-  "Design",
-  "Design",
-  "Web",
-  "Web",
-  "Web",
-]
-
-const numPeople = 168;
+const numPeople = 163;
 
 // the starting and ending index of each text block
 const textPositions = [
-  [2, 7], // producers
+  [[0, 6, "Producers"], [9,14, "Design"]], // producers and Design
   [],
-  [4, 11], // production
-  [8, 15], // cinematogaphy
+  [[9,15, "Creative"]],// creative
+  [], 
   [],
-  [],
-  [5, 11], // creative
-  [8, 11], // pr
-  [],
-  [3, 8], // design
-  [],
-  [0, 4], // model
-  [11, 15],// dance
-  [3, 9]  // beuty
+  [[1,6, "Model"]], // model
+  [[11,15, "PR"]], //PR 
+  [[6,11, "Dance"]],
+  [],// DANCE
+  [], 
+  [[1,9, "Production"]], // PRodcuction
+  [], 
+  [[2,10, "Cinematography"]],// cinema
+  [[0,7, "Beauty"]]//beauty  
 ]
 
 const paneThickness = 0.01
@@ -86,16 +56,27 @@ let stack = {
   currId: 0
 }
 
+
 const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
   const state = useThree();
   const ref = useRef();
   const { viewport } = useThree();
 
   const cardWidth = 0.25 * viewport.width;
-  const cardHeight = 1.4 * cardWidth;
+  //use viewport height
+  const cardHeight = 0.68*viewport.height;
 
-  const imageHeight = cardHeight * 0.5; // 50% of the card's height
-  const imageWidth = imageHeight * (cardWidth / cardHeight); 
+  const namePosition = [-cardWidth * 0.425, -cardHeight * 0.23, paneThickness * 0.5 + 0.01];
+  const teamPosition = [-cardWidth * 0.21, -cardHeight * 0.375, paneThickness * 0.5 + 0.01];
+  const subteamPosition = [-cardWidth * 0.315, -cardHeight * 0.3025, paneThickness * 0.5 + 0.01];
+
+  const curve2Scale = [cardWidth * 0.09, cardWidth * 0.09 * (206 / 208), 1];
+  const curve2Position = [-cardWidth * 0.26, -cardHeight * 0.355, paneThickness * 0.5 + 0.01];
+
+  const curve1Scale = [cardWidth * 0.1, cardWidth * 0.1 * 2, 1];
+  const curve1Position = [-cardWidth * 0.375, -cardHeight * 0.32, paneThickness * 0.5 + 0.01];
+
+  const imageHeight = cardHeight * 0.5;
 
   const size = [cardWidth, cardHeight, paneThickness];
   
@@ -108,7 +89,6 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
   stack.dy = dy;
 
   const position = [myid * dx, myid * dy, myid * dz];
-  const textOffsetY = -cardHeight * 0.5;
 
   return (
     <mesh
@@ -127,51 +107,69 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
         color="black"
       />
       <Image 
-        position={[0, 2, paneThickness * 0.5 + 0.01]} // Slightly in front of the card to prevent z-fighting
-        url={imageUrl} // The URL of the image to display
-        scale={[cardWidth * 0.8, cardHeight*0.6, 1]} // Scale image to fit the card, adjust as needed
+        position={[0, 1.5, paneThickness * 0.5 + 0.01]} 
+        url={imageUrl} 
+        scale={[cardWidth*0.85, cardHeight*0.6, 1]}
+        anchorX="left"
       />
 
-      <Text
-        position={[-3.1, -2.75, paneThickness * 0.5 + 0.03]}
-        fontSize={0.45}
-        color="black"
+      <Image
+        position={curve2Position}
+        url={"people/src/assets/curve2.png"} 
+        scale={curve2Scale}
+        toneMapped={false}
         anchorX="left"
-      >
-        {name}
-      </Text>
+        />
+
+      <Image
+        position={curve1Position}
+        url={"people/src/assets/curve1.png"} 
+        scale={curve1Scale}
+        toneMapped={false}
+        />
 
       <Text
-        position={[-2.1, -3.75, paneThickness * 0.5 + 0.03]}
-        fontSize={0.45}
-        color="black"
-        anchorX="left"
-      >
-        {team}
-      </Text>
+      position={namePosition}
+      fontSize={cardWidth*0.045}
+      color="black"
+      anchorX="left"
+    >
+      {name}
+    </Text>
 
-      <Text
-        position={[-1.1, -4.75, paneThickness * 0.5 + 0.03]}
-        fontSize={0.45}
-        color="black"
-        anchorX="left"
-      >
-        {subteam}
-      </Text>
+    <Text
+      position={subteamPosition}
+      fontSize={cardWidth*0.045}
+      color="black"
+      anchorX="left"
+    >
+      {"├─" + subteam}
+    </Text>
+
+    <Text
+      position={teamPosition}
+      fontSize={cardWidth*0.045}
+      color="black"
+      anchorX="left"
+    >
+      {"│" + team}
+    </Text>
     </mesh>
   );
-};
+}; 
 
 const AnimatedCard = animated(Card)
 
 function makeCards(id) {
   const cards = [];
+  console.log(urls.length, names.length, team.length, title.length)
   for (let i = 0; i < numPeople; i++) {
-    const imageUrl = imageUrls[i % imageUrls.length];
-    const name = names[i % names.length];
-    const team = teams[i % teams.length];
-    const subteam = subteams[i % subteams.length];
-    cards.push(<AnimatedCard id={id} myid={i} key={i} imageUrl={imageUrl} name={name} team={team} subteam={subteam} />);
+    const imageUrl = urls[(i+161) % urls.length];
+    const name = names[(i+161) % names.length];
+    const theteam = team[(i+161) % team.length];
+    const subteam = title[(i+161) % title.length];
+    console.log(i, imageUrl, name, theteam, subteam)
+    cards.push(<AnimatedCard id={id} myid={i} key={i} imageUrl={imageUrl} name={name} team={theteam} subteam={subteam} />);
   }
 
   return cards;
@@ -182,14 +180,7 @@ const Cards = ( ) => {
 
   const { viewport } = useThree()
 
-  const id = useSpringValue(0, {
-    config: {
-      mass: 1,
-      friction: 1,
-      tension: 5,
-      clamp: true,
-    },
-  })
+  const id = useSpringValue(0)
 
   const cards = makeCards(id)
 
@@ -230,25 +221,85 @@ const Cards = ( ) => {
     )
   }
 
+  const TextPositionMarker = ({ group, col, lineName }) => {
+    const { viewport } = useThree();
+    
+    const rWidth = gridRectWidthScalar * viewport.width;
+    const rHeight = gridRectHeightScalar * viewport.height;
+    
+    const startX = 2.5 * rWidth * group[0]; // Starting X position of the left bracket
+    const endX = 2.5 * rWidth * group[1]; // Ending X position of the right bracket
+    const midX = (startX + endX) / 2; // Middle X position for the line name
+    
+    const y = -1.3 * rHeight * col; // Y position based on column
+    
+    return (
+      <>
+        <Text
+          position={[startX, y, 0.1]}
+          fontSize={cardWidth*0.045}
+          color="black"
+          anchorX="left"
+        >
+          {"["}
+        </Text>
+        <Text
+          position={[midX, y, 0.1]}
+          fontSize={cardWidth*0.045}
+          color="black"
+          anchorX="center"
+          text={lineName}
+        />
+        <Text
+          position={[endX, y, 0.1]}
+          fontSize={cardWidth*0.045}
+          color="black"
+          anchorX="right"
+        >
+          {"]"}
+        </Text>
+      </>
+    );
+  };
+  
+
   function makeGrid() {
     const gridRects = []
   
     let i = 0;
-    for (let col = 0; col < 14; col++) {
+    for (let col = 0; col < textPositions.length; col++) {
       for (let row = 0; row < 16; row++) {
+        let includeRect = true;
   
-        if (textPositions[col].length == 0 || 
-            row < textPositions[col][0] || 
-            row > textPositions[col][1] ) {
-          
-          gridRects.push( <Rect row={row} col={col} 
-                                moveFunction={null} 
-                                key={i} id={i} />
-                        )
+        // Loop through each range for the current row
+        for (let range of textPositions[col]) {
+          // If row is within the current range, mark it to skip
+          if (row >= range[0] && row <= range[1]) {
+            includeRect = false;
+            break;
+          }
+        }
+  
+        // If the row is not in any of the ranges, include the rect
+        if (includeRect) {
+          gridRects.push(<Rect row={row} col={col} moveFunction={null} key={i} id={i} />)
           i++;
         }
       }
     }
+
+    textPositions.forEach((groupRanges, col) => {
+      groupRanges.forEach(group => {
+        const [start, end, lineName] = group;
+        gridRects.push(
+          <TextPositionMarker 
+            group={group} 
+            col={col} 
+            lineName={lineName} 
+            key={`text-${col}-${group[0]}`} />
+        );
+      });
+    });
   
     return gridRects;
   }
@@ -289,9 +340,9 @@ const Cards = ( ) => {
       <Grid />
       <group position={[-2.6 * rectWidth - cardWidth/4, -cardWidth/8, 0 ]}>    
         <animated.group 
-          position-x={id.to(value => (value) * -stack.dx)} 
-          position-y={id.to(value => (value) * -stack.dy)} 
-          position-z={id.to(value => (value) * -stack.dz)}
+          position-x={id.to(value => value * -stack.dx)} 
+          position-y={id.to(value => value * -stack.dy)} 
+          position-z={id.to(value => value * -stack.dz)}
         >
           <AnimatedCards cards={cards} id={id}/>
           {/* <AnimatedCards cards={ cards.slice(id.to(value => value)) } /> */}
@@ -304,13 +355,10 @@ const Cards = ( ) => {
 
 export function PeoplePage({isMobile}) {
 
-  const { viewport } = useThree();
-
   console.log(isMobile)
   
   if (!isMobile) return (
     <>
-      <LIMINAL viewport={viewport} />
       <group>
         <Cards />
       </group>
