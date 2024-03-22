@@ -232,7 +232,7 @@ function Model() {
   };
 
   // Lower 'samples' and 'resolution' for better performance (less lag)
-  const config = useControls({
+  const config = {
     meshPhysicalMaterial: false,
     transmissionSampler: false,
     backside: false,
@@ -253,7 +253,7 @@ function Model() {
     attenuationColor: "#ffffff",
     color: "#92969d",
     bg: "#ffffff",
-  });
+  }
 
   const lambertConfig = {
     transparent: true,
@@ -303,9 +303,7 @@ function Model() {
     )
   }
 
-  const glowPosition = useControls({
-    position: {value: [0, 0, 0.2], step: 0.01}
-  });
+  const glowPosition = [0, 0, 0.2];
   
   // const glowSize = useControls({
   //   glowSizing: {value: [2, 0.85, 0.01], step: 0.01}
