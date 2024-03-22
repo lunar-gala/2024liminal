@@ -205,11 +205,11 @@ function Model() {
           onPointerDown = { (e) => redirect(id) } 
         >
           <RoundedBox args={[paneHeight, paneWidth, 0.1]} radius={0.005} smoothness={2}>
-            <meshLambertMaterial {...lambertConfig}/>
-            {/* <MeshTransmissionMaterial
+            {/* <meshLambertMaterial {...lambertConfig}/> */}
+            <MeshTransmissionMaterial
               background={new THREE.Color("#ffffff")}
               {...config}
-            /> */}
+            />
           </RoundedBox>
         </mesh>
         
