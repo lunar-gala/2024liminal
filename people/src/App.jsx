@@ -28,20 +28,20 @@ const numPeople = 163;
 
 // the starting and ending index of each text block
 const textPositions = [
-  [[0, 6], [9,14]], // producers and Design
+  [[0, 6, "Producers"], [9,14, "Design"]], // producers and Design
   [],
-  [[9,15]],// creative
+  [[9,15, "Creative"]],// creative
   [], 
   [],
-  [[1,6]], // model
-  [[11,15]], //PR 
-  [[6,11]],
+  [[1,6, "Model"]], // model
+  [[11,15, "PR"]], //PR 
+  [[6,11, "Dance"]],
   [],// DANCE
   [], 
-  [[1,9]], // PRodcuction
+  [[1,9, "Production"]], // PRodcuction
   [], 
-  [[2,10]],// cinema
-  [[0,7]]//beauty  
+  [[2,10, "Cinematography"]],// cinema
+  [[0,7, "Beauty"]]//beauty  
 ]
 
 const paneThickness = 0.01
@@ -64,7 +64,17 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
 
   const cardWidth = 0.25 * viewport.width;
   //use viewport height
-  const cardHeight = 0.7*viewport.height;
+  const cardHeight = 0.68*viewport.height;
+
+  const namePosition = [-cardWidth * 0.425, -cardHeight * 0.23, paneThickness * 0.5 + 0.01];
+  const teamPosition = [-cardWidth * 0.2, -cardHeight * 0.37, paneThickness * 0.5 + 0.01];
+  const subteamPosition = [-cardWidth * 0.305, -cardHeight * 0.3, paneThickness * 0.5 + 0.01];
+
+  const curve2Scale = [cardWidth * 0.09, cardWidth * 0.09 * (206 / 208), 1];
+  const curve2Position = [-cardWidth * 0.25, -cardHeight * 0.355, paneThickness * 0.5 + 0.01];
+
+  const curve1Scale = [cardWidth * 0.1, cardWidth * 0.1 * 2, 1];
+  const curve1Position = [-cardWidth * 0.375, -cardHeight * 0.32, paneThickness * 0.5 + 0.01];
 
   const imageHeight = cardHeight * 0.5;
 
@@ -99,26 +109,28 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
       <Image 
         position={[0, 1.5, paneThickness * 0.5 + 0.01]} 
         url={imageUrl} 
-        scale={[cardWidth*0.85, cardHeight*0.65, 1]}
+        scale={[cardWidth*0.85, cardHeight*0.6, 1]}
+        anchorX="left"
       />
 
       <Image
-        position={[-3.2, -4.7, paneThickness * 0.5 + 0.01]}
+        position={curve2Position}
         url={"people/src/assets/curve2.png"} 
-        scale={[cardWidth*0.1, cardWidth*0.12135*2, 1]}
+        scale={curve2Scale}
         toneMapped={false}
+        anchorX="left"
         />
 
       <Image
-        position={[-2.45, -5.2, paneThickness * 0.5 + 0.01]}
+        position={curve1Position}
         url={"people/src/assets/curve1.png"} 
-        scale={[cardWidth*0.06, cardWidth*0.06*(4/3), 1]}
+        scale={curve1Scale}
         toneMapped={false}
         />
 
       <Text
-      position={[-3.3, -3.7, paneThickness * 0.5 + 0.03]}
-      fontSize={0.4}
+      position={namePosition}
+      fontSize={cardWidth*0.045}
       color="black"
       anchorX="left"
     >
@@ -126,8 +138,8 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
     </Text>
 
     <Text
-      position={[-2.4, -4.8, paneThickness * 0.5 + 0.03]}
-      fontSize={0.4}
+      position={subteamPosition}
+      fontSize={cardWidth*0.045}
       color="black"
       anchorX="left"
     >
@@ -135,8 +147,8 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
     </Text>
 
     <Text
-      position={[-1.5, -5.8, paneThickness * 0.5 + 0.03]}
-      fontSize={0.4}
+      position={teamPosition}
+      fontSize={cardWidth*0.045}
       color="black"
       anchorX="left"
     >
@@ -153,9 +165,9 @@ function makeCards(id) {
   console.log(urls.length, names.length, team.length, title.length)
   for (let i = 0; i < numPeople; i++) {
     const imageUrl = urls[(i+161) % urls.length];
-    const name = names[(i+160) % names.length];
-    const theteam = team[(i+160) % team.length];
-    const subteam = title[(i+160) % title.length];
+    const name = names[(i+161) % names.length];
+    const theteam = team[(i+161) % team.length];
+    const subteam = title[(i+161) % title.length];
     console.log(i, imageUrl, name, theteam, subteam)
     cards.push(<AnimatedCard id={id} myid={i} key={i} imageUrl={imageUrl} name={name} team={theteam} subteam={subteam} />);
   }
@@ -209,6 +221,49 @@ const Cards = ( ) => {
     )
   }
 
+  const TextPositionMarker = ({ group, col, lineName }) => {
+    const { viewport } = useThree();
+    
+    const rWidth = gridRectWidthScalar * viewport.width;
+    const rHeight = gridRectHeightScalar * viewport.height;
+    
+    const startX = 2.5 * rWidth * group[0]; // Starting X position of the left bracket
+    const endX = 2.5 * rWidth * group[1]; // Ending X position of the right bracket
+    const midX = (startX + endX) / 2; // Middle X position for the line name
+    
+    const y = -1.3 * rHeight * col; // Y position based on column
+    
+    return (
+      <>
+        <Text
+          position={[startX, y, 0.1]}
+          fontSize={cardWidth*0.045}
+          color="black"
+          anchorX="left"
+        >
+          {"["}
+        </Text>
+        <Text
+          position={[midX, y, 0.1]}
+          fontSize={cardWidth*0.045}
+          color="black"
+          anchorX="center"
+        >
+          {lineName}
+        </Text>
+        <Text
+          position={[endX, y, 0.1]}
+          fontSize={cardWidth*0.045}
+          color="black"
+          anchorX="right"
+        >
+          {"]"}
+        </Text>
+      </>
+    );
+  };
+  
+
   function makeGrid() {
     const gridRects = []
   
@@ -233,6 +288,19 @@ const Cards = ( ) => {
         }
       }
     }
+
+    textPositions.forEach((groupRanges, col) => {
+      groupRanges.forEach(group => {
+        const [start, end, lineName] = group;
+        gridRects.push(
+          <TextPositionMarker 
+            group={group} 
+            col={col} 
+            lineName={lineName} 
+            key={`text-${col}-${group[0]}`} />
+        );
+      });
+    });
   
     return gridRects;
   }
