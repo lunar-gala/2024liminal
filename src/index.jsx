@@ -143,7 +143,6 @@ export function text2components(Component, text, size, startPosition, endPositio
   }
 
 export const RobotoMono = ({ position, width, fontSize, text, ...props }) => {
-    console.log(props)
     return (
         <Text 
             fontSize={fontSize != null ? fontSize : 0.1}

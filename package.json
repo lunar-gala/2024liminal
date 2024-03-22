@@ -21,8 +21,10 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "5.1",
     "simplex-noise": "^4.0.1",
+    "store": "^2.0.12",
     "styled-components": "^6.1.8",
     "three": "^0.161.0",
+    "valtio": "^1.13.2",
     "wouter": "^3.0.1"
   },
   "devDependencies": {
