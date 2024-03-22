@@ -23,25 +23,26 @@ import { fonts, map, constrain, Cover, Pane, max, min } from '../../src/index.js
 import * as THREE from 'three'
 
 import { urls, names, team, title } from './newConstants.js'
+import { RobotoMono, Kommuna, WordMark  } from '/src/index.jsx'
 
 const numPeople = 163;
 
 // the starting and ending index of each text block
 const textPositions = [
-  [[0, 6, "Producers"], [9,14, "Design"]], // producers and Design
+  [[0, 6, "producers"], [9,14, "design"]], // producers and Design
   [],
-  [[9,15, "Creative"]],// creative
+  [[9,15, "creative"]],// creative
   [], 
   [],
-  [[1,6, "Model"]], // model
-  [[11,15, "PR"]], //PR 
-  [[6,11, "Dance"]],
+  [[1,6, "model"]], // model
+  [[11,15, "pr"]], //PR 
+  [[6,11, "dance"]],
   [],// DANCE
   [], 
-  [[1,9, "Production"]], // PRodcuction
+  [[1,9, "production"]], // PRodcuction
   [], 
-  [[2,10, "Cinematography"]],// cinema
-  [[0,7, "Beauty"]]//beauty  
+  [[2,10, "cinematography"]],// cinema
+  [[0,7, "beauty"]]//beauty  
 ]
 
 const paneThickness = 0.01
@@ -64,14 +65,15 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
 
   const cardWidth = 0.25 * viewport.width;
   //use viewport height
-  const cardHeight = 0.68*viewport.height;
+  const cardHeight = 0.65*viewport.height;
 
   const namePosition = [-cardWidth * 0.425, -cardHeight * 0.23, paneThickness * 0.5 + 0.01];
-  const teamPosition = [-cardWidth * 0.21, -cardHeight * 0.375, paneThickness * 0.5 + 0.01];
-  const subteamPosition = [-cardWidth * 0.315, -cardHeight * 0.3025, paneThickness * 0.5 + 0.01];
+  const teamPosition = [-cardWidth * 0.4375, -cardHeight * 0.33, paneThickness * 0.5 + 0.01];
+  const LPosition = [-cardWidth * 0.318, -cardHeight * 0.36, paneThickness * 0.5 + 0.01];
+  const subteamPosition = [-cardWidth * 0.4375, -cardHeight * 0.28, paneThickness * 0.5 + 0.01];
 
-  const curve2Scale = [cardWidth * 0.09, cardWidth * 0.09 * (206 / 208), 1];
-  const curve2Position = [-cardWidth * 0.26, -cardHeight * 0.355, paneThickness * 0.5 + 0.01];
+  const curve2Scale = [cardWidth * 0.07, cardWidth * 0.07 * (206 / 208), 1];
+  const curve2Position = [-cardWidth * 0.28, -cardHeight * 0.36, paneThickness * 0.5 + 0.01];
 
   const curve1Scale = [cardWidth * 0.1, cardWidth * 0.1 * 2, 1];
   const curve1Position = [-cardWidth * 0.375, -cardHeight * 0.32, paneThickness * 0.5 + 0.01];
@@ -113,47 +115,44 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
         anchorX="left"
       />
 
-      <Image
+      {/* <Image
         position={curve2Position}
         url={"people/src/assets/curve2.png"} 
         scale={curve2Scale}
         toneMapped={false}
         anchorX="left"
-        />
-
+        /> */}
+{/* 
       <Image
         position={curve1Position}
         url={"people/src/assets/curve1.png"} 
         scale={curve1Scale}
         toneMapped={false}
-        />
+        /> */}
 
-      <Text
+      <RobotoMono
       position={namePosition}
       fontSize={cardWidth*0.045}
       color="black"
       anchorX="left"
-    >
-      {name}
-    </Text>
+      text={name.toUpperCase()}
+    />
 
-    <Text
+    <RobotoMono
       position={subteamPosition}
       fontSize={cardWidth*0.045}
       color="black"
       anchorX="left"
-    >
-      {"├─" + subteam}
-    </Text>
+      text={"├─  "+subteam.toUpperCase()}
+    />
 
-    <Text
+    <RobotoMono
       position={teamPosition}
       fontSize={cardWidth*0.045}
       color="black"
       anchorX="left"
-    >
-      {"│" + team}
-    </Text>
+      text={"│      ├─  " + team.toUpperCase()}
+    />
     </mesh>
   );
 }; 
@@ -235,29 +234,27 @@ const Cards = ( ) => {
     
     return (
       <>
-        <Text
+        <Kommuna
           position={[startX, y, 0.1]}
-          fontSize={cardWidth*0.045}
+          fontSize={cardWidth*0.06}
           color="black"
           anchorX="left"
-        >
-          {"["}
-        </Text>
-        <Text
+          text={"["}
+        />
+        <Kommuna
           position={[midX, y, 0.1]}
-          fontSize={cardWidth*0.045}
+          fontSize={cardWidth*0.06}
           color="black"
           anchorX="center"
           text={lineName}
         />
-        <Text
+        <Kommuna
           position={[endX, y, 0.1]}
-          fontSize={cardWidth*0.045}
+          fontSize={cardWidth*0.06}
           color="black"
           anchorX="right"
-        >
-          {"]"}
-        </Text>
+          text={"]"}
+        />
       </>
     );
   };
