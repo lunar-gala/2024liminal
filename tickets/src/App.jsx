@@ -18,7 +18,7 @@ import { useStore } from './store'
 
 // ticketButtonHTML
 import { Html } from '@react-three/drei'
-import './style.css'
+// import './style.css'
 
 export function TixPage() {
 
