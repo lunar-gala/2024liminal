@@ -10,8 +10,6 @@ import { Text } from '@react-three/drei'
 import { useRef, useState, useEffect } from 'react'
 import { useFrame, createPortal } from '@react-three/fiber'
 import { useGLTF, useFBO, MeshTransmissionMaterial } from '@react-three/drei'
-import { easing } from 'maath'
-import { useControls } from 'leva'
 import * as THREE from 'three'
 
 import { useStore } from './store'
@@ -145,9 +143,6 @@ export function TixPage() {
       />
     )
   }
-
-  const tix_text_3 = "buy a ticket"
-  const text3 = text2components(RobotoMonoButton, tix_text_3, 3.33 * RobotoMonoSize, -panesSpan/2, panesSpan/2 + paneWidth/2, true)  
 
   const AniatedLens = animated(Lens)
   
