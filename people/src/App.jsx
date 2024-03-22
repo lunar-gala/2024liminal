@@ -67,11 +67,11 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
   const cardHeight = 0.68*viewport.height;
 
   const namePosition = [-cardWidth * 0.425, -cardHeight * 0.23, paneThickness * 0.5 + 0.01];
-  const teamPosition = [-cardWidth * 0.2, -cardHeight * 0.37, paneThickness * 0.5 + 0.01];
-  const subteamPosition = [-cardWidth * 0.305, -cardHeight * 0.3, paneThickness * 0.5 + 0.01];
+  const teamPosition = [-cardWidth * 0.21, -cardHeight * 0.375, paneThickness * 0.5 + 0.01];
+  const subteamPosition = [-cardWidth * 0.315, -cardHeight * 0.3025, paneThickness * 0.5 + 0.01];
 
   const curve2Scale = [cardWidth * 0.09, cardWidth * 0.09 * (206 / 208), 1];
-  const curve2Position = [-cardWidth * 0.25, -cardHeight * 0.355, paneThickness * 0.5 + 0.01];
+  const curve2Position = [-cardWidth * 0.26, -cardHeight * 0.355, paneThickness * 0.5 + 0.01];
 
   const curve1Scale = [cardWidth * 0.1, cardWidth * 0.1 * 2, 1];
   const curve1Position = [-cardWidth * 0.375, -cardHeight * 0.32, paneThickness * 0.5 + 0.01];
