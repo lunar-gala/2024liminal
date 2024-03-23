@@ -107,7 +107,6 @@ function Pages({ transition, isMobile }) {
           <HomePage />
           <Sensor />
         </Route>
-
         <Route path="/about">
           <AboutPage />
           <Sensor />
