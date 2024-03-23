@@ -11,6 +11,12 @@
       @media only screen and (orientation:portrait){
           #root { display:none; }
           #warning-message { display:block; }
+          #warning-message img { 
+            width: 80vw; 
+            height: auto; 
+            text-align: center;
+            padding: 10vw;
+          }
       }
       @media only screen and (orientation:landscape){
           #warning-message { display:none; }
@@ -19,7 +25,8 @@
   </head>
   <body>
     <div id="warning-message">
-      this website is only viewable in landscape mode
+      <body style="background-color:black;"></body>
+      <img src="../src/assets/phone.png">
     </div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
