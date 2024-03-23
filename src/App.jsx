@@ -16,13 +16,7 @@ import {
   RoundedBox, 
   Text3D
 } from '@react-three/drei'
-import {
-  EffectComposer,
-  Bloom,
-  SelectiveBloom,
-} from "@react-three/postprocessing";
 import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
-import { useControls } from "leva";
 import * as THREE from "three";
 
 // nav
