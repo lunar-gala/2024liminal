@@ -3,7 +3,9 @@ import { Canvas, useThree, useFrame } from "@react-three/fiber"
 import { 
   Edges, 
   Image,
-  useTexture
+  useTexture,
+  useVideoTexture,
+  useAspect
 } from '@react-three/drei'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -16,6 +18,7 @@ import Nandini_Left from './images/Nandini_Left.jpg'
 import Nandini_Right from './images/Nandini_Right.jpg'
 import Twilight_Left from './images/Twilight_Left.jpg'
 import Twilight_Right from './images/Twilight_Right.jpg'
+import vid from './images/sample.mp4'
 
 const image_urls = []
 image_urls.push([Meliora_Aliturae_Left, Meliora_Aliturae_Right])
@@ -50,6 +53,24 @@ function goBackward(spring) {
 
 function stay(spring) {
   spring.stop()
+}
+
+function VideoMaterial({ url }) {
+  const texture = useVideoTexture(url)
+  return <meshBasicMaterial map={texture} toneMapped={false} />
+}
+
+const Video = ({position, opacity, url}) => {
+  const size = useAspect(180, 100)
+  return (
+    <mesh scale={1} position={position} opacity={opacity}>
+      <planeGeometry />
+      {/* <Suspense fallback={<FallbackMaterial url="10.jpg" />}> */}
+        <VideoMaterial url={url} />
+      {/* </Suspense> */}
+    </mesh>
+  )
+  
 }
  
 export function LinesPage() {
@@ -220,7 +241,6 @@ export function LinesPage() {
               toneMapped={false}
             />
           </mesh>
-
           <Pane position={
             [paneWidth * 1.75/2, 0, 0]} 
             size={[ paneWidth, paneHeight, paneThickness]} 
@@ -237,6 +257,7 @@ export function LinesPage() {
             />
           </mesh>
         </group>
+        <Video position={position} url={vid} opacity={opacity} />
       </>
     )
   }
