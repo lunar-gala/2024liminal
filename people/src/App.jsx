@@ -114,7 +114,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
     <mesh
       position={position}
       ref={ref}
-      visible={myid > id ? true : false}
+      visible={myid > id && myid < id + 30? true : false}
     >
       <boxGeometry args={size}/>
       <meshBasicMaterial 
