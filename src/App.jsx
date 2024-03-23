@@ -21,6 +21,8 @@ import {
   Bloom,
   SelectiveBloom,
 } from "@react-three/postprocessing";
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass'
 import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
 import { useControls } from "leva";
 import * as THREE from "three";
@@ -35,6 +37,8 @@ import { AboutPage } from "../about/src/App.jsx"
 import { TixPage } from "../tickets/src/App.jsx"
 import { PeoplePage } from "../people/src/App.jsx"
 import { LinesPage } from "../lines/src/App.jsx"
+
+
 
 const App = () => {
 
@@ -82,10 +86,9 @@ const App = () => {
   return (
     <>
       <Cover>
-        <Canvas camera={{ position: [0, 0, 20], fov: 50 }} gl={{ localClippingEnabled: true }} >
+        <Canvas camera={{ position: [0, 0, 20], fov: 75 }} gl={{ localClippingEnabled: true }} >
           <color attach="background" args={(location == '/') ? [0, 0, 0] : [255, 255, 255]} /> // bg
           <ambientLight intensity={1}/>
-          <directionalLight position={[0, 0, 5]} intensity={0.5} />
           <Suspense fallback={null}>
             <Pages transition={transition} isMobile={isMobile} />
           </Suspense>
@@ -185,8 +188,8 @@ function Model() {
   
   const paneWidth = viewport.width * 0.5
   const paneHeight = 0.3 * paneWidth
-  const textSize = 0.22 * paneHeight
-  const textRadScale = 0.9
+  const textSize = 0.18 * paneHeight
+  const textRadScale = 1.4
   const textY = 0.47 * paneWidth
 
   useFrame(({ delta, pointer, clock }) => {
@@ -194,7 +197,8 @@ function Model() {
   });
 
 
-  function Pane({position, rotation, text, config, x, z, angle, id}) {
+  function Pane({position, rotation, text, x, z, angle, id}) {
+    
     
     return(
       <>
@@ -204,24 +208,45 @@ function Model() {
           onClick = { (e) => sendBack() }
           onPointerDown = { (e) => redirect(id) } 
         >
-          <RoundedBox args={[paneHeight, paneWidth, 0.1]} radius={0.005} smoothness={2}>
-            <meshLambertMaterial {...lambertConfig}/>
-            {/* <MeshTransmissionMaterial
+          <RoundedBox args={[paneHeight, paneWidth, 0.1]} radius={0.05} smoothness={2}>
+            {/* <meshLambertMaterial {...lambertConfig}/> */}
+            <MeshTransmissionMaterial
               background={new THREE.Color("#ffffff")}
-              {...config}
-            /> */}
+              meshPhysicalMaterial={false}
+              transmissionSampler={false}
+              backside={false}
+              samples={ 16 }
+              resolution={  1024}
+              transmission={ .94}
+              roughness={  0.24}
+              thickness={1.62}
+              ior={ 1.65}
+              chromaticAberration={ 0.25}
+              anisotropy={  0.2}
+              anisotropicBlur={  1.0}
+              distortion={ 0.06}
+              distortionScale={ 0.2}
+              temporalDistortion={ 0.1}
+              clearcoat={1.0}
+              attenuationDistance={2.61}
+              attenuationColor={"#ffffff"}
+              color={"#92969d"}
+              bg={"#ffffff"}
+            />
           </RoundedBox>
         </mesh>
         
+
         <Text3D
           font="./fonts/Wordmark/NewEdge-666-Regular.json"
           size={textSize}
-          height={0.01}
-          position={[-x*textRadScale, textY, -z*textRadScale]}
+          height={0.1}
+          position={[-x*textRadScale, textY, (-z*textRadScale)]}
           rotation={[0,-angle,-Math.PI / 2]}>
           {text}
           <meshBasicMaterial color="white" />
         </Text3D>
+
       </>
     )
   }
@@ -232,28 +257,28 @@ function Model() {
   };
 
   // Lower 'samples' and 'resolution' for better performance (less lag)
-  const config = {
-    meshPhysicalMaterial: false,
-    transmissionSampler: false,
-    backside: false,
-    samples: { value: 16, min: 1, max: 32, step: 1 },
-    resolution: { value: 1024, min: 256, max: 2048, step: 256 },
-    transmission: { value: .94, min: 0, max: 1 },
-    roughness: { value: 0.24, min: 0, max: 1, step: 0.01 },
-    thickness: { value: .4, min: 0, max: 10, step: 0.01 },
-    ior: { value: 1.28, min: 1, max: 5, step: 0.01 },
-    chromaticAberration: { value: 0.16, min: 0, max: 1 },
-    anisotropy: { value: 0.25, min: 0, max: 1, step: 0.01 },
-    anisotropicBlur: { value: 0.89, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.23, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.14, min: 0.01, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.19, min: 0, max: 1, step: 0.01 },
-    clearcoat: { value: 1.0, min: 0, max: 1 },
-    attenuationDistance: { value: 4.53, min: 0, max: 10, step: 0.01 },
-    attenuationColor: "#ffffff",
-    color: "#92969d",
-    bg: "#ffffff",
-  }
+  // const config = useControls({
+  //   meshPhysicalMaterial: false,
+  //   transmissionSampler: false,
+  //   backside: false,
+  //   samples: { value: 16, min: 1, max: 32, step: 1 },
+  //   resolution: { value: 1024, min: 256, max: 2048, step: 256 },
+  //   transmission: { value: .94, min: 0, max: 1 },
+  //   roughness: { value: 0.24, min: 0, max: 1, step: 0.01 },
+  //   thickness: { value: 1.62, min: 0, max: 10, step: 0.01 },
+  //   ior: { value: 1.65, min: 1, max: 5, step: 0.01 },
+  //   chromaticAberration: { value: 0.25, min: 0, max: 1 },
+  //   anisotropy: { value: 0.2, min: 0, max: 1, step: 0.01 },
+  //   anisotropicBlur: { value: 1.0, min: 0, max: 1, step: 0.01 },
+  //   distortion: { value: 0.06, min: 0, max: 1, step: 0.01 },
+  //   distortionScale: { value: 0.2, min: 0.01, max: 1, step: 0.01 },
+  //   temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
+  //   clearcoat: { value: 1.0, min: 0, max: 1 },
+  //   attenuationDistance: { value: 2.61, min: 0, max: 10, step: 0.01 },
+  //   attenuationColor: "#ffffff",
+  //   color: "#92969d",
+  //   bg: "#ffffff",
+  // });
 
   const lambertConfig = {
     transparent: true,
@@ -292,7 +317,7 @@ function Model() {
       let text = pages[i%4].toUpperCase()
 
       planes.push(
-        <Pane key={i} id={i%4} position={[x, 0, z]} rotation={[0, -angle, 0]} text={text} config={config} x={x} z={z} angle={angle} />
+        <Pane key={i} id={i%4} position={[x, 0, z]} rotation={[0, -angle, 0]} text={text} x={x} z={z} angle={angle} />
       );
     }
 
@@ -333,6 +358,7 @@ function Model() {
       </group>
 
       {/* glowing panel */}
+
       <mesh {...glowPosition}>
         <boxGeometry args={[paneWidth, 0.25 * paneWidth, 0.01]} />
         <meshStandardMaterial
@@ -345,6 +371,7 @@ function Model() {
       {/* <EffectComposer>
         <Bloom luminanceThreshold={0} luminanceSmoothing={0.1} height={300} />
       </EffectComposer> */}
+
     </>
   );
 }
