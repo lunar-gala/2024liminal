@@ -3,40 +3,62 @@ import { Canvas, useThree, useFrame } from "@react-three/fiber"
 import { 
   Edges, 
   Image,
-  useTexture
+  useTexture,
+  MeshTransmissionMaterial
 } from '@react-three/drei'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import * as THREE from 'three'
 import './App.css'
 import { map, LIMINAL } from '../../src/index.jsx'
 import { animated, useSpring, useSpringValue, } from '@react-spring/three'
-import Meliora_Aliturae_Left from './images/Meliora_Aliturae_Left.jpg'
-import Meliora_Aliturae_Right from './images/Meliora_Aliturae_Right.jpg'
-import Nandini_Left from './images/Nandini_Left.jpg'
-import Nandini_Right from './images/Nandini_Right.jpg'
-import Twilight_Left from './images/Twilight_Left.jpg'
-import Twilight_Right from './images/Twilight_Right.jpg'
+import Meliora_Aliturae_Left from '../../src/images/Meliora_Aliturae_Left.png'
+import Meliora_Aliturae_Right from '../../src/images/Meliora_Aliturae_Right.png'
+import Nandini_Left from '../../src/images/Nandini_Left.png'
+import Nandini_Right from '../../src/images/Nandini_Right.png'
+import Twilight_Left from '../../src/images/Twilight_Left.png'
+import Twilight_Right from '../../src/images/Twilight_Right.png'
+import Entomate_Left from '../../src/images/Entomate_Left.png'
+import Entomate_Right from '../../src/images/Entomate_Right.png'
+import Crimson_Left from '../../src/images/Crimson_Left.png'
+import Crimson_Right from '../../src/images/Crimson_Right.png'
+import Coalesce_Left from '../../src/images/Coalesce_Left.png'
+import Coalesce_Right from '../../src/images/Coalesce_Right.png'
+import Please_Left from '../../src/images/Please_Left.png'
+import Please_Right from '../../src/images/Please_Right.png'
+import Opulence_Left from '../../src/images/Opulence_Left.png'
+import Opulence_Right from '../../src/images/Opulence_Right.png'
+import Nurra_Left from '../../src/images/Nurra_Left.png'
+import Nurra_Right from '../../src/images/Nurra_Right.png'
+import Bloom_Left from '../../src/images/Bloom_Left.png'
+import Bloom_Right from '../../src/images/Bloom_Right.png'
+import Pro_Left from '../../src/images/Pro_Left.png'
+import Pro_Right from '../../src/images/Pro_Right.png'
+import Angae_Left from '../../src/images/Angae_Left.png'
+import Angae_Right from '../../src/images/Angae_Right.png'
+import Avidhya_Left from '../../src/images/Avidhya_Left.png'
+import Avidhya_Right from '../../src/images/Avidhya_Right.png'
+import Flux_Left from '../../src/images/Flux_Left.png'
+import Flux_Right from '../../src/images/Flux_Right.png'
+import Shrouded_Left from '../../src/images/Shrouded_Left.png'
+import Shrouded_Right from '../../src/images/Shrouded_Right.png'
 
 const image_urls = []
 image_urls.push([Meliora_Aliturae_Left, Meliora_Aliturae_Right])
+image_urls.push([Twilight_Left, Twilight_Right])
 image_urls.push([Nandini_Left, Nandini_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
-image_urls.push([Twilight_Left, Twilight_Right])
+image_urls.push([Entomate_Left, Entomate_Right])
+image_urls.push([Crimson_Left, Crimson_Right])
+image_urls.push([Coalesce_Left, Coalesce_Right])
+image_urls.push([Please_Left, Please_Right])
+image_urls.push([Opulence_Left, Opulence_Right])
+image_urls.push([Nurra_Left, Nurra_Right])
+image_urls.push([Bloom_Left, Bloom_Right])
+image_urls.push([Pro_Left, Pro_Right])
+image_urls.push([Angae_Left, Angae_Right])
+image_urls.push([Avidhya_Left, Avidhya_Right])
+image_urls.push([Flux_Left, Flux_Right])
+image_urls.push([Shrouded_Left, Shrouded_Right])
  
-const nLines = 17 // number of lines
+const nLines = 15 // number of lines
 const distBetweenPairs = 20
 const endPoint = nLines * (distBetweenPairs-1)
 
@@ -50,52 +72,76 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
   const refPaneRight = useRef()
   const refMeshLeft = useRef()
   const refMeshRight = useRef()
+  const refNewLeft = useRef()
+  const refNewRight = useRef()
 
   useFrame(() => {
     if (forwardHovered) {
+      refNewRight.current.position.z += 0.2
       refMeshRight.current.position.z += 0.2
+      refPaneRight.current.position.z += 0.2
+      refNewRight.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
+      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
+      refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
+      refNewLeft.current.position.z += 0.2
       refMeshLeft.current.position.z += 0.2
       refPaneLeft.current.position.z += 0.2
-      refPaneRight.current.position.z += 0.2
-      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
-      refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshLeft.current.position.z)/40)
-      refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneLeft.current.position.z)/40)
-      refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
-      if (refMeshRight.current.position.z < 0.5 && refMeshRight.current.position.z > -0.5){
-        refMeshRight.current.material.opacity = 1 
-        refMeshLeft.current.material.opacity = 1
-        refPaneLeft.current.material.opacity = 1
-        refPaneRight.current.material.opacity = 1
-      }
-      
+      refNewLeft.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
+      refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
+      refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
     }
     else if (backwardHovered) {
+      refNewRight.current.position.z -= 0.2
       refMeshRight.current.position.z -= 0.2
+      refPaneRight.current.position.z -= 0.2
+      refNewRight.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
+      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
+      refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
+      refNewLeft.current.position.z -= 0.2
       refMeshLeft.current.position.z -= 0.2
       refPaneLeft.current.position.z -= 0.2
-      refPaneRight.current.position.z -= 0.2
-
-      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
-      refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshLeft.current.position.z)/40)
-      refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneLeft.current.position.z)/40)
-      refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
+      refNewLeft.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
+      refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
+      refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
     }
-    if (refMeshRight.current.position.z > 20) {
+    if (refMeshLeft.current.position.z > 20) {
+      refNewRight.current.material.opacity = 0
+      refNewRight.current.position.z = -280
       refMeshRight.current.material.opacity = 0
-      refMeshLeft.current.material.opacity = 0
-      refPaneLeft.current.material.opacity = 0
+      refMeshRight.current.position.z = -280
       refPaneRight.current.material.opacity = 0
-      refMeshRight.current.position.z = -320
-      refMeshLeft.current.position.z = -320
-      refPaneLeft.current.position.z = -320
-      refPaneRight.current.position.z= -320
+      refPaneRight.current.position.z = -280
+      refNewLeft.current.material.opacity = 0
+      refNewLeft.current.position.z = -280
+      refMeshLeft.current.material.opacity = 0
+      refMeshLeft.current.position.z = -280
+      refPaneLeft.current.material.opacity = 0
+      refPaneLeft.current.position.z = -280
     }
-    if (refMeshRight.current.position.z < -320) {
+    if (refMeshLeft.current.position.z < -280) {
+      refNewRight.current.position.z = 20
       refMeshRight.current.position.z = 20
+      refPaneRight.current.position.z= 20
+      refNewLeft.current.position.z = 20
       refMeshLeft.current.position.z = 20
       refPaneLeft.current.position.z = 20
-      refPaneRight.current.position.z= 20
     }
+    if (refMeshLeft.current.position.z < -40){
+      refPaneRight.current.visible = false
+      refNewRight.current.visible = false
+      refMeshRight.current.visbile = false
+      refMeshLeft.current.visible = false
+      refPaneLeft.current.visible = false
+      refNewLeft.current.visible = false
+    } else {
+      refPaneRight.current.visible = true
+      refNewRight.current.visible = true
+      refMeshRight.current.visbile = true
+      refMeshLeft.current.visible = true
+      refPaneLeft.current.visible = true
+      refNewLeft.current.visible = true
+    }
+    
   })
 
   let x = position[0]
@@ -108,21 +154,54 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
   return (
     <>
       <mesh
-        position={ [ -paneWidth * 1.75/2 + x, y, z ] }
+        position={ [ -paneWidth * 1.75/2 + x, y, z-0.1 ] }
+        ref = {refNewLeft}>
+          <boxGeometry args = { [paneWidth, paneHeight, paneThickness] }/>
+          <MeshTransmissionMaterial 
+            samples={16} 
+            resolution={100} 
+            anisotropicBlur={5}
+            thickness={0.1} 
+            roughness={10} 
+            toneMapped={true} 
+            transparent={true}
+            opacity={1 - (Math.abs(z)/40)}
+            background={new THREE.Color('#b5e2ff')} 
+          />
+      </mesh>
+      <mesh
+        position={ [ -paneWidth * 1.75/2 + x, y, z + 0.01 ] }
         ref = {refPaneLeft}>
           <boxGeometry args = { [paneWidth, paneHeight, paneThickness] }/>
           <meshStandardMaterial
             map = {left}
-            opacity = {opacity}
-            transparent = {true}/>
+            opacity = {1 - (Math.abs(z)/40)}
+            transparent = {true}
+            />
       </mesh>
       <mesh position={ [ -paneWidth * 1.75/2 + x, y, z + 0.01 ] } ref = {refMeshLeft}>
         <boxGeometry args = {[paneWidth, paneHeight, paneThickness]}/>
         <meshStandardMaterial 
           map={left}
-          opacity={opacity}
+          opacity={1 - (Math.abs(z)/40)}
           transparent={true} 
         />
+      </mesh>
+      <mesh
+        position={ [ paneWidth * 1.75/2 + x, y, z ] }
+        ref = {refNewRight}>
+          <boxGeometry args = { [paneWidth, paneHeight, paneThickness] }/>
+          <MeshTransmissionMaterial 
+            samples={16} 
+            resolution={100} 
+            anisotropicBlur={5}
+            thickness={0.1} 
+            roughness={10} 
+            toneMapped={true} 
+            transparent={true}
+            opacity={1 - (Math.abs(z)/40)}
+            background={new THREE.Color('#b5e2ff')} 
+          />
       </mesh>
       <mesh
         position={ [ x + paneWidth * 1.75/2, y, z ] }
@@ -130,14 +209,14 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
           <boxGeometry args = { [paneWidth, paneHeight, paneThickness] }/>
           <meshStandardMaterial
             map = {right}
-            opacity = {opacity}
+            opacity = {1 - (Math.abs(z)/40)}
             transparent = {true}/>
       </mesh>
       <mesh position={ [paneWidth * 1.75/2 + x, y, z + 0.01] } ref = {refMeshRight}>
         <boxGeometry args = {[paneWidth, paneHeight, paneThickness]}/>
         <meshStandardMaterial 
           map={right}
-          opacity={opacity}
+          opacity={1 - (Math.abs(z)/40)}
           transparent={true} 
         />
       </mesh>
