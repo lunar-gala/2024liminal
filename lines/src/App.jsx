@@ -4,7 +4,9 @@ import {
   Edges, 
   Image,
   useTexture,
-  MeshTransmissionMaterial
+  MeshTransmissionMaterial,
+  useVideoTexture,
+  useAspect
 } from '@react-three/drei'
 import * as THREE from 'three'
 import './App.css'
@@ -61,6 +63,24 @@ image_urls.push([Shrouded_Left, Shrouded_Right])
 const nLines = 15 // number of lines
 const distBetweenPairs = 20
 const endPoint = nLines * (distBetweenPairs-1)
+
+function VideoMaterial({ url }) {
+  const texture = useVideoTexture(url)
+  return <meshBasicMaterial map={texture} toneMapped={false} />
+}
+
+const Video = ({position, opacity, url}) => {
+  const size = useAspect(180, 100)
+  return (
+    <mesh scale={1} position={position} opacity={opacity}>
+      <planeGeometry />
+      {/* <Suspense fallback={<FallbackMaterial url="10.jpg" />}> */}
+        <VideoMaterial url={url} />
+      {/* </Suspense> */}
+    </mesh>
+  )
+  
+}
 
 const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, image}) => {
   const {viewport} = useThree()
