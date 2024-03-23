@@ -51,11 +51,11 @@ export function AboutPage() {
   const about_text_4 = "welcome to liminal"
   const about_text_5 = "in collaboration with"
 
-  const text11Components = text2components(about_text_11, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
-  const text12Components = text2components(about_text_12, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
-  const text2Components = text2components(about_text_2, RobotoMonoSize, -panesSpan/2 + panesSection/2, panesSpan/2 - panesSection/2, false)
-  const text3Components = text2components(about_text_3, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
-  const text4Components = text2components(about_text_4, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
+  const text11Components = text2components(RobotoMono, about_text_11, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
+  const text12Components = text2components(RobotoMono, about_text_12, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
+  const text2Components = text2components(RobotoMono, about_text_2, RobotoMonoSize, -panesSpan/2 + panesSection/2, panesSpan/2 - panesSection/2, false)
+  const text3Components = text2components(RobotoMono, about_text_3, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
+  const text4Components = text2components(RobotoMono, about_text_4, RobotoMonoSize, -panesSpan/2 - paneWidth/2, panesSpan/2 + paneWidth/2, true)
 
   return (
     <>

@@ -214,7 +214,7 @@ function Model({spring}) {
         <Text3D
           font="./fonts/Wordmark/NewEdge-666-Regular.json"
           size={textSize}
-          height={0.01}
+          height={0.07}
           position={[-x*textRadScale, textY, (-z*textRadScale)]}
           rotation={[0,-angle,-Math.PI / 2]}>
           {text}
