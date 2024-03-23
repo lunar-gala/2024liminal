@@ -165,8 +165,8 @@ function Model({spring}) {
   
   const paneWidth = viewport.width * 0.5
   const paneHeight = 0.3 * paneWidth
-  const textSize = 0.22 * paneHeight
-  const textRadScale = 0.9
+  const textSize = 0.18 * paneHeight
+  const textRadScale = 1.4
   const textY = 0.47 * paneWidth
 
   useFrame(({ delta, pointer, clock }) => {
@@ -184,7 +184,7 @@ function Model({spring}) {
           onClick = { (e) => sendBack(spring) }
           onPointerDown = { (e) => redirect(id, spring) } 
         >
-          <RoundedBox args={[paneHeight, paneWidth, 0.1]} radius={0.07} smoothness={2}>
+          <RoundedBox args={[paneHeight, paneWidth, 0.1]} radius={0.05} smoothness={2}>
             {/* <meshLambertMaterial {...lambertConfig}/> */}
             <MeshTransmissionMaterial
               background={new THREE.Color("#ffffff")}
@@ -215,7 +215,7 @@ function Model({spring}) {
           font="./fonts/Wordmark/NewEdge-666-Regular.json"
           size={textSize}
           height={0.01}
-          position={[-x*textRadScale, textY, -z*textRadScale]}
+          position={[-x*textRadScale, textY, (-z*textRadScale)]}
           rotation={[0,-angle,-Math.PI / 2]}>
           {text}
           <meshBasicMaterial color="white" />
