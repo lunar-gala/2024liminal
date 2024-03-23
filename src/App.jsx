@@ -338,12 +338,7 @@ function Model() {
   // })
 
 
-  const { rotation } = useControls({
-    rotation: {
-      value: [0, 0, 1.57], // initial value
-      step: 0.01, // step size for each value
-    },
-  });
+  const rotation = [0, 0, 1.57]
 
   // Checkout 'Clone' props from R3F Drei docs: https://github.com/pmndrs/drei?tab=readme-ov-file#clone
   return (
