@@ -7,6 +7,8 @@ import {
 import './App.css'
 import { createNoise2D } from 'simplex-noise'
 import { map, Pane, RobotoMono, LIMINAL, text2components } from '../../src/index.jsx'
+import tons from './assets/tons.png'
+import s from './assets/s.png'
 
 const noise = createNoise2D();
 function chimesMoveFunction(position, size, id, state, ref) {
