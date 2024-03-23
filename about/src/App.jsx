@@ -80,7 +80,11 @@ export function AboutPage() {
       <group position={[0, viewport.height * -0.25, 0]}>
         {text4Components}
       </group>
-      <RobotoMono position={[-panesSpan/2 - paneWidth/2, viewport.height * -0.44, 0]} fontSize={RobotoMonoSize} text={about_text_5.toUpperCase()} anchorX={"left"} />
+      <group position={[-panesSpan/2 - paneWidth/2, viewport.height * -0.44, 0]}>
+        <RobotoMono fontSize={RobotoMonoSize} text={about_text_5.toUpperCase()} anchorX={"left"} />
+        <Image url = {tons} position = {[8.5, 0, 0]} scale = {[4, 1, 1]} toneMapped={false}/>
+        <Image url = {s} position = {[11.5, 0, 0]} scale = {[2, 2, 2]} toneMapped={false}/>
+      </group>
       {/* <Stats /> */}
     </>
   )
