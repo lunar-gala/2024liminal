@@ -36,12 +36,6 @@ import { TixPage } from "../tickets/src/App.jsx"
 import { PeoplePage } from "../people/src/App.jsx"
 import { LinesPage } from "../lines/src/App.jsx"
 
-const Color = ({args}) => {
-  return <><color attach="background" args={[args]} /></>
-}
-
-const AnimatedColor = animated(Color);
-
 const App = () => {
 
   // is mobile
@@ -92,7 +86,7 @@ const App = () => {
     <>
       <Cover>
         <Canvas camera={{ position: [0, 0, 20], fov: 50 }} >
-          <color attach="background" args={['black']} />
+          <color attach="background" args={['white']} />
           {/* <AnimatedColor args={opacitySpring.to((value) => [value, value, value])}/> */}
           <ambientLight intensity={1}/>
           {/* <directionalLight position={[0, 0, 5]} intensity={0.5} /> */}
@@ -145,8 +139,8 @@ function Sensor({spring}) {
   return (
     <mesh 
       position = {[0, 0, 0]} 
-      onPointerUp = { (e) => sendBack(spring) } 
-      onClick = { (e) => sendBack(spring) }
+      onPointerUp = { (e) => sendBack(e, spring) } 
+      onClick = { (e) => sendBack(e, spring) }
     >
       <boxGeometry args={[100, 100, 0.1]}/>
       <meshPhongMaterial color={"pink"} opacity={0} transparent />
@@ -159,9 +153,8 @@ function Sensor({spring}) {
  * should go in seperate files
  */
 
-function Model({spring}) {
+function Model({spring, viewport}) {
   const groupRef = useRef();
-  const { viewport } = useThree();
   
   const paneWidth = viewport.width * 0.5
   const paneHeight = 0.3 * paneWidth
@@ -169,30 +162,50 @@ function Model({spring}) {
   const textRadScale = 1.4
   const textY = 0.47 * paneWidth
 
-  useFrame(({ delta, pointer, clock }) => {
-    groupRef.current.rotation.x = clock.getElapsedTime() / 8;
-  });
-
+  // useFrame(({ delta, pointer, clock }) => {
+  //   groupRef.current.rotation.x = clock.getElapsedTime() / 8;
+  // });
+  let print = true;
 
   function Pane({position, rotation, text, config, x, z, angle, id}) {
+    const ref = useRef()
+
+    useFrame(({ clock }) => {
+      ref.current.rotation.y = (angle + clock.getElapsedTime() / 8) % (2*Math.PI);
+
+      if (id == 1) {
+        console.log(ref.current.rotation.y)
+      }
+
+      // if (ref.current.rotation.y + angle > Math.PI/4) {
+      //   ref.current.visible = false
+        
+      // } else {
+      //   ref.current.visible = true
+      // }
+      
+    });
+
+    const radius = paneWidth / 3; // radius of the circle
     
     return(
-      <>
+      <group ref={ref}>
         <mesh 
-          position={position} 
+          position={[radius * Math.sin(angle), 0, radius * Math.cos(angle)]} 
           rotation={rotation}
-          onClick = { (e) => sendBack(spring) }
-          onPointerDown = { (e) => redirect(id, spring) } 
+          onClick = { (e) => sendBack(e, spring) }
+          onPointerDown = { (e) => redirect(e, id, spring) } 
         >
           <RoundedBox args={[paneHeight, paneWidth, 0.1]} radius={0.05} smoothness={2}>
             {/* <meshLambertMaterial {...lambertConfig}/> */}
             <MeshTransmissionMaterial
+              visible={true}
               background={new THREE.Color("#ffffff")}
               meshPhysicalMaterial={false}
               transmissionSampler={false}
               backside={false}
               samples={16}
-              resolution={100}
+              resolution={50}
               transmission={0.94}
               roughness={0.24}
               thickness={1.62}
@@ -211,16 +224,26 @@ function Model({spring}) {
             />
           </RoundedBox>
         </mesh>
+        <mesh 
+          position={[radius * Math.sin(angle), 0, radius * Math.cos(angle)]} 
+          rotation={rotation}
+          visible={false} 
+        >
+          <boxGeometry args={[paneHeight, paneWidth, 0.1]} radius={0.05} smoothness={2}>
+            {/* <meshLambertMaterial {...lambertConfig}/> */}
+            <meshBasicMaterial/>
+          </boxGeometry>
+        </mesh>
         <Text3D
           font="./fonts/Wordmark/NewEdge-666-Regular.json"
           size={textSize}
           height={0.07}
-          position={[-x*textRadScale, textY, (-z*textRadScale)]}
-          rotation={[0,-angle,-Math.PI / 2]}>
-          {text}
+          position={[radius * Math.sin(angle)*textRadScale, textY, radius * Math.cos(angle)*textRadScale]}
+          rotation={[0, angle + Math.PI / 2, -Math.PI / 2]}>
+          {text.toUpperCase()}
           <meshBasicMaterial color="white" />
         </Text3D>
-      </>
+      </group>
     )
   }
 
@@ -260,14 +283,15 @@ function Model({spring}) {
     // Generate the planes
     const pages = ["about", "tickets", "people", "lines"];
     for (let i = 0; i < numPlanes; i++) {
-      angle = ((2 * Math.PI) / numPlanes) * i; // angle for each plane
+      angle = (Math.PI / numPlanes) * i; // angle for each plane
       var x = radius * Math.cos(angle);
       var z = radius * Math.sin(angle);
 
-      let text = pages[i%4].toUpperCase()
+      let text = pages[i%4]
+      console.log(angle)
 
       planes.push(
-        <Pane key={i} id={i%4} position={[x, 0, z]} rotation={[0, -angle, 0]} text={text} x={x} z={z} angle={angle} />
+        <Pane key={i} id={(i)%4} position={[0, 0, 0]} rotation={[0, angle + Math.PI/2, 0]} text={text} x={x} z={z} angle={angle} />
       );
     }
 
@@ -300,8 +324,7 @@ function Model({spring}) {
       >
         <Scene />
       </group>
-
-      {/* glowing panel */}
+      {/* glowing panel (moved to mask) */}
       <mesh {...glowPosition}>
         <boxGeometry args={[paneWidth, 0.25 * paneWidth, 0.01]} />
         <meshStandardMaterial
@@ -320,10 +343,36 @@ function Model({spring}) {
 
 
 function HomePage({spring}) {
+  const { viewport } = useThree();
+
+  function Mask() {
+    return (
+      <group>
+        <mesh position={[0, viewport.height/4 + viewport.width/16, 0.2]}>
+          <boxGeometry args={[viewport.width, viewport.height/2, 0.1]} />
+          <meshBasicMaterial color={"black"} toneMapped={false}/>
+        </mesh>
+        <mesh position={[0, -viewport.height/4 - viewport.width/16, 0.2]}>
+          <boxGeometry args={[viewport.width, viewport.height/2, 0.1]} />
+          <meshBasicMaterial color={"black"} toneMapped={false}/>
+        </mesh>
+        <mesh position={[-0.5 * viewport.width, 0, 0.2]}>
+          <boxGeometry args={[0.5 * viewport.width, viewport.height, 0.1]} />
+          <meshBasicMaterial color={"black"} toneMapped={false}/>
+        </mesh>
+        <mesh position={[0.5 * viewport.width, 0, 0.2]}>
+          <boxGeometry args={[0.5 * viewport.width, viewport.height, 0.1]} />
+          <meshBasicMaterial color={"black"} toneMapped={false}/>
+        </mesh>
+      </group>
+    )
+  }
+
   return (
     <>
       {/* <fog attach="fog" color="#758ac1" near={1} far={10} /> */}
-      <Model spring={spring}/>
+      <Mask />
+      <Model spring={spring} viewport={viewport}/>
     </>
   )
 }

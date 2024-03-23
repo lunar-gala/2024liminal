@@ -38,11 +38,11 @@ export const Cover = styled(a.div)`
   height: 100%;
 `
 
-export function redirect(id, spring) {
-    spring.start(0)
+export function redirect(e, id, spring) {
+    e.stopPropagation();
 
     const pages = ["about", "tickets", "people", "lines"];
-    console.log(pages[id])
+    console.log(id)
 
     const location = {
         pathname: "/" + pages[id],
@@ -52,8 +52,8 @@ export function redirect(id, spring) {
     return history.replace(location)
 }
   
-export function sendBack(spring) {
-    spring.start(255)
+export function sendBack(e, spring) {
+    e.stopPropagation();
     return history.replace("/")
 }
 

@@ -217,6 +217,7 @@ export function LinesPage() {
               map={left}
               opacity={opacity}
               transparent={true} 
+              toneMapped={false}
             />
           </mesh>
 
@@ -232,6 +233,7 @@ export function LinesPage() {
               map={right}
               opacity={opacity}
               transparent={true} 
+              toneMapped={false}
             />
           </mesh>
         </group>

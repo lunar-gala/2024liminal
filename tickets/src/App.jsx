@@ -79,7 +79,7 @@ export function TixPage() {
           <mesh scale={size} ref={ref} rotation-x={Math.PI/2} geometry={nodes.Cube.geometry} {...props}>
             {/* {config.meshPhysicalMaterial ? <meshPhysicalMaterial {...config} /> : <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} />} */}
             {/* <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} /> */}
-            <MeshTransmissionMaterial samples={16} resolution={100} anisotropicBlur={.1} thickness={0.1} roughness={0.4} toneMapped={true} background={new THREE.Color(config.bg)} />
+            <MeshTransmissionMaterial samples={16} resolution={100} anisotropicBlur={.1} thickness={0.1} roughness={0.4} toneMapped={true} background={new THREE.Color('#b5e2ff')} />
           </mesh>
         </animated.group>
       </>
