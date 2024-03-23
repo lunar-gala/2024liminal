@@ -184,7 +184,7 @@ function Model({spring}) {
           onClick = { (e) => sendBack(spring) }
           onPointerDown = { (e) => redirect(id, spring) } 
         >
-          <RoundedBox args={[paneHeight, paneWidth, 0.1]} radius={0.005} smoothness={2}>
+          <RoundedBox args={[paneHeight, paneWidth, 0.1]} radius={0.07} smoothness={2}>
             {/* <meshLambertMaterial {...lambertConfig}/> */}
             <MeshTransmissionMaterial
               background={new THREE.Color("#ffffff")}
