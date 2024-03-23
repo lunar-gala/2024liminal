@@ -45,6 +45,24 @@ import Shrouded_Right from '../../src/images/Shrouded_Right.png'
 
 import vid from '../src/assets/sample.mp4'
 
+const videoPositions = [
+  [-1.05, 0.35, 0.18, 0.21],
+  [0.43, 0.13, 0.18, 0.21],
+  [0.45, -0.38, 0.18, 0.21],
+  [0.65, -0.35, 0.18, 0.21],
+  [-1.05, 0.38, 0.18, 0.21],
+  [0.65, 0.12, 0.18, 0.21],
+  [0.95, 0.36, 0.38, 0.21], 
+  [-0.43, -0.25, 0.17, 0.45], 
+  [0.44, -0.36, 0.18, 0.21],
+  [-0.43, -0.36, 0.18, 0.21],
+  [0.64, -0.36, 0.18, 0.21],
+  [0.42, 0.35, 0.18, 0.21],
+  [0.91, 0.36, 0.38, 0.21], 
+  [0.43, -0.35, 0.18, 0.21],
+  [-0.43, -0.36, 0.18, 0.21]
+]
+
 const image_urls = []
 image_urls.push([Meliora_Aliturae_Left, Meliora_Aliturae_Right])
 image_urls.push([Twilight_Left, Twilight_Right])
@@ -66,7 +84,7 @@ const nLines = 15 // number of lines
 const distBetweenPairs = 20
 const endPoint = nLines * (distBetweenPairs-1)
 
-const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, image}) => {
+const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHovered, image}) => {
   const {viewport} = useThree()
   const paneHeight = viewport.height * 0.58
   const paneWidth = paneHeight * 0.85
@@ -80,35 +98,37 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
   const refNewRight = useRef()
   const vidRef = useRef();
 
+  const speed = 0.7
+
   useFrame(() => {
     if (forwardHovered) {
-      refNewRight.current.position.z += 0.2
-      refMeshRight.current.position.z += 0.2
-      refPaneRight.current.position.z += 0.2
+      refNewRight.current.position.z += speed
+      refMeshRight.current.position.z += speed
+      refPaneRight.current.position.z += speed
       refNewRight.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
       refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
       refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
       vidRef.current.material.opacity = 1 - (Math.abs(vidRef.current.position.z)/40)
-      refNewLeft.current.position.z += 0.2
-      refMeshLeft.current.position.z += 0.2
-      refPaneLeft.current.position.z += 0.2
-      vidRef.current.position.z += 0.2
+      refNewLeft.current.position.z += speed
+      refMeshLeft.current.position.z += speed
+      refPaneLeft.current.position.z += speed
+      vidRef.current.position.z += speed
       refNewLeft.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
       refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
       refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
     }
     else if (backwardHovered) {
-      refNewRight.current.position.z -= 0.2
-      refMeshRight.current.position.z -= 0.2
-      refPaneRight.current.position.z -= 0.2
-      vidRef.current.position.z -= 0.2
+      refNewRight.current.position.z -= speed
+      refMeshRight.current.position.z -= speed
+      refPaneRight.current.position.z -= speed
+      vidRef.current.position.z -= speed
       refNewRight.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
       refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
       refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
       vidRef.current.material.opacity = 1 - (Math.abs(vidRef.current.position.z)/40)
-      refNewLeft.current.position.z -= 0.2
-      refMeshLeft.current.position.z -= 0.2
-      refPaneLeft.current.position.z -= 0.2
+      refNewLeft.current.position.z -= speed
+      refMeshLeft.current.position.z -= speed
+      refPaneLeft.current.position.z -= speed
       refNewLeft.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
       refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
       refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
@@ -128,6 +148,7 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
       refPaneLeft.current.position.z = -280
       vidRef.current.material.opacity = 0
       vidRef.current.position.z = -280
+      vidRef.current.position.z = -280
     }
     if (refMeshLeft.current.position.z < -280) {
       refNewRight.current.position.z = 20
@@ -136,6 +157,7 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
       refNewLeft.current.position.z = 20
       refMeshLeft.current.position.z = 20
       refPaneLeft.current.position.z = 20
+      vidRef.current.position.z = 20
     }
     if (refMeshLeft.current.position.z < -40){
       refPaneRight.current.visible = false
@@ -231,8 +253,8 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
           transparent={true} 
         />
       </mesh>
-      <mesh scale={1} ref={vidRef} position={[position[0] + viewport.width / 4, position[1], position[2]]} opacity={opacity}>
-        <planeGeometry />
+      <mesh scale={1} ref={vidRef} position={[videoPositions[id][0] * paneHeight, videoPositions[id][1] * paneHeight, position[2] + 0.1]} opacity={opacity}>
+        <planeGeometry args={[videoPositions[id][2] * paneHeight, videoPositions[id][3] * paneHeight]}/>
         {/* <Suspense fallback={<FallbackMaterial url="10.jpg" />}> */}
         <meshBasicMaterial map={useVideoTexture(vid)} toneMapped={false} />
         {/* </Suspense> */}
@@ -388,6 +410,7 @@ export function LinesPage() {
           backwardHovered = {isBackwardHovered}
           stayHovered = {isStayHovered}
           key={i}
+          id={i}
           image = {image_urls[i]}
         />
       )
