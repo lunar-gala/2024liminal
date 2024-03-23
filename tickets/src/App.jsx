@@ -1,6 +1,6 @@
 import { Preload } from '@react-three/drei'
 import { RobotoMono, LIMINAL, text2components, max } from '../../src/index.jsx'
-import { animated, useSpring, useSpringValue, } from '@react-spring/three'
+import { animated, useSpringValue, } from '@react-spring/three'
 
 // Typography
 import { useThree } from '@react-three/fiber'

@@ -27,14 +27,20 @@ import * as THREE from "three";
 
 // nav
 import { useLocation, Switch, Route } from "wouter"
-import { useTransition } from "@react-spring/core"
-import { a } from "@react-spring/three"
+import { useTransition, useSpringValue } from "@react-spring/core"
+import { a, animated } from "@react-spring/three"
 
 // pages
 import { AboutPage } from "../about/src/App.jsx"
 import { TixPage } from "../tickets/src/App.jsx"
 import { PeoplePage } from "../people/src/App.jsx"
 import { LinesPage } from "../lines/src/App.jsx"
+
+const Color = ({args}) => {
+  return <><color attach="background" args={[args]} /></>
+}
+
+const AnimatedColor = animated(Color);
 
 const App = () => {
 
@@ -61,6 +67,8 @@ const App = () => {
   // transition duration
   const duration = 5000;
 
+  const opacitySpring = useSpringValue(0);
+
   const go_in = {
     from: { position: [0, 0, -10], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
     enter: { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1], opacity: 1 },
@@ -79,15 +87,17 @@ const App = () => {
   
   // Animated shape props
   const transition = useTransition(location, transition_settings)
+
   return (
     <>
       <Cover>
-        <Canvas camera={{ position: [0, 0, 20], fov: 50 }} gl={{ localClippingEnabled: true }} >
-          <color attach="background" args={(location == '/') ? [0, 0, 0] : [255, 255, 255]} /> // bg
+        <Canvas camera={{ position: [0, 0, 20], fov: 50 }} >
+          <color attach="background" args={['black']} />
+          {/* <AnimatedColor args={opacitySpring.to((value) => [value, value, value])}/> */}
           <ambientLight intensity={1}/>
-          <directionalLight position={[0, 0, 5]} intensity={0.5} />
+          {/* <directionalLight position={[0, 0, 5]} intensity={0.5} /> */}
           <Suspense fallback={null}>
-            <Pages transition={transition} isMobile={isMobile} />
+            <Pages transition={transition} isMobile={isMobile} spring={opacitySpring} />
           </Suspense>
         </Canvas>
       </Cover>
@@ -103,20 +113,13 @@ export default App
 /**
  * NAV
  */
-const AuthPages = {
-  "about": true,
-  "tix": true,
-  "people": true,
-  "lines": true,
-};
-
-function Pages({ transition, isMobile }) {
+function Pages({ transition, isMobile, spring }) {
 
   return transition(({ opacity, ...props }, location) => (
     <a.group {...props}>
       <Switch location={location}>
         <Route path="/">
-          <HomePage />
+          <HomePage spring={spring} />
         </Route>
         <Route path="/about">
           <AboutPage />
@@ -131,19 +134,19 @@ function Pages({ transition, isMobile }) {
           <LinesPage />
         </Route>
       </Switch>
-      <Sensor />
+      <Sensor spring={spring}/>
     </a.group>
   ))
 }
 
 // mesh element that covers the screen and calls sendBack() 
 // when the mouse is lifted
-function Sensor() {
+function Sensor({spring}) {
   return (
     <mesh 
       position = {[0, 0, 0]} 
-      onPointerUp = { (e) => sendBack() } 
-      onClick = { (e) => sendBack() }
+      onPointerUp = { (e) => sendBack(spring) } 
+      onClick = { (e) => sendBack(spring) }
     >
       <boxGeometry args={[100, 100, 0.1]}/>
       <meshPhongMaterial color={"pink"} opacity={0} transparent />
@@ -151,35 +154,12 @@ function Sensor() {
   )
 }
 
-// A wrapper for <Route> that redirects to the login
-// screen if you're not yet authenticated.
-// NEED TO IMLPEMENT
-function PrivateRoute({ children, page, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        AuthPages.page ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/",
-              state: { from: location }
-            }}
-          />
-        )
-      }
-    />
-  );
-}
-
 /**
  * SUB-PAGES
  * should go in seperate files
  */
 
-function Model() {
+function Model({spring}) {
   const groupRef = useRef();
   const { viewport } = useThree();
   
@@ -201,18 +181,36 @@ function Model() {
         <mesh 
           position={position} 
           rotation={rotation}
-          onClick = { (e) => sendBack() }
-          onPointerDown = { (e) => redirect(id) } 
+          onClick = { (e) => sendBack(spring) }
+          onPointerDown = { (e) => redirect(id, spring) } 
         >
           <RoundedBox args={[paneHeight, paneWidth, 0.1]} radius={0.005} smoothness={2}>
             {/* <meshLambertMaterial {...lambertConfig}/> */}
             <MeshTransmissionMaterial
               background={new THREE.Color("#ffffff")}
-              {...config}
+              meshPhysicalMaterial={false}
+              transmissionSampler={false}
+              backside={false}
+              samples={16}
+              resolution={100}
+              transmission={0.94}
+              roughness={0.24}
+              thickness={1.62}
+              ior={1.65}
+              chromaticAberration={0.25}
+              anisotropy={0.2}
+              anisotropicBlur={1.0}
+              distortion={0.06}
+              distortionScale={0.2}
+              temporalDistortion={0.1}
+              clearcoat={1.0}
+              attenuationDistance={2.61}
+              attenuationColor={"#ffffff"}
+              color={"#92969d"}
+              bg={"#ffffff"}
             />
           </RoundedBox>
         </mesh>
-        
         <Text3D
           font="./fonts/Wordmark/NewEdge-666-Regular.json"
           size={textSize}
@@ -231,29 +229,6 @@ function Model() {
     rotationtext: {value: [3.2 * paneWidth,3.14 * paneWidth, 0.07 * paneWidth]}
   };
 
-  // Lower 'samples' and 'resolution' for better performance (less lag)
-  const config = {
-    meshPhysicalMaterial: false,
-    transmissionSampler: false,
-    backside: false,
-    samples: { value: 16, min: 1, max: 32, step: 1 },
-    resolution: { value: 1024, min: 256, max: 2048, step: 256 },
-    transmission: { value: .94, min: 0, max: 1 },
-    roughness: { value: 0.24, min: 0, max: 1, step: 0.01 },
-    thickness: { value: .4, min: 0, max: 10, step: 0.01 },
-    ior: { value: 1.28, min: 1, max: 5, step: 0.01 },
-    chromaticAberration: { value: 0.16, min: 0, max: 1 },
-    anisotropy: { value: 0.25, min: 0, max: 1, step: 0.01 },
-    anisotropicBlur: { value: 0.89, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.23, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.14, min: 0.01, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.19, min: 0, max: 1, step: 0.01 },
-    clearcoat: { value: 1.0, min: 0, max: 1 },
-    attenuationDistance: { value: 4.53, min: 0, max: 10, step: 0.01 },
-    attenuationColor: "#ffffff",
-    color: "#92969d",
-    bg: "#ffffff",
-  }
 
   const lambertConfig = {
     transparent: true,
@@ -265,7 +240,7 @@ function Model() {
     visible: true,
     side: THREE.DoubleSide,
     color: '#5c5a5f',
-    emissive: '888888',
+    emissive: '#888888',
     fog: true,
     combine: THREE.MultiplyOperation,
     reflectifity: 1,
@@ -292,7 +267,7 @@ function Model() {
       let text = pages[i%4].toUpperCase()
 
       planes.push(
-        <Pane key={i} id={i%4} position={[x, 0, z]} rotation={[0, -angle, 0]} text={text} config={config} x={x} z={z} angle={angle} />
+        <Pane key={i} id={i%4} position={[x, 0, z]} rotation={[0, -angle, 0]} text={text} x={x} z={z} angle={angle} />
       );
     }
 
@@ -303,7 +278,7 @@ function Model() {
     )
   }
 
-  const glowPosition = [0, 0, 0.2];
+  const glowPosition = [0, 0, 0.2]
   
   // const glowSize = useControls({
   //   glowSizing: {value: [2, 0.85, 0.01], step: 0.01}
@@ -312,13 +287,7 @@ function Model() {
   //   paneSizing: {value: [0.45, 2, 0.01], step: 0.01}
   // })
 
-
-  const { rotation } = useControls({
-    rotation: {
-      value: [0, 0, 1.57], // initial value
-      step: 0.01, // step size for each value
-    },
-  });
+  const rotation = [0, 0, 1.57]
 
   // Checkout 'Clone' props from R3F Drei docs: https://github.com/pmndrs/drei?tab=readme-ov-file#clone
   return (
@@ -350,11 +319,11 @@ function Model() {
 }
 
 
-function HomePage(viewport) {
+function HomePage({spring}) {
   return (
     <>
-      <fog attach="fog" color="#758ac1" near={1} far={10} />
-      <Model />
+      {/* <fog attach="fog" color="#758ac1" near={1} far={10} /> */}
+      <Model spring={spring}/>
     </>
   )
 }

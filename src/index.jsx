@@ -38,7 +38,9 @@ export const Cover = styled(a.div)`
   height: 100%;
 `
 
-export function redirect(id) {
+export function redirect(id, spring) {
+    spring.start(0)
+
     const pages = ["about", "tickets", "people", "lines"];
     console.log(pages[id])
 
@@ -50,7 +52,8 @@ export function redirect(id) {
     return history.replace(location)
 }
   
-export function sendBack() {
+export function sendBack(spring) {
+    spring.start(255)
     return history.replace("/")
 }
 
