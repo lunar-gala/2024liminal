@@ -53,15 +53,20 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
 
   useFrame(() => {
     if (forwardHovered) {
-      console.log(refPaneRight.current.position.z)
       refMeshRight.current.position.z += 0.2
       refMeshLeft.current.position.z += 0.2
       refPaneLeft.current.position.z += 0.2
       refPaneRight.current.position.z += 0.2
-      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/60)
-      refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshLeft.current.position.z)/60)
-      refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneLeft.current.position.z)/60)
-      refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/60)
+      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
+      refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshLeft.current.position.z)/40)
+      refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneLeft.current.position.z)/40)
+      refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
+      if (refMeshRight.current.position.z < 0.5 && refMeshRight.current.position.z > -0.5){
+        refMeshRight.current.material.opacity = 1 
+        refMeshLeft.current.material.opacity = 1
+        refPaneLeft.current.material.opacity = 1
+        refPaneRight.current.material.opacity = 1
+      }
       
     }
     else if (backwardHovered) {
@@ -69,10 +74,11 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
       refMeshLeft.current.position.z -= 0.2
       refPaneLeft.current.position.z -= 0.2
       refPaneRight.current.position.z -= 0.2
-      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/60)
-      refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshLeft.current.position.z)/60)
-      refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneLeft.current.position.z)/60)
-      refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/60)
+
+      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
+      refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshLeft.current.position.z)/40)
+      refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneLeft.current.position.z)/40)
+      refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
     }
     if (refMeshRight.current.position.z > 20) {
       refMeshRight.current.material.opacity = 0
@@ -301,6 +307,14 @@ export function LinesPage() {
   return (
     <>
       <LIMINAL viewport={viewport} />
+      <mesh
+        position = {[0, -27, -60]}>
+        <boxGeometry args = {[140, 40, 0]}/>
+        <Edges
+          color = {"black"}
+          scale = {1}/>
+        <meshStandardMaterial opacity = {0} transparent = {true}/>
+      </mesh>
       <group>
         {Pairs}
       </group>
