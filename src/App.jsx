@@ -348,12 +348,12 @@ function HomePage({spring}) {
   function Mask() {
     return (
       <group>
-        <mesh position={[0, viewport.height/4 + viewport.width/16, 0.2]}>
-          <boxGeometry args={[viewport.width, viewport.height/2, 0.1]} />
+        <mesh position={[0, viewport.height/2 + viewport.width/16, 0.2]}>
+          <boxGeometry args={[viewport.width, viewport.height, 0.1]} />
           <meshBasicMaterial color={"black"} toneMapped={false}/>
         </mesh>
-        <mesh position={[0, -viewport.height/4 - viewport.width/16, 0.2]}>
-          <boxGeometry args={[viewport.width, viewport.height/2, 0.1]} />
+        <mesh position={[0, -viewport.height/2 - viewport.width/16, 0.2]}>
+          <boxGeometry args={[viewport.width, viewport.height, 0.1]} />
           <meshBasicMaterial color={"black"} toneMapped={false}/>
         </mesh>
         <mesh position={[-0.5 * viewport.width, 0, 0.2]}>

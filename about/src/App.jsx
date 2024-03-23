@@ -84,8 +84,8 @@ export function AboutPage() {
       </group>
       <group position={[-panesSpan/2 - paneWidth/2, viewport.height * -0.44, 0]}>
         <RobotoMono fontSize={RobotoMonoSize} text={about_text_5.toUpperCase()} anchorX={"left"} />
-        <Image url = {tons} position = {[8.5, 0, 0]} scale = {[4, 1, 1]} toneMapped={false}/>
-        <Image url = {s} position = {[11.5, 0, 0]} scale = {[2, 2, 2]} toneMapped={false}/>
+        <Image url = {tons} position = {[9.5, 0, 0]} scale = {[4, 1, 1]} toneMapped={false}/>
+        <Image url = {s} position = {[13.5, 0, 0]} scale = {[2, 2, 2]} toneMapped={false}/>
       </group>
       {/* <Stats /> */}
     </>

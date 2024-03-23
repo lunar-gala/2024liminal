@@ -4,7 +4,8 @@ import { a } from "@react-spring/web"
 import React, { useRef } from "react"
 import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
 import { createBrowserHistory } from 'history';
-import { Text } from '@react-three/drei'
+import { Text, MeshTransmissionMaterial } from '@react-three/drei'
+import * as THREE from 'three'
 
 // general utils
 
@@ -85,11 +86,20 @@ export const Pane = ({ position, size, moveFunction, id, opacity }) => {
         >
         
         <boxGeometry args={size}/>
-        <meshStandardMaterial 
+        <MeshTransmissionMaterial 
+            samples={16} 
+            resolution={100} 
+            anisotropicBlur={.1} 
+            thickness={0.1} 
+            roughness={0.4} 
+            toneMapped={true} 
+            background={new THREE.Color('#b5e2ff')} 
+        />
+        {/* <meshStandardMaterial 
             color={"#E4F2F4"} 
             opacity={opacity}
             transparent={true} 
-        />
+        /> */}
         </mesh>
     )
 }
