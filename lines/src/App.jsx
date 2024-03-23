@@ -43,6 +43,8 @@ import Flux_Right from '../../src/images/Flux_Right.png'
 import Shrouded_Left from '../../src/images/Shrouded_Left.png'
 import Shrouded_Right from '../../src/images/Shrouded_Right.png'
 
+import vid from '../src/assets/sample.mp4'
+
 const image_urls = []
 image_urls.push([Meliora_Aliturae_Left, Meliora_Aliturae_Right])
 image_urls.push([Twilight_Left, Twilight_Right])
@@ -64,24 +66,6 @@ const nLines = 15 // number of lines
 const distBetweenPairs = 20
 const endPoint = nLines * (distBetweenPairs-1)
 
-function VideoMaterial({ url }) {
-  const texture = useVideoTexture(url)
-  return <meshBasicMaterial map={texture} toneMapped={false} />
-}
-
-const Video = ({position, opacity, url}) => {
-  const size = useAspect(180, 100)
-  return (
-    <mesh scale={1} position={position} opacity={opacity}>
-      <planeGeometry />
-      {/* <Suspense fallback={<FallbackMaterial url="10.jpg" />}> */}
-        <VideoMaterial url={url} />
-      {/* </Suspense> */}
-    </mesh>
-  )
-  
-}
-
 const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, image}) => {
   const {viewport} = useThree()
   const paneHeight = viewport.height * 0.58
@@ -94,6 +78,7 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
   const refMeshRight = useRef()
   const refNewLeft = useRef()
   const refNewRight = useRef()
+  const vidRef = useRef();
 
   useFrame(() => {
     if (forwardHovered) {
@@ -103,9 +88,11 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
       refNewRight.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
       refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
       refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
+      vidRef.current.material.opacity = 1 - (Math.abs(vidRef.current.position.z)/40)
       refNewLeft.current.position.z += 0.2
       refMeshLeft.current.position.z += 0.2
       refPaneLeft.current.position.z += 0.2
+      vidRef.current.position.z += 0.2
       refNewLeft.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
       refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
       refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
@@ -114,9 +101,11 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
       refNewRight.current.position.z -= 0.2
       refMeshRight.current.position.z -= 0.2
       refPaneRight.current.position.z -= 0.2
+      vidRef.current.position.z -= 0.2
       refNewRight.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
       refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
       refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
+      vidRef.current.material.opacity = 1 - (Math.abs(vidRef.current.position.z)/40)
       refNewLeft.current.position.z -= 0.2
       refMeshLeft.current.position.z -= 0.2
       refPaneLeft.current.position.z -= 0.2
@@ -137,6 +126,8 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
       refMeshLeft.current.position.z = -280
       refPaneLeft.current.material.opacity = 0
       refPaneLeft.current.position.z = -280
+      vidRef.current.material.opacity = 0
+      vidRef.current.position.z = -280
     }
     if (refMeshLeft.current.position.z < -280) {
       refNewRight.current.position.z = 20
@@ -240,6 +231,13 @@ const Pair = ({position, opacity, forwardHovered, backwardHovered, stayHovered, 
           transparent={true} 
         />
       </mesh>
+      <mesh scale={1} ref={vidRef} position={[position[0] + viewport.width / 4, position[1], position[2]]} opacity={opacity}>
+        <planeGeometry />
+        {/* <Suspense fallback={<FallbackMaterial url="10.jpg" />}> */}
+        <meshBasicMaterial map={useVideoTexture(vid)} toneMapped={false} />
+        {/* </Suspense> */}
+      </mesh>
+      {/* <Video ref={vidRef} position={[position[0], position[1], position[2]]} url={vid} opacity={1 - (Math.abs(z)/40)} /> */}
     </>
   )
 }
