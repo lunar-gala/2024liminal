@@ -344,12 +344,12 @@ function HomePage({spring}) {
           <boxGeometry args={[viewport.width, viewport.height, 0.1]} />
           <meshBasicMaterial color={"black"} toneMapped={false}/>
         </mesh>
-        <mesh position={[-0.5 * viewport.width, 0, 0.2]}>
-          <boxGeometry args={[0.5 * viewport.width, viewport.height, 0.1]} />
+        <mesh position={[-viewport.width, 0, 0.2]}>
+          <boxGeometry args={[1.5 * viewport.width, viewport.height, 0.1]} />
           <meshBasicMaterial color={"black"} toneMapped={false}/>
         </mesh>
-        <mesh position={[0.5 * viewport.width, 0, 0.2]}>
-          <boxGeometry args={[0.5 * viewport.width, viewport.height, 0.1]} />
+        <mesh position={[viewport.width, 0, 0.2]}>
+          <boxGeometry args={[1.5 * viewport.width, viewport.height, 0.1]} />
           <meshBasicMaterial color={"black"} toneMapped={false}/>
         </mesh>
       </group>
