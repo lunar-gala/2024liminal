@@ -73,7 +73,17 @@ const App = () => {
     config: () => (n) => n === "opacity" && { friction: 1000, duration: duration },
   }
 
-  const transition_settings = (location == '/') ? go_out : go_in;
+  const landing_settings = {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+  }
+
+  let transition_settings = (location == '/home') ? go_out : go_in;
+
+  if (location == '/') {
+    transition_settings = landing_settings
+  } 
   
   // Animated shape props
   const transition = useTransition(location, transition_settings)

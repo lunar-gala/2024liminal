@@ -142,13 +142,13 @@ const AnimatedCard = animated(Card)
 
 function makeCards(id) {
   const cards = [];
-  console.log(urls.length, names.length, team.length, title.length)
+  // console.log(urls.length, names.length, team.length, title.length)
   for (let i = 0; i < numPeople; i++) {
     const imageUrl = urls[(i+161) % urls.length];
     const name = names[(i+161) % names.length];
     const theteam = team[(i+161) % team.length];
     const subteam = title[(i+161) % title.length];
-    console.log(i, imageUrl, name, theteam, subteam)
+    // console.log(i, imageUrl, name, theteam, subteam)
     cards.push(<AnimatedCard id={id} myid={i} key={i} imageUrl={imageUrl} name={name} team={theteam} subteam={subteam} />);
   }
 
@@ -333,7 +333,7 @@ const Cards = ( ) => {
 
 export function PeoplePage({isMobile}) {
 
-  console.log(isMobile)
+  // console.log(isMobile)
   
   if (!isMobile) return (
     <>
