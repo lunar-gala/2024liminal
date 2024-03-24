@@ -59,23 +59,23 @@ import Shrouded_Right from '../../src/images/Shrouded_Right.png'
 // import twilight from '../../src/videos/twilight.mp4'
 // import pleaseStandin from '../../src/videos/sample.mp4'
 
-const videos = [
-  meliora,
-  twilight,
-  nandini,
-  entomate,
-  crimson,
-  coalesce,
-  pleaseStandin,
-  opulence,
-  nurra,
-  bloom,
-  proForma,
-  angae,
-  avidhya,
-  flux,
-  shroudedSanity
-]
+// const videos = [
+//   meliora,
+//   twilight,
+//   nandini,
+//   entomate,
+//   crimson,
+//   coalesce,
+//   pleaseStandin,
+//   opulence,
+//   nurra,
+//   bloom,
+//   proForma,
+//   angae,
+//   avidhya,
+//   flux,
+//   shroudedSanity
+// ]
 
 const videoPositions = [
   [-1.05, 0.35, 0.18, 0.21],
