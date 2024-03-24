@@ -39,7 +39,7 @@ export const Cover = styled(a.div)`
   height: 100%;
 `
 
-export function redirect(e, id, spring) {
+export function redirect(e, id) {
     e.stopPropagation();
 
     const pages = ["about", "tickets", "people", "lines"];
@@ -53,9 +53,9 @@ export function redirect(e, id, spring) {
     return history.replace(location)
 }
   
-export function sendBack(e, spring) {
-    e.stopPropagation();
-    return history.replace("/")
+export function sendBack(e) {
+    if (e != undefined) e.stopPropagation();
+    return history.replace("/home")
 }
 
 // reference constants

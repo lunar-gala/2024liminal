@@ -32,7 +32,7 @@ import { PeoplePage } from "../people/src/App.jsx"
 import { LinesPage } from "../lines/src/App.jsx"
 
 // assets
-import promoVid from "/src/assets/fuckit.mov"
+import promoVid from "/src/assets/fuckit.mp4"
 
 const App = () => {
 
@@ -109,6 +109,9 @@ function Pages({ transition, isMobile, spring }) {
     <a.group {...props}>
       <Switch location={location}>
         <Route path="/">
+          <LandingPage />
+        </Route>
+        <Route path="/home">
           <HomePage spring={spring} />
         </Route>
         <Route path="/about">
@@ -364,14 +367,27 @@ function HomePage({spring}) {
 
   return (
     <>
-      {/* <mesh scale={1} position={[0, 0, 1]} ref={vidRef} opacity={1}>
-        <planeGeometry args={[viewport.width, viewport.height]}/>
-          <Suspense fallback={<FallbackMaterial url="10.jpg" />}>
-            <meshBasicMaterial map={useVideoTexture(promoVid, {loop: false})} toneMapped={false} />
-          </Suspense>
-      </mesh> */}
       <Mask />
       <Model spring={spring} viewport={viewport} />
+    </>
+  )
+}
+
+function LandingPage() {
+
+  const ref = useRef()
+  const { viewport } = useThree();
+
+  setTimeout(sendBack, 23000);
+
+  return (
+    <>
+      <mesh scale={1} position={[0, 0, 1]} transparent opacity={1}>
+        <planeGeometry args={[viewport.width, viewport.height]}/>
+          {/* <Suspense fallback={<FallbackMaterial url="10.jpg" />}> */}
+            <meshBasicMaterial map={useVideoTexture(promoVid, {loop: false})} toneMapped={false} />
+          {/* </Suspense> */}
+      </mesh>
     </>
   )
 }
