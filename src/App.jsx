@@ -14,7 +14,8 @@ import {
   Loader, 
   MeshTransmissionMaterial, 
   RoundedBox, 
-  Text3D
+  Text3D,
+  useVideoTexture
 } from '@react-three/drei'
 import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
 import * as THREE from "three";
@@ -30,6 +31,9 @@ import { TixPage } from "../tickets/src/App.jsx"
 import { PeoplePage } from "../people/src/App.jsx"
 import { LinesPage } from "../lines/src/App.jsx"
 
+// assets
+import promoVid from "/src/assets/fuckit.mov"
+
 const App = () => {
 
   // is mobile
@@ -44,8 +48,6 @@ const App = () => {
           window.removeEventListener('resize', handleWindowSizeChange)
       }
   }, [])
-
-  console.log(width)
 
   const isMobile = width <= 768
 
@@ -166,17 +168,6 @@ function Model({spring, viewport}) {
 
     useFrame(({ clock }) => {
       ref.current.rotation.y = (angle + clock.getElapsedTime() / 8) % (2*Math.PI);
-
-      if (id == 1) {
-        console.log(ref.current.rotation.y)
-      }
-
-      // if (ref.current.rotation.y + angle > Math.PI/4) {
-      //   ref.current.visible = false
-        
-      // } else {
-      //   ref.current.visible = true
-      // }
       
     });
 
@@ -221,7 +212,7 @@ function Model({spring, viewport}) {
         <mesh 
           position={[radius * Math.sin(angle), 0, radius * Math.cos(angle)]} 
           rotation={rotation}
-          visible={false} 
+          visible={false}
         >
           <boxGeometry args={[paneHeight, paneWidth, 0.1]} radius={0.05} smoothness={2}>
             {/* <meshLambertMaterial {...lambertConfig}/> */}
@@ -362,11 +353,25 @@ function HomePage({spring}) {
     )
   }
 
+  const vidRef = useRef()
+  const vidLength = 20000
+
+  useFrame(({clock}) => {
+    if (clock.getElapsedTime() > vidLength) {
+      vidRef.current.material.opacity -= 0.1;
+    }
+  })
+
   return (
     <>
-      {/* <fog attach="fog" color="#758ac1" near={1} far={10} /> */}
+      {/* <mesh scale={1} position={[0, 0, 1]} ref={vidRef} opacity={1}>
+        <planeGeometry args={[viewport.width, viewport.height]}/>
+          <Suspense fallback={<FallbackMaterial url="10.jpg" />}>
+            <meshBasicMaterial map={useVideoTexture(promoVid, {loop: false})} toneMapped={false} />
+          </Suspense>
+      </mesh> */}
       <Mask />
-      <Model spring={spring} viewport={viewport}/>
+      <Model spring={spring} viewport={viewport} />
     </>
   )
 }

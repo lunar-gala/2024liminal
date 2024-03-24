@@ -43,7 +43,39 @@ import Flux_Right from '../../src/images/Flux_Right.png'
 import Shrouded_Left from '../../src/images/Shrouded_Left.png'
 import Shrouded_Right from '../../src/images/Shrouded_Right.png'
 
-import vid from '../src/assets/sample.mp4'
+import angae from '../../src/videos/angae.mp4'
+import avidhya from '../../src/videos/avidhya.mp4'
+import bloom from '../../src/videos/bloom.mp4'
+import coalesce from '../../src/videos/Coalesce.mp4'
+import crimson from '../../src/videos/crimson.mp4'
+import entomate from '../../src/videos/enomate.mp4'
+import flux from '../../src/videos/flux.mp4'
+import meliora from '../../src/videos/meliora.mp4'
+import nandini from '../../src/videos/nandini.mp4'
+import nurra from '../../src/videos/nurra.mp4'
+import opulence from '../../src/videos/opulence.mp4'
+import proForma from '../../src/videos/proForma.mp4'
+import shroudedSanity from '../../src/videos/shroudedSanity.mp4'
+import twilight from '../../src/videos/twilight.mp4'
+import pleaseStandin from '../../src/videos/sample.mp4'
+
+const videos = [
+  meliora,
+  twilight,
+  nandini,
+  entomate,
+  crimson,
+  coalesce,
+  pleaseStandin,
+  opulence,
+  nurra,
+  bloom,
+  proForma,
+  angae,
+  avidhya,
+  flux,
+  shroudedSanity
+]
 
 const videoPositions = [
   [-1.05, 0.35, 0.18, 0.21],
@@ -159,13 +191,14 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
       refPaneLeft.current.position.z = 20
       vidRef.current.position.z = 20
     }
-    if (refMeshLeft.current.position.z < -40){
+    if (refMeshLeft.current.position.z < -40 || refMeshLeft.current.position.z > distBetweenPairs * 3){
       refPaneRight.current.visible = false
       refNewRight.current.visible = false
       refMeshRight.current.visbile = false
       refMeshLeft.current.visible = false
       refPaneLeft.current.visible = false
       refNewLeft.current.visible = false
+      vidRef.current.visible = false
     } else {
       refPaneRight.current.visible = true
       refNewRight.current.visible = true
@@ -173,6 +206,7 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
       refMeshLeft.current.visible = true
       refPaneLeft.current.visible = true
       refNewLeft.current.visible = true
+      vidRef.current.visible = true
     }
     
   })
@@ -210,6 +244,7 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
             map = {left}
             opacity = {1 - (Math.abs(z)/40)}
             transparent = {true}
+            toneMapped={false}
             />
       </mesh>
       <mesh position={ [ -paneWidth * 1.75/2 + x, y, z + 0.01 ] } ref = {refMeshLeft}>
@@ -218,6 +253,7 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
           map={left}
           opacity={1 - (Math.abs(z)/40)}
           transparent={true} 
+          toneMapped={false}
         />
       </mesh>
       <mesh
@@ -255,9 +291,9 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
       </mesh>
       <mesh scale={1} ref={vidRef} position={[videoPositions[id][0] * paneHeight, videoPositions[id][1] * paneHeight, position[2] + 0.1]} opacity={opacity}>
         <planeGeometry args={[videoPositions[id][2] * paneHeight, videoPositions[id][3] * paneHeight]}/>
-        {/* <Suspense fallback={<FallbackMaterial url="10.jpg" />}> */}
-        <meshBasicMaterial map={useVideoTexture(vid)} toneMapped={false} />
-        {/* </Suspense> */}
+          {/* <Suspense fallback={ <FallbackMaterial url="10.jpg" />}> 
+            <meshBasicMaterial map={useVideoTexture(videos[id])} toneMapped={false} />
+          </Suspense> */}
       </mesh>
       {/* <Video ref={vidRef} position={[position[0], position[1], position[2]]} url={vid} opacity={1 - (Math.abs(z)/40)} /> */}
     </>
