@@ -327,16 +327,11 @@ export function PeoplePage({isMobile}) {
 
   // console.log(isMobile)
   
-  if (!isMobile) return (
+  return (
     <>
       <group>
         <Cards />
       </group>
-    </>
-  )
-  return (
-    <>
-      {/* <MobilePeople /> */}
     </>
   )
 }
