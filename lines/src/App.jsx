@@ -465,7 +465,7 @@ export function LinesPage() {
   
     let pairs = []
     for (let i = 0; i < nLines; i++) {
-      // console.log(- (i * distBetweenPairs) - 0.1)
+      console.log(- (i * distBetweenPairs) - 0.1)
       pairs.push(
         <AnimatedPair 
           opacity={1}

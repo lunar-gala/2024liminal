@@ -286,7 +286,7 @@ function Model({spring, viewport}) {
       var z = radius * Math.sin(angle);
 
       let text = pages[i%4]
-      // console.log(angle)
+      console.log(angle)
 
       planes.push(
         <Pane key={i} id={(i)%4} position={[0, 0, 0]} rotation={[0, angle + Math.PI/2, 0]} text={text} x={x} z={z} angle={angle} />

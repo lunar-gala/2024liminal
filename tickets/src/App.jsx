@@ -109,7 +109,7 @@ export function TixPage() {
     // spring.start(max(viewport.width, viewport.height))
     move = true
     lensSize.start(lensMax)
-    // console.log('over')
+    console.log('over')
     // changeStore()
   }
 
@@ -117,7 +117,7 @@ export function TixPage() {
     // lensSize.reverse()
     move = false
     lensSize.start(lensDefault)
-    // console.log('out')
+    console.log('out')
     // changeStore()
   }
 
