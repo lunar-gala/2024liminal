@@ -1,5 +1,5 @@
 import { Preload } from '@react-three/drei'
-import { RobotoMono, LIMINAL, text2components, max } from '../../src/index.jsx'
+import { RobotoMono, LIMINAL, text2components, max, sendBack } from '../../src/index.jsx'
 import { animated, useSpringValue, } from '@react-spring/three'
 
 // Typography
@@ -29,8 +29,9 @@ export function TixPage() {
   const lensSize = useSpringValue(lensDefault, 
     {onRest: (e) => {
       if (e.finished === true && move) {
-        console.log(e);
-        window.open("https://en.wikipedia.org/wiki/K67_kiosk", '_blank').focus();
+        // console.log(e);
+        window.open("https://carnegiemellontickets.universitytickets.com/w/event.aspx?id=2462&p=1", '_blank').focus();
+        sendBack()
       }
     }})
 

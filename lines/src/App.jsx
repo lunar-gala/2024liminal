@@ -5,8 +5,8 @@ import {
   Image,
   useTexture,
   MeshTransmissionMaterial,
-  useVideoTexture,
-  useAspect
+  Text3D,
+  Center
 } from '@react-three/drei'
 import * as THREE from 'three'
 import './App.css'
@@ -59,23 +59,23 @@ import Shrouded_Right from '../../src/images/Shrouded_Right.png'
 // import twilight from '../../src/videos/twilight.mp4'
 // import pleaseStandin from '../../src/videos/sample.mp4'
 
-// const videos = [
-//   meliora,
-//   twilight,
-//   nandini,
-//   entomate,
-//   crimson,
-//   coalesce,
-//   pleaseStandin,
-//   opulence,
-//   nurra,
-//   bloom,
-//   proForma,
-//   angae,
-//   avidhya,
-//   flux,
-//   shroudedSanity
-// ]
+const lines = [
+  "Meliora Aliturae",
+  "Twilight",
+  "Nandini",
+  "Entomate",
+  "Crimson",
+  "Coalesce 2000s",
+  "Please Remember Me",
+  "Opulence",
+  "Nurra",
+  "Bloom",
+  "Pro Forma",
+  "Angae",
+  "Avidhya",
+  "Flux",
+  "Shrouded Sanity"
+]
 
 const videoPositions = [
   [-1.05, 0.35, 0.18, 0.21],
@@ -128,7 +128,8 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
   const refMeshRight = useRef()
   const refNewLeft = useRef()
   const refNewRight = useRef()
-  const vidRef = useRef();
+  const vidRef = useRef()
+  const labelRef = useRef()
 
   const speed = 0.7
 
@@ -137,33 +138,38 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
       refNewRight.current.position.z += speed
       refMeshRight.current.position.z += speed
       refPaneRight.current.position.z += speed
-      refNewRight.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
-      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
-      refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
-      vidRef.current.material.opacity = 1 - (Math.abs(vidRef.current.position.z)/40)
       refNewLeft.current.position.z += speed
       refMeshLeft.current.position.z += speed
       refPaneLeft.current.position.z += speed
       vidRef.current.position.z += speed
-      refNewLeft.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
+      labelRef.current.position.z += speed
+      refNewRight.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
+      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
+      refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
       refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
       refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
+      refNewLeft.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
+      labelRef.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
+      vidRef.current.material.opacity = 1 - (Math.abs(vidRef.current.position.z)/40)
     }
     else if (backwardHovered) {
       refNewRight.current.position.z -= speed
       refMeshRight.current.position.z -= speed
       refPaneRight.current.position.z -= speed
       vidRef.current.position.z -= speed
-      refNewRight.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
-      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
-      refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
-      vidRef.current.material.opacity = 1 - (Math.abs(vidRef.current.position.z)/40)
       refNewLeft.current.position.z -= speed
       refMeshLeft.current.position.z -= speed
       refPaneLeft.current.position.z -= speed
+      labelRef.current.position.z -= speed
+      refNewRight.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
+      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
+      refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
       refNewLeft.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
       refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
       refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
+      vidRef.current.material.opacity = 1 - (Math.abs(vidRef.current.position.z)/40)
+      labelRef.current.material.opacity = 1 - (Math.abs(vidRef.current.position.z)/40)
+      console.log('backwards')
     }
     if (refMeshLeft.current.position.z > 20) {
       refNewRight.current.material.opacity = 0
@@ -180,16 +186,26 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
       refPaneLeft.current.position.z = -280
       vidRef.current.material.opacity = 0
       vidRef.current.position.z = -280
-      vidRef.current.position.z = -280
+      labelRef.current.material.opacity = 0
+      labelRef.current.position.z = -280
     }
     if (refMeshLeft.current.position.z < -280) {
       refNewRight.current.position.z = 20
+      refNewRight.current.material.opacity = 1
       refMeshRight.current.position.z = 20
+      refMeshRight.current.material.opacity = 1
       refPaneRight.current.position.z= 20
+      refPaneRight.current.material.opacity = 1
       refNewLeft.current.position.z = 20
+      refNewLeft.current.material.opacity = 1
       refMeshLeft.current.position.z = 20
+      refMeshLeft.current.material.opacity = 1
       refPaneLeft.current.position.z = 20
+      refPaneLeft.current.material.opacity = 1
       vidRef.current.position.z = 20
+      vidRef.current.material.opacity = 1
+      labelRef.current.position.z = 20
+      labelRef.current.material.opacity = 1
     }
     if (refMeshLeft.current.position.z < -40 || refMeshLeft.current.position.z > distBetweenPairs * 3){
       refPaneRight.current.visible = false
@@ -199,6 +215,7 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
       refPaneLeft.current.visible = false
       refNewLeft.current.visible = false
       vidRef.current.visible = false
+      // labelRef.current.visible = false
     } else {
       refPaneRight.current.visible = true
       refNewRight.current.visible = true
@@ -207,7 +224,12 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
       refPaneLeft.current.visible = true
       refNewLeft.current.visible = true
       vidRef.current.visible = true
+      // labelRef.current.visible = true
     }
+
+    labelRef.current.rotation.x = Math.PI / 2;
+    labelRef.current.rotation.z = Math.PI;
+    labelRef.current.rotation.y = Math.PI;
     
   })
 
@@ -295,6 +317,12 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
             <meshBasicMaterial map={useVideoTexture(videos[id])} toneMapped={false} />
           </Suspense> */}
       </mesh>
+      <Center center position={[0, -viewport.height/4, z]}>
+        <Text3D height={0.01} size={id != 6 ? 0.7 : 0.5} font="./fonts/Kommuna/Kommuna_Cond_Regular.json" ref={labelRef} >
+          {lines[id]}
+          <meshStandardMaterial color="black" transparent opacity={1 - (Math.abs(z)/40)} />
+        </Text3D>
+      </Center>
       {/* <Video ref={vidRef} position={[position[0], position[1], position[2]]} url={vid} opacity={1 - (Math.abs(z)/40)} /> */}
     </>
   )
@@ -441,7 +469,7 @@ export function LinesPage() {
       pairs.push(
         <AnimatedPair 
           opacity={1}
-          position={[0, 0, - 1 - (i * distBetweenPairs)]} 
+          position={[0, 0, - (i * distBetweenPairs) - 0.1]} 
           forwardHovered = {isForwardHovered}
           backwardHovered = {isBackwardHovered}
           stayHovered = {isStayHovered}
@@ -465,7 +493,7 @@ export function LinesPage() {
       <LIMINAL viewport={viewport} />
       <mesh
         position = {[0, -27, -60]}>
-        <boxGeometry args = {[140, 40, 0]}/>
+        <boxGeometry args = {[viewport.width * 10, 40, 0]}/>
         <Edges
           color = {"black"}
           scale = {1}/>
