@@ -14,7 +14,6 @@ import {
   Edges,
   Image
 } from '@react-three/drei'
-import Cutter from '@r3f-cutter/r3f-cutter';
 import { animated, useSpring, useSpringValue, useSpringRef, a } from "@react-spring/three"
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -96,7 +95,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
     <mesh
       position={position}
       ref={ref}
-      visible={myid > id ? true : false}
+      visible={myid > id && myid < id + 30 ? true : false}
     >
       <boxGeometry args={size}/>
       <meshBasicMaterial 
@@ -114,45 +113,27 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
         scale={[cardWidth*0.85, cardHeight*0.6, 1]}
         anchorX="left"
       />
-
-      {/* <Image
-        position={curve2Position}
-        url={"people/src/assets/curve2.png"} 
-        scale={curve2Scale}
-        toneMapped={false}
-        anchorX="left"
-        /> */}
-{/* 
-      <Image
-        position={curve1Position}
-        url={"people/src/assets/curve1.png"} 
-        scale={curve1Scale}
-        toneMapped={false}
-        /> */}
-
       <RobotoMono
-      position={namePosition}
-      fontSize={cardWidth*0.045}
-      color="black"
-      anchorX="left"
-      text={name.toUpperCase()}
-    />
-
-    <RobotoMono
-      position={subteamPosition}
-      fontSize={cardWidth*0.045}
-      color="black"
-      anchorX="left"
-      text={"├─  "+subteam.toUpperCase()}
-    />
-
-    <RobotoMono
-      position={teamPosition}
-      fontSize={cardWidth*0.045}
-      color="black"
-      anchorX="left"
-      text={"│      ├─  " + team.toUpperCase()}
-    />
+        position={namePosition}
+        fontSize={cardWidth*0.045}
+        color="black"
+        anchorX="left"
+        text={name.toUpperCase()}
+      />
+      <RobotoMono
+        position={subteamPosition}
+        fontSize={cardWidth*0.045}
+        color="black"
+        anchorX="left"
+        text={"├─  "+subteam.toUpperCase()}
+      />
+      <RobotoMono
+        position={teamPosition}
+        fontSize={cardWidth*0.045}
+        color="black"
+        anchorX="left"
+        text={"│      ├─  " + team.toUpperCase()}
+      />
     </mesh>
   );
 }; 
@@ -238,7 +219,7 @@ const Cards = ( ) => {
           position={[startX, y, 0.1]}
           fontSize={cardWidth*0.06}
           color="black"
-          anchorX="left"
+          anchorX="right"
           text={"["}
         />
         <Kommuna
@@ -252,7 +233,7 @@ const Cards = ( ) => {
           position={[endX, y, 0.1]}
           fontSize={cardWidth*0.06}
           color="black"
-          anchorX="right"
+          anchorX="left"
           text={"]"}
         />
       </>
