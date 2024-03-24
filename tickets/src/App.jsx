@@ -7,7 +7,7 @@ import { useThree } from '@react-three/fiber'
 import { Text } from '@react-three/drei'
 
 // Lense
-import { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { useFrame, createPortal } from '@react-three/fiber'
 import { useGLTF, useFBO, MeshTransmissionMaterial } from '@react-three/drei'
 import * as THREE from 'three'

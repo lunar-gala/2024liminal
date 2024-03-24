@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Canvas, useThree, useFrame } from "@react-three/fiber"
 import { 
   Edges, 
