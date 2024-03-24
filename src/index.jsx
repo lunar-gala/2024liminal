@@ -52,7 +52,7 @@ export function redirect(e, id) {
 
     return history.replace(location)
 }
-  
+
 export function sendBack(e) {
     if (e != undefined) e.stopPropagation();
     return history.replace("/home")

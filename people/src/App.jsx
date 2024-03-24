@@ -1,28 +1,22 @@
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import { 
   Canvas,
   useThree,
   useFrame,
 } from "@react-three/fiber"
 import { 
-  Stats, 
-  Text, 
-  Loader, 
-  useTexture, 
-  useGLTF, 
-  Shadow,
   Edges,
-  Image
+  Image,
+  Text3D,
+  Center
 } from '@react-three/drei'
-import { animated, useSpring, useSpringValue, useSpringRef, a } from "@react-spring/three"
+import { animated, useSpringValue } from "@react-spring/three"
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { fonts, map, constrain, Cover, Pane, max, min } from '../../src/index.jsx'
-import * as THREE from 'three'
 
 import { urls, names, team, title } from './newConstants.js'
-import { RobotoMono, Kommuna, WordMark  } from '/src/index.jsx'
+import { RobotoMono, Kommuna, LIMINAL } from '../../src/index.jsx'
 
 const numPeople = 163;
 
@@ -58,18 +52,12 @@ let stack = {
 
 
 const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
-  const state = useThree();
-  const ref = useRef();
+
   const { viewport } = useThree();
 
   const cardWidth = 0.25 * viewport.width;
   //use viewport height
   const cardHeight = 0.65*viewport.height;
-
-  const namePosition = [-cardWidth * 0.425, -cardHeight * 0.23, paneThickness * 0.5 + 0.01];
-  const teamPosition = [-cardWidth * 0.4375, -cardHeight * 0.33, paneThickness * 0.5 + 0.01];
-  const LPosition = [-cardWidth * 0.318, -cardHeight * 0.36, paneThickness * 0.5 + 0.01];
-  const subteamPosition = [-cardWidth * 0.4375, -cardHeight * 0.28, paneThickness * 0.5 + 0.01];
 
   const curve2Scale = [cardWidth * 0.07, cardWidth * 0.07 * (206 / 208), 1];
   const curve2Position = [-cardWidth * 0.28, -cardHeight * 0.36, paneThickness * 0.5 + 0.01];
@@ -91,22 +79,25 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
 
   const position = [myid * dx, myid * dy, myid * dz];
 
+  const namePosition = [-cardWidth * 0.425, -cardHeight * 0.23, paneThickness * 0.5 + 0.01];
+  const teamPosition = [-cardWidth * 0.4375, -cardHeight * 0.33, paneThickness * 0.5 + 0.01];
+  const LPosition = [-cardWidth * 0.318, -cardHeight * 0.36, paneThickness * 0.5 + 0.01];
+  const subteamPosition = [-cardWidth * 0.4375, -cardHeight * 0.28, paneThickness * 0.5 + 0.01];
+
   return (
-    <mesh
-      position={position}
-      ref={ref}
-      visible={myid > id && myid < id + 30 ? true : false}
-    >
-      <boxGeometry args={size}/>
-      <meshBasicMaterial 
-        color={"white"} 
-        toneMapped={false}
-      />
-      <Edges
-        scale={1}
-        threshold={15}
-        color="black"
-      />
+    <group position={position} visible={myid > id && myid < id + 30 ? true : false} >
+      <mesh>
+        <boxGeometry args={size}/>
+        <meshBasicMaterial 
+          color={"white"} 
+          toneMapped={false}
+        />
+        <Edges
+          scale={1}
+          threshold={15}
+          color="black"
+        />
+      </mesh>
       <Image 
         position={[0, 1.5, paneThickness * 0.5 + 0.01]} 
         url={imageUrl} 
@@ -134,7 +125,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
         anchorX="left"
         text={"│      ├─  " + team.toUpperCase()}
       />
-    </mesh>
+  </group>
   );
 }; 
 
@@ -143,6 +134,7 @@ const AnimatedCard = animated(Card)
 function makeCards(id) {
   const cards = [];
   // console.log(urls.length, names.length, team.length, title.length)
+  console.log("urls: " + urls.length.toString())
   for (let i = 0; i < numPeople; i++) {
     const imageUrl = urls[(i+161) % urls.length];
     const name = names[(i+161) % names.length];
