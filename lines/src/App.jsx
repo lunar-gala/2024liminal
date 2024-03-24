@@ -169,7 +169,6 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
       refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
       vidRef.current.material.opacity = 1 - (Math.abs(vidRef.current.position.z)/40)
       labelRef.current.material.opacity = 1 - (Math.abs(vidRef.current.position.z)/40)
-      console.log('backwards')
     }
     if (refMeshLeft.current.position.z > 20) {
       refNewRight.current.material.opacity = 0
@@ -187,9 +186,9 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
       vidRef.current.material.opacity = 0
       vidRef.current.position.z = -280
       labelRef.current.material.opacity = 0
-      labelRef.current.position.z = -280
+      labelRef.current.position.z -= 300
     }
-    if (refMeshLeft.current.position.z < -280) {
+    else if (refMeshLeft.current.position.z < -280) {
       refNewRight.current.position.z = 20
       refNewRight.current.material.opacity = 1
       refMeshRight.current.position.z = 20
@@ -204,7 +203,7 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
       refPaneLeft.current.material.opacity = 1
       vidRef.current.position.z = 20
       vidRef.current.material.opacity = 1
-      labelRef.current.position.z = 20
+      labelRef.current.position.z += 300
       labelRef.current.material.opacity = 1
     }
     if (refMeshLeft.current.position.z < -40 || refMeshLeft.current.position.z > distBetweenPairs * 3){
@@ -317,7 +316,7 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
             <meshBasicMaterial map={useVideoTexture(videos[id])} toneMapped={false} />
           </Suspense> */}
       </mesh>
-      <Center center position={[0, -viewport.height/4, z]}>
+      <Center middle center position={[0, -viewport.height/4, z]}>
         <Text3D height={0.01} size={id != 6 ? 0.7 : 0.5} font="./fonts/Kommuna/Kommuna_Cond_Regular.json" ref={labelRef} >
           {lines[id]}
           <meshStandardMaterial color="black" transparent opacity={1 - (Math.abs(z)/40)} />
@@ -466,6 +465,7 @@ export function LinesPage() {
   
     let pairs = []
     for (let i = 0; i < nLines; i++) {
+      console.log(- (i * distBetweenPairs) - 0.1)
       pairs.push(
         <AnimatedPair 
           opacity={1}
