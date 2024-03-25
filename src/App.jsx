@@ -15,7 +15,8 @@ import {
   MeshTransmissionMaterial, 
   RoundedBox, 
   Text3D,
-  useVideoTexture
+  useVideoTexture,
+  useGLTF
 } from '@react-three/drei'
 import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
 import * as THREE from "three";
@@ -98,10 +99,10 @@ const App = () => {
           {/* <directionalLight position={[0, 0, 5]} intensity={0.5} /> */}
           <Suspense fallback={null}>
             <Pages transition={transition} isMobile={isMobile} spring={opacitySpring} />
+            <Lens location={location} size={1} />
           </Suspense>
         </Canvas>
       </Cover>
-      {/* <Nav /> */}
       <Loader />
     </>
   )
@@ -338,6 +339,80 @@ function Model({spring, viewport}) {
       </EffectComposer> */}
     </>
   );
+}
+
+// cursor
+function Lens({ size, location, damping = 0.15, ...props }) {
+
+  const { viewport } = useThree();
+
+  const ref = useRef()
+  const { nodes } = useGLTF("./LG-tickets-cursor.glb")
+  
+  useFrame(({ pointer }) => {
+    const x = (pointer.x * viewport.width) / 2
+    const y = (pointer.y * viewport.height) / 2
+    ref.current.position.set(x, y, 1)
+  })
+
+  const homeConfig = {
+    visible:true,
+    background:new THREE.Color("#ffffff"),
+    meshPhysicalMaterial:false,
+    transmissionSampler:false,
+    backside:false,
+    samples:4,
+    resolution:5,
+    transmission:0.94,
+    roughness:0.24,
+    thickness:1.62,
+    ior:1.65,
+    chromaticAberration:0.25,
+    anisotropy:0.2,
+    anisotropicBlur:1.0,
+    distortion:0.06,
+    distortionScale:0.2,
+    temporalDistortion:0.1,
+    clearcoat:1.0,
+    attenuationDistance:2.61,
+    attenuationColor:"#ffffff",
+    color: '#b9bfc9', // "#92969d",
+    bg:"#ffffff",
+    depthTest:false
+  }
+
+  const subConfig = {
+    samples:8,
+    resolution:10,
+    anisotropicBlur:.1,
+    thickness:0.1,
+    roughness:0.4,
+    toneMapped:true,
+    // background: new THREE.Color('#b5e2ff'),
+    color: '#b5e2ff',
+    depthTest:false,
+    transparent: true,
+    opacity: 0.8
+  }
+
+  const config = location == '/home' ? homeConfig : subConfig
+
+  return (
+    <>
+      <group>
+        {/* {createPortal(children, scene)} */}
+        {/* <mesh scale:[viewport.width, viewport.height, 1]}>
+          <planeGeometry />
+          <meshBasicMaterial map={buffer.texture} /> 
+        </mesh> */}
+        <mesh scale={size} ref={ref} rotation-x={Math.PI/2} geometry={nodes.Cube.geometry} visible={location == '/tickets' ? false : true} {...props}>
+          {/* {config.meshPhysicalMaterial ? <meshPhysicalMaterial {...config} /> : <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} />} */}
+          {/* <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} /> */}
+          <MeshTransmissionMaterial {...config}/>
+        </mesh>
+      </group>
+    </>
+  )
 }
 
 

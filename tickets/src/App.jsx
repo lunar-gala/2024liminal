@@ -46,29 +46,6 @@ export function TixPage() {
       ref.current.position.set(x, y, -0.1)
     })
   
-    const config = {
-        meshPhysicalMaterial: false,
-        transmissionSampler: false,
-        backside: false,
-        samples: { value: 16, min: 1, max: 32, step: 1 },
-        resolution: { value: 2048, min: 256, max: 2048, step: 256 },
-        transmission: { value: 1, min: 0, max: 1 },
-        roughness: { value: 0.3, min: 0, max: 1, step: 0.01 },
-        thickness: { value: 2.24, min: 0, max: 10, step: 0.01 },
-        ior: { value: 1.08, min: 1, max: 5, step: 0.01 },
-        chromaticAberration: { value: 0.02, min: 0, max: 1 },
-        anisotropy: { value: 0.1, min: 0, max: 1, step: 0.01 },
-        anisotropicBlur: { value: 0.1, min: 0, max: 1, step: 0.01 },
-        distortion: { value: 0.0, min: 0, max: 1, step: 0.01 },
-        distortionScale: { value: 0.1, min: 0.01, max: 1, step: 0.01 },
-        temporalDistortion: { value: 0.5, min: 0, max: 1, step: 0.01 },
-        clearcoat: { value: 1, min: 0, max: 1 },
-        attenuationDistance: { value: 0.5, min: 0, max: 10, step: 0.01 },
-        attenuationColor: '#ffffff',
-        color: '#b5e2ff',
-        bg: '#b5e2ff'
-    }
-  
     return (
       <>
         <animated.group>
@@ -80,7 +57,7 @@ export function TixPage() {
           <mesh scale={size} ref={ref} rotation-x={Math.PI/2} geometry={nodes.Cube.geometry} {...props}>
             {/* {config.meshPhysicalMaterial ? <meshPhysicalMaterial {...config} /> : <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} />} */}
             {/* <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} /> */}
-            <MeshTransmissionMaterial samples={16} resolution={100} anisotropicBlur={.1} thickness={0.1} roughness={0.4} toneMapped={true} background={new THREE.Color('#b5e2ff')} />
+            <MeshTransmissionMaterial samples={16} resolution={10} anisotropicBlur={.1} thickness={0.1} roughness={0.4} toneMapped={true} background={new THREE.Color('#b5e2ff')} />
           </mesh>
         </animated.group>
       </>

@@ -161,13 +161,20 @@ function makeCards(id) {
 const Cards = ( ) => {
 
   const { viewport } = useThree()
-
+  
   const id = useSpringValue(0)
+  const rWidth = gridRectWidthScalar * viewport.width
+  const rHeight = gridRectHeightScalar * viewport.height // rWidth * 3 // maybe make adaptive to height?
 
   const cards = makeCards(id)
 
-  const handleEnter = (newid) => {
+  const handleEnter = (newid, setHover) => {
     id.start(newid)
+    setHover(true)
+  }
+
+  const handleLeave = (setHover) => {
+    setHover(false)
   }
 
   const Rect = ({ row, col, moveFunction, id}) => {
@@ -175,22 +182,33 @@ const Cards = ( ) => {
     const state = useThree()
     const ref = useRef()
     const { viewport } = useThree()
+
+    const [hover, setHover] = useState(false);
+
+    useFrame(() => {
+      if (hover) {
+        // ref.current.position.y = -1.3 * rHeight * col + 0.05;
+        ref.current.material.color.r = 0
+        ref.current.material.color.g = 0
+        ref.current.material.color.b = 0
+      } else {
+        // ref.current.position.y = -1.3 * rHeight * col;
+        ref.current.material.color.r = 1
+        ref.current.material.color.g = 1
+        ref.current.material.color.b = 1
+      }
+    });
   
-    const rWidth = gridRectWidthScalar * viewport.width
-    const rHeight = gridRectHeightScalar * viewport.height // rWidth * 3 // maybe make adaptive to height?
-  
-    const size = [ rWidth, rHeight, paneThickness ]
     const position = [ 2.5 * rWidth * row, -1.3 * rHeight * col, 0 ]
-  
-    useFrame(({ delta, pointer }) => {
-        if (moveFunction != null) moveFunction(position, id, state, ref);
-    })
+
+    const size = [rWidth, rHeight, paneThickness]
   
     return (
         <mesh 
           position = {position} 
           ref = {ref} 
-          onPointerOver={() => handleEnter(id)}
+          onPointerOver={() => handleEnter(id, setHover)}
+          onPointerLeave={() => handleLeave(setHover)}
         >
           <boxGeometry args={size}/>
           <meshBasicMaterial color={"white"} toneMapped={false} />
