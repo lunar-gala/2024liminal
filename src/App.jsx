@@ -172,17 +172,17 @@ function Model({spring, viewport}) {
   const textRadScale = 1.4
   const textY = 0.47 * paneWidth
 
-  // useFrame(({ delta, pointer, clock }) => {
-  //   groupRef.current.rotation.x = clock.getElapsedTime() / 8;
-  // });
   let print = true;
 
   function Pane({position, rotation, text, config, x, z, angle, id}) {
     const ref = useRef()
 
-    useFrame(({ clock }) => {
-      ref.current.rotation.y = (angle + clock.getElapsedTime() / 8) % (2*Math.PI);
-      
+    // useFrame((_, delta) => {
+    //   ref.current.rotation.y += 0.5 * delta // (angle + clock.getElapsedTime() / 8) % (2*Math.PI);
+    // });
+
+    useFrame(({ pointer, clock }) => {
+      groupRef.current.rotation.x = -clock.getElapsedTime() / 8;
     });
 
     const radius = paneWidth / 3; // radius of the circle
@@ -283,7 +283,7 @@ function Model({spring, viewport}) {
     // Generate the planes
     const pages = ["about", "tickets", "people", "lines"];
     for (let i = 0; i < numPlanes; i++) {
-      angle = (Math.PI / numPlanes) * i; // angle for each plane
+      angle = (2 * Math.PI / numPlanes) * i; // angle for each plane
       var x = radius * Math.cos(angle);
       var z = radius * Math.sin(angle);
 

@@ -131,7 +131,7 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
   const vidRef = useRef()
   const labelRef = useRef()
 
-  const speed = 0.7
+  const speed = 0.5
 
   useFrame(() => {
     if (forwardHovered) {
