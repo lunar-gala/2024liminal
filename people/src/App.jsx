@@ -112,6 +112,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
         url={imageUrl} 
         scale={[cardWidth*0.85, cardHeight*0.6, 1]}
         anchorX="left"
+        visible={myid > id && myid < id + 2 ? true : false }
       />
       <RobotoMono
         position={namePosition}
@@ -135,8 +136,8 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
         text={"│      ├─  " + team.toUpperCase()}
       />
     </mesh>
-  );
-}; 
+  )
+}
 
 const AnimatedCard = animated(Card)
 

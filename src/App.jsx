@@ -144,12 +144,12 @@ function Pages({ transition, isMobile, spring }) {
 
 // mesh element that covers the screen and calls sendBack() 
 // when the mouse is lifted
-function Sensor({spring}) {
+function Sensor() {
   return (
     <mesh 
       position = {[0, 0, 0]} 
-      onPointerUp = { (e) => sendBack(e, spring) } 
-      onClick = { (e) => sendBack(e, spring) }
+      onPointerUp = { (e) => sendBack(e) } 
+      onClick = { (e) => sendBack(e) }
     >
       <boxGeometry args={[100, 100, 0.1]}/>
       <meshPhongMaterial color={"pink"} opacity={0} transparent />
@@ -348,11 +348,11 @@ function HomePage({spring}) {
     return (
       <group>
         <mesh position={[0, viewport.height/2 + viewport.width/16, 0.2]}>
-          <boxGeometry args={[viewport.width, viewport.height, 0.1]} />
+          <boxGeometry args={[4 * viewport.width, viewport.height, 0.1]} />
           <meshBasicMaterial color={"black"} toneMapped={false}/>
         </mesh>
         <mesh position={[0, -viewport.height/2 - viewport.width/16, 0.2]}>
-          <boxGeometry args={[viewport.width, viewport.height, 0.1]} />
+          <boxGeometry args={[4 * viewport.width, viewport.height, 0.1]} />
           <meshBasicMaterial color={"black"} toneMapped={false}/>
         </mesh>
         <mesh position={[-viewport.width, 0, 0.2]}>
