@@ -202,8 +202,8 @@ function Model({spring, viewport}) {
               meshPhysicalMaterial={false}
               transmissionSampler={false}
               backside={false}
-              samples={16}
-              resolution={50}
+              samples={8}
+              resolution={10}
               transmission={0.94}
               roughness={0.24}
               thickness={1.62}
@@ -260,8 +260,8 @@ function Model({spring, viewport}) {
     alphaHash: true,
     visible: true,
     side: THREE.DoubleSide,
-    color: '#5c5a5f',
-    emissive: '#888888',
+    color: '#5f5f5f',
+    emissive: '#000000',
     fog: true,
     combine: THREE.MultiplyOperation,
     reflectifity: 1,
