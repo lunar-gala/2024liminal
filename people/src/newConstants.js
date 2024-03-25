@@ -763,7 +763,7 @@ import Dance_KateLee from "/src/headshots/Dance_KateLee.jpg"
 import Dance_SharonRen from "/src/headshots/Dance_SharonRen.jpg"
 import Dance_SophiaHoch from "/src/headshots/Dance_SophiaHoch.jpg"
 import Dance_CarolineMichalow from "/src/headshots/Dance_CarolineMichalow.jpg"
-import Dance_YuXiLee from "/src/headshots/Dance_LaurenLoriaSklar.jpg"// "/src/headshots/Dance_YuXiLee.jpg"
+import Dance_YuXiLee from "/src/headshots/Creative_AChair.jpg" // "/src/headshots/Dance_YuXiLee.jpg" DOESN'T WORK
 import Dance_LaurenLoriaSklar from "/src/headshots/Dance_LaurenLoriaSklar.jpg"
 import Dance_SamanthaVu from "/src/headshots/Dance_SamanthaVu.jpg"
 import Dance_IancaDeLosSantos from "/src/headshots/Dance_IancaDeLosSantos.jpg"
