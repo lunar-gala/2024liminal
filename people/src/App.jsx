@@ -162,7 +162,15 @@ const Cards = ( ) => {
 
   const { viewport } = useThree()
   
-  const id = useSpringValue(0)
+  const id = useSpringValue(0, {
+    config: {
+      mass: 2,
+      friction: 5,
+      tension: 80,
+      clamp: true
+    },
+  })
+
   const rWidth = gridRectWidthScalar * viewport.width
   const rHeight = gridRectHeightScalar * viewport.height // rWidth * 3 // maybe make adaptive to height?
 
