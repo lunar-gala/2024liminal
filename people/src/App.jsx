@@ -21,7 +21,7 @@ import './App.css'
 import { fonts, map, constrain, Cover, Pane, max, min } from '../../src/index.jsx'
 import * as THREE from 'three'
 
-import { urls, names, team, title } from './newConstants.js'
+import { urls, names, team, title, images } from './newConstants.js'
 import { RobotoMono, Kommuna, WordMark  } from '/src/index.jsx'
 
 const numPeople = 163;
@@ -144,7 +144,8 @@ function makeCards(id) {
   const cards = [];
   // console.log(urls.length, names.length, team.length, title.length)
   for (let i = 0; i < numPeople; i++) {
-    const imageUrl = urls[(i+161) % urls.length];
+    // const imageUrl = urls[(i+161) % urls.length];
+    const imageUrl = images[(i+161) % urls.length];
     const name = names[(i+161) % names.length];
     const theteam = team[(i+161) % team.length];
     const subteam = title[(i+161) % title.length];

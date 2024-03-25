@@ -491,166 +491,490 @@ export const title = [
   "Hair/Makeup",
 ];
 export const urls = [
-  "../../src/headshots/Executive_AnitaCheng.jpg",
-  "../../src/headshots/Executive_EllaSanfilippo.jpg",
-  "../../src/headshots/Design_AmyHu.png",
-  "../../src/headshots/Design_AmandaWen.png",
-  "../../src/headshots/Design_JuliaKasper.png",
-  "../../src/headshots/Design_MichaelDiGiovanna.png",
-  "../../src/headshots/Design_SaeraKim.png",
-  "../../src/headshots/Design_MinjooKim.png",
-  "../../src/headshots/Design_NayanaBalusu.png",
-  "../../src/headshots/Design_BrookeSchwartz.png",
-  "../../src/headshots/Design_GwenToll.png",
-  "../../src/headshots/Design_SueahKim.png",
-  "../../src/headshots/Design_LeaDeVylder.png",
-  "../../src/headshots/Design_KatrinaDarms.png",
-  "../../src/headshots/Design_SydneySun.png",
-  "../../src/headshots/Design_ClarineLee.png",
-  "../../src/headshots/Design_AnikaBhagavatula.png",
-  "../../src/headshots/Design_HazelFroling.png",
-  "../../src/headshots/Design_GraceKolosek.png",
-  "../../src/headshots/Design_CelineMin.png",
-  "../../src/headshots/Design_MayaGalindo Benson.png",
-  "../../src/headshots/Design_NicoleHuang.png",
-  "../../src/headshots/Design_SukieWang.png",
-  "../../src/headshots/Design_JacksonUnderwood.png",
-  "../../src/headshots/Design_RayyaGracy.png",
-  "../../src/headshots/Design_GraanaKhan.png",
-  "../../src/headshots/Design_CamelliaWang.png",
-  "../../src/headshots/Design_LilyDu.png",
-  "../../src/headshots/Creative_ChristyZo.jpg",
-  "../../src/headshots/Creative_HeysuOh.jpg",
-  "../../src/headshots/Creative_SophiaHao.jpg",
-  "../../src/headshots/Creative_ShannonLee.jpg",
-  "../../src/headshots/Creative_SophieHeap.jpg",
-  "../../src/headshots/Creative_LeslieLin.jpg",
-  "../../src/headshots/Creative_YuerZhu.jpg",
-  "../../src/headshots/Creative_DionLewis.jpg",
-  "../../src/headshots/Creative_MicheleHratko.jpg",
-  "../../src/headshots/Creative_JoannaNi.jpg",
-  "../../src/headshots/Creative_PhoebeLee.jpg",
-  "../../src/headshots/Creative_ShannonLin.jpg",
-  "../../src/headshots/Creative_JeffreyYe.jpg",
-  "../../src/headshots/Creative_AarnavPatel.jpg",
-  "../../src/headshots/Creative_JingPeng.jpg",
-  "../../src/headshots/Creative_AChair.jpg",
-  "../../src/headshots/Creative_SuannaZhong.jpg",
-  "../../src/headshots/Creative_ErinHsu.jpg",
-  "../../src/headshots/Creative_EuniceLai.jpg",
-  "../../src/headshots/Creative_PerryChen.jpg",
-  "../../src/headshots/Creative_OscarWang.jpg",
-  "../../src/headshots/Creative_MatthewAkuamoah-Boateng.jpg",
-  "../../src/headshots/Creative_NicholasBaek.jpg",
-  "../../src/headshots/Creative_SherryChen.jpg",
-  "../../src/headshots/Creative_YonMaor.jpg",
-  "../../src/headshots/Creative_ChrisSong.jpg",
-  "../../src/headshots/Creative_StacyChen.jpg",
-  "../../src/headshots/Creative_AydenXu.jpg",
-  "../../src/headshots/Creative_ErvinSong.jpg",
-  "../../src/headshots/Creative_VivianaStaicu.jpg",
-  "../../src/headshots/Creative_EricLin.jpg",
-  "../../src/headshots/Creative_MinsungKang.jpg",
-  "../../src/headshots/Creative_AChair.jpg",
-  "../../src/headshots/Model_JeffreyZhang.jpg",
-  "../../src/headshots/Model_BrookeGunter.jpg",
-  "../../src/headshots/Model_AnnaGerchanovsky.jpg",
-  "../../src/headshots/Model_YaninaShavialenka.jpg",
-  "../../src/headshots/Model_AndrewZhou.jpg",
-  "../../src/headshots/Model_MarissaFernandez.jpg",
-  "../../src/headshots/Model_TimothyKim.jpg",
-  "../../src/headshots/Model_MayaOusachi.jpg",
-  "../../src/headshots/Model_ElizabethHager.jpg",
-  "../../src/headshots/Model_JoyLeung.jpg",
-  "../../src/headshots/Model_KevinTong.jpg",
-  "../../src/headshots/Model_DunnZhang.jpg",
-  "../../src/headshots/Model_DestiniBrown-Greene.jpg",
-  "../../src/headshots/Model_MildredAmofa.jpg",
-  "../../src/headshots/Model_LucyHwang.jpg",
-  "../../src/headshots/Model_JocelynSu.jpg",
-  "../../src/headshots/Model_CarolineLaPiana.jpg",
-  "../../src/headshots/Model_SallyPak.jpg",
-  "../../src/headshots/Model_DhrutiKuchibhotla.jpg",
-  "../../src/headshots/Model_Olu-BankeBoakye-Yiadom.jpg",
-  "../../src/headshots/PR_LillianHao.jpg",
-  "../../src/headshots/PR_PeggyShen.jpg",
-  "../../src/headshots/PR_AngelaHuang.jpg",
-  "../../src/headshots/PR_JiaxinLin.jpg",
-  "../../src/headshots/PR_JoelleLee.jpg",
-  "../../src/headshots/PR_KirstenPark.jpg",
-  "../../src/headshots/Dance_JisooHan.jpg",
-  "../../src/headshots/Dance_VeraZhong.jpg",
-  "../../src/headshots/Dance_FranStedman.jpg",
-  "../../src/headshots/Dance_AlisaLo.jpg",
-  "../../src/headshots/Dance_SaanikaChauk.jpg",
-  "../../src/headshots/Dance_KaitlynXie.jpg",
-  "../../src/headshots/Dance_LiannaHuang.jpg",
-  "../../src/headshots/Dance_ChaseGumbs.jpg",
-  "../../src/headshots/Dance_AJSeo.jpg",
-  "../../src/headshots/Dance_HelenHuang.jpg",
-  "../../src/headshots/Dance_KellyDam.jpg",
-  "../../src/headshots/Dance_YujunWu.jpg",
-  "../../src/headshots/Dance_CindyLiu.jpg",
-  "../../src/headshots/Dance_JoannaGe.jpg",
-  "../../src/headshots/Dance_FranStedman.jpg",
-  "../../src/headshots/Dance_SmritiChopra.jpg",
-  "../../src/headshots/Dance_HannaLuo.jpg",
-  "../../src/headshots/Dance_AnnikaWu.jpg",
-  "../../src/headshots/Dance_AliceAnie.jpg",
-  "../../src/headshots/Dance_KateLee.jpg",
-  "../../src/headshots/Dance_SharonRen.jpg",
-  "../../src/headshots/Dance_SophiaHoch.jpg",
-  "../../src/headshots/Dance_CarolineMichalow.jpg",
-  "../../src/headshots/Dance_YuXiLee.jpg",
-  "../../src/headshots/Dance_LaurenLoriaSklar.jpg",
-  "../../src/headshots/Dance_SamanthaVu.jpg",
-  "../../src/headshots/Dance_IancaDeLosSantos.jpg",
-  "../../src/headshots/Dance_LilyStern.jpg",
-  "../../src/headshots/Dance_VeraMazeeva.jpg",
-  "../../src/headshots/Dance_AudreyShao.jpg",
-  "../../src/headshots/Dance_BrooklynMao.jpg",
-  "../../src/headshots/Dance_RebeccaJiang.jpg",
-  "../../src/headshots/Dance_RoyPark.jpg",
-  "../../src/headshots/Dance_KyliHilaire.jpg",
-  "../../src/headshots/Dance_ElvaJia.jpg",
-  "../../src/headshots/Dance_AnnikaWu.jpg",
-  "../../src/headshots/Dance_YikunYang.jpg",
-  "../../src/headshots/Production_SowangKundeling.jpg",
-  "../../src/headshots/Production_YeajooCho.jpg",
-  "../../src/headshots/Production_VivianLiu.jpg",
-  "../../src/headshots/Production_AliceYu.jpg",
-  "../../src/headshots/Production_EshaShah.jpg",
-  "../../src/headshots/Production_MaggieGuo.jpg",
-  "../../src/headshots/Production_KarinaHalevy.jpg",
-  "../../src/headshots/Production_JasperGitlitz.jpg",
-  "../../src/headshots/Production_KatherineWang.jpg",
-  "../../src/headshots/Production_FelixGabriel.jpg",
-  "../../src/headshots/Production_HarrySchneider.jpg",
-  "../../src/headshots/Production_NickBarreto.jpg",
-  "../../src/headshots/Production_WillBerick.jpg",
-  "../../src/headshots/Production_EricaFu.jpg",
-  "../../src/headshots/Production_MaddieBurroughs.jpg",
-  "../../src/headshots/Production_AidanHong.jpg",
-  "../../src/headshots/Production_ChelseaTang.jpg",
-  "../../src/headshots/Production_ErinChoi.jpg",
-  "../../src/headshots/Production_KateLee.jpg",
-  "../../src/headshots/Production_SusanNi.jpg",
-  "../../src/headshots/Production_YukthaVemula.jpg",
-  "../../src/headshots/Production_AsthaShah.jpg",
-  "../../src/headshots/Production_LucyGunther.jpg",
-  "../../src/headshots/Production_RiannaCampbell.jpg",
-  "../../src/headshots/Production_EliseeaFaur.jpg",
-  "../../src/headshots/Cinematography_RuiWang.jpg",
-  "../../src/headshots/Cinematography_PeiranGe.jpg",
-  "../../src/headshots/Cinematography_JenniferZhou.jpg",
-  "../../src/headshots/Cinematography_MinjinBatzorig.jpg",
-  "../../src/headshots/Hair_Makeup_TippiLi.jpeg",
-  "../../src/headshots/Hair_Makeup_AnnieWoo.jpeg",
-  "../../src/headshots/Hair_Makeup_DaniPreston.jpeg",
-  "../../src/headshots/Hair_Makeup_LaylaMalhas.jpeg",
-  "../../src/headshots/Hair_Makeup_JessicaLai.jpeg",
-  "../../src/headshots/Hair_Makeup_GraceLiao.jpeg",
-  "../../src/headshots/Hair_Makeup_MairssaLee.jpeg",
-  "../../src/headshots/Hair_Makeup_SulliYatabe.jpeg",
-  "../../src/headshots/Hair_Makeup_SulliYatabe.jpeg",
+  "/../../src/headshots/Executive_AnitaCheng.jpg",
+  "/../../src/headshots/Executive_EllaSanfilippo.jpg",
+  "/../../src/headshots/Design_AmyHu.png",
+  "/../../src/headshots/Design_AmandaWen.png",
+  "/../../src/headshots/Design_JuliaKasper.png",
+  "/../../src/headshots/Design_MichaelDiGiovanna.png",
+  "/../../src/headshots/Design_SaeraKim.png",
+  "/../../src/headshots/Design_MinjooKim.png",
+  "/../../src/headshots/Design_NayanaBalusu.png",
+  "/../../src/headshots/Design_BrookeSchwartz.png",
+  "/../../src/headshots/Design_GwenToll.png",
+  "/../../src/headshots/Design_SueahKim.png",
+  "/../../src/headshots/Design_LeaDeVylder.png",
+  "/../../src/headshots/Design_KatrinaDarms.png",
+  "/../../src/headshots/Design_SydneySun.png",
+  "/../../src/headshots/Design_ClarineLee.png",
+  "/../../src/headshots/Design_AnikaBhagavatula.png",
+  "/../../src/headshots/Design_HazelFroling.png",
+  "/../../src/headshots/Design_GraceKolosek.png",
+  "/../../src/headshots/Design_CelineMin.png",
+  "/../../src/headshots/Design_MayaGalindo Benson.png",
+  "/../../src/headshots/Design_NicoleHuang.png",
+  "/../../src/headshots/Design_SukieWang.png",
+  "/../../src/headshots/Design_JacksonUnderwood.png",
+  "/../../src/headshots/Design_RayyaGracy.png",
+  "/../../src/headshots/Design_GraanaKhan.png",
+  "/../../src/headshots/Design_CamelliaWang.png",
+  "/../../src/headshots/Design_LilyDu.png",
+  "/../../src/headshots/Creative_ChristyZo.jpg",
+  "/../../src/headshots/Creative_HeysuOh.jpg",
+  "/../../src/headshots/Creative_SophiaHao.jpg",
+  "/../../src/headshots/Creative_ShannonLee.jpg",
+  "/../../src/headshots/Creative_SophieHeap.jpg",
+  "/../../src/headshots/Creative_LeslieLin.jpg",
+  "/../../src/headshots/Creative_YuerZhu.jpg",
+  "/../../src/headshots/Creative_DionLewis.jpg",
+  "/../../src/headshots/Creative_MicheleHratko.jpg",
+  "/../../src/headshots/Creative_JoannaNi.jpg",
+  "/../../src/headshots/Creative_PhoebeLee.jpg",
+  "/../../src/headshots/Creative_ShannonLin.jpg",
+  "/../../src/headshots/Creative_JeffreyYe.jpg",
+  "/../../src/headshots/Creative_AarnavPatel.jpg",
+  "/../../src/headshots/Creative_JingPeng.jpg",
+  "/../../src/headshots/Creative_AChair.jpg",
+  "/../../src/headshots/Creative_SuannaZhong.jpg",
+  "/../../src/headshots/Creative_ErinHsu.jpg",
+  "/../../src/headshots/Creative_EuniceLai.jpg",
+  "/../../src/headshots/Creative_PerryChen.jpg",
+  "/../../src/headshots/Creative_OscarWang.jpg",
+  "/../../src/headshots/Creative_MatthewAkuamoah-Boateng.jpg",
+  "/../../src/headshots/Creative_NicholasBaek.jpg",
+  "/../../src/headshots/Creative_SherryChen.jpg",
+  "/../../src/headshots/Creative_YonMaor.jpg",
+  "/../../src/headshots/Creative_ChrisSong.jpg",
+  "/../../src/headshots/Creative_StacyChen.jpg",
+  "/../../src/headshots/Creative_AydenXu.jpg",
+  "/../../src/headshots/Creative_ErvinSong.jpg",
+  "/../../src/headshots/Creative_VivianaStaicu.jpg",
+  "/../../src/headshots/Creative_EricLin.jpg",
+  "/../../src/headshots/Creative_MinsungKang.jpg",
+  "/../../src/headshots/Creative_AChair.jpg",
+  "/../../src/headshots/Model_JeffreyZhang.jpg",
+  "/../../src/headshots/Model_BrookeGunter.jpg",
+  "/../../src/headshots/Model_AnnaGerchanovsky.jpg",
+  "/../../src/headshots/Model_YaninaShavialenka.jpg",
+  "/../../src/headshots/Model_AndrewZhou.jpg",
+  "/../../src/headshots/Model_MarissaFernandez.jpg",
+  "/../../src/headshots/Model_TimothyKim.jpg",
+  "/../../src/headshots/Model_MayaOusachi.jpg",
+  "/../../src/headshots/Model_ElizabethHager.jpg",
+  "/../../src/headshots/Model_JoyLeung.jpg",
+  "/../../src/headshots/Model_KevinTong.jpg",
+  "/../../src/headshots/Model_DunnZhang.jpg",
+  "/../../src/headshots/Model_DestiniBrown-Greene.jpg",
+  "/../../src/headshots/Model_MildredAmofa.jpg",
+  "/../../src/headshots/Model_LucyHwang.jpg",
+  "/../../src/headshots/Model_JocelynSu.jpg",
+  "/../../src/headshots/Model_CarolineLaPiana.jpg",
+  "/../../src/headshots/Model_SallyPak.jpg",
+  "/../../src/headshots/Model_DhrutiKuchibhotla.jpg",
+  "/../../src/headshots/Model_Olu-BankeBoakye-Yiadom.jpg",
+  "/../../src/headshots/PR_LillianHao.jpg",
+  "/../../src/headshots/PR_PeggyShen.jpg",
+  "/../../src/headshots/PR_AngelaHuang.jpg",
+  "/../../src/headshots/PR_JiaxinLin.jpg",
+  "/../../src/headshots/PR_JoelleLee.jpg",
+  "/../../src/headshots/PR_KirstenPark.jpg",
+  "/../../src/headshots/Dance_JisooHan.jpg",
+  "/../../src/headshots/Dance_VeraZhong.jpg",
+  "/../../src/headshots/Dance_FranStedman.jpg",
+  "/../../src/headshots/Dance_AlisaLo.jpg",
+  "/../../src/headshots/Dance_SaanikaChauk.jpg",
+  "/../../src/headshots/Dance_KaitlynXie.jpg",
+  "/../../src/headshots/Dance_LiannaHuang.jpg",
+  "/../../src/headshots/Dance_ChaseGumbs.jpg",
+  "/../../src/headshots/Dance_AJSeo.jpg",
+  "/../../src/headshots/Dance_HelenHuang.jpg",
+  "/../../src/headshots/Dance_KellyDam.jpg",
+  "/../../src/headshots/Dance_YujunWu.jpg",
+  "/../../src/headshots/Dance_CindyLiu.jpg",
+  "/../../src/headshots/Dance_JoannaGe.jpg",
+  "/../../src/headshots/Dance_FranStedman.jpg",
+  "/../../src/headshots/Dance_SmritiChopra.jpg",
+  "/../../src/headshots/Dance_HannaLuo.jpg",
+  "/../../src/headshots/Dance_AnnikaWu.jpg",
+  "/../../src/headshots/Dance_AliceAnie.jpg",
+  "/../../src/headshots/Dance_KateLee.jpg",
+  "/../../src/headshots/Dance_SharonRen.jpg",
+  "/../../src/headshots/Dance_SophiaHoch.jpg",
+  "/../../src/headshots/Dance_CarolineMichalow.jpg",
+  "/../../src/headshots/Dance_YuXiLee.jpg",
+  "/../../src/headshots/Dance_LaurenLoriaSklar.jpg",
+  "/../../src/headshots/Dance_SamanthaVu.jpg",
+  "/../../src/headshots/Dance_IancaDeLosSantos.jpg",
+  "/../../src/headshots/Dance_LilyStern.jpg",
+  "/../../src/headshots/Dance_VeraMazeeva.jpg",
+  "/../../src/headshots/Dance_AudreyShao.jpg",
+  "/../../src/headshots/Dance_BrooklynMao.jpg",
+  "/../../src/headshots/Dance_RebeccaJiang.jpg",
+  "/../../src/headshots/Dance_RoyPark.jpg",
+  "/../../src/headshots/Dance_KyliHilaire.jpg",
+  "/../../src/headshots/Dance_ElvaJia.jpg",
+  "/../../src/headshots/Dance_AnnikaWu.jpg",
+  "/../../src/headshots/Dance_YikunYang.jpg",
+  "/../../src/headshots/Production_SowangKundeling.jpg",
+  "/../../src/headshots/Production_YeajooCho.jpg",
+  "/../../src/headshots/Production_VivianLiu.jpg",
+  "/../../src/headshots/Production_AliceYu.jpg",
+  "/../../src/headshots/Production_EshaShah.jpg",
+  "/../../src/headshots/Production_MaggieGuo.jpg",
+  "/../../src/headshots/Production_KarinaHalevy.jpg",
+  "/../../src/headshots/Production_JasperGitlitz.jpg",
+  "/../../src/headshots/Production_KatherineWang.jpg",
+  "/../../src/headshots/Production_FelixGabriel.jpg",
+  "/../../src/headshots/Production_HarrySchneider.jpg",
+  "/../../src/headshots/Production_NickBarreto.jpg",
+  "/../../src/headshots/Production_WillBerick.jpg",
+  "/../../src/headshots/Production_EricaFu.jpg",
+  "/../../src/headshots/Production_MaddieBurroughs.jpg",
+  "/../../src/headshots/Production_AidanHong.jpg",
+  "/../../src/headshots/Production_ChelseaTang.jpg",
+  "/../../src/headshots/Production_ErinChoi.jpg",
+  "/../../src/headshots/Production_KateLee.jpg",
+  "/../../src/headshots/Production_SusanNi.jpg",
+  "/../../src/headshots/Production_YukthaVemula.jpg",
+  "/../../src/headshots/Production_AsthaShah.jpg",
+  "/../../src/headshots/Production_LucyGunther.jpg",
+  "/../../src/headshots/Production_RiannaCampbell.jpg",
+  "/../../src/headshots/Production_EliseeaFaur.jpg",
+  "/../../src/headshots/Cinematography_RuiWang.jpg",
+  "/../../src/headshots/Cinematography_PeiranGe.jpg",
+  "/../../src/headshots/Cinematography_JenniferZhou.jpg",
+  "/../../src/headshots/Cinematography_MinjinBatzorig.jpg",
+  "/../../src/headshots/Hair_Makeup_TippiLi.jpeg",
+  "/../../src/headshots/Hair_Makeup_AnnieWoo.jpeg",
+  "/../../src/headshots/Hair_Makeup_DaniPreston.jpeg",
+  "/../../src/headshots/Hair_Makeup_LaylaMalhas.jpeg",
+  "/../../src/headshots/Hair_Makeup_JessicaLai.jpeg",
+  "/../../src/headshots/Hair_Makeup_GraceLiao.jpeg",
+  "/../../src/headshots/Hair_Makeup_MairssaLee.jpeg",
+  "/../../src/headshots/Hair_Makeup_SulliYatabe.jpeg",
+  "/../../src/headshots/Hair_Makeup_SulliYatabe.jpeg",
 ];
+
+import Executive_AnitaCheng from "/src/headshots/Executive_AnitaCheng.jpg"
+import Executive_EllaSanfilippo from "/src/headshots/Executive_EllaSanfilippo.jpg"
+import Design_AmyHu from "/src/headshots/Design_AmyHu.png"
+import Design_AmandaWen from "/src/headshots/Design_AmandaWen.png"
+import Design_JuliaKasper from "/src/headshots/Design_JuliaKasper.png"
+import Design_MichaelDiGiovanna from "/src/headshots/Design_MichaelDiGiovanna.png"
+import Design_SaeraKim from "/src/headshots/Design_SaeraKim.png"
+import Design_MinjooKim from "/src/headshots/Design_MinjooKim.png"
+import Design_NayanaBalusu from "/src/headshots/Design_NayanaBalusu.png"
+import Design_BrookeSchwartz from "/src/headshots/Design_BrookeSchwartz.png"
+import Design_GwenToll from "/src/headshots/Design_GwenToll.png"
+import Design_SueahKim from "/src/headshots/Design_SueahKim.png"
+import Design_LeaDeVylder from "/src/headshots/Design_LeaDeVylder.png"
+import Design_KatrinaDarms from "/src/headshots/Design_KatrinaDarms.png"
+import Design_SydneySun from "/src/headshots/Design_SydneySun.png"
+import Design_ClarineLee from "/src/headshots/Design_ClarineLee.png"
+import Design_AnikaBhagavatula from "/src/headshots/Design_AnikaBhagavatula.png"
+import Design_HazelFroling from "/src/headshots/Design_HazelFroling.png"
+import Design_GraceKolosek from "/src/headshots/Design_GraceKolosek.png"
+import Design_CelineMin from "/src/headshots/Design_CelineMin.png"
+import Design_MayaGalindo_Benson from "/src/headshots/Design_MayaGalindo Benson.png"
+import Design_NicoleHuang from "/src/headshots/Design_NicoleHuang.png"
+import Design_SukieWang from "/src/headshots/Design_SukieWang.png"
+import Design_JacksonUnderwood from "/src/headshots/Design_JacksonUnderwood.png"
+import Design_RayyaGracy from "/src/headshots/Design_RayyaGracy.png"
+import Design_GraanaKhan from "/src/headshots/Design_GraanaKhan.png"
+import Design_CamelliaWang from "/src/headshots/Design_CamelliaWang.png"
+import Design_LilyDu from "/src/headshots/Design_LilyDu.png"
+import Creative_ChristyZo from "/src/headshots/Creative_ChristyZo.jpg"
+import Creative_HeysuOh from "/src/headshots/Creative_HeysuOh.jpg"
+import Creative_SophiaHao from "/src/headshots/Creative_SophiaHao.jpg"
+import Creative_ShannonLee from "/src/headshots/Creative_ShannonLee.jpg"
+import Creative_SophieHeap from "/src/headshots/Creative_SophieHeap.jpg"
+import Creative_LeslieLin from "/src/headshots/Creative_LeslieLin.jpg"
+import Creative_YuerZhu from "/src/headshots/Creative_YuerZhu.jpg"
+import Creative_DionLewis from "/src/headshots/Creative_DionLewis.jpg"
+import Creative_MicheleHratko from "/src/headshots/Creative_MicheleHratko.jpg"
+import Creative_JoannaNi from "/src/headshots/Creative_JoannaNi.jpg"
+import Creative_PhoebeLee from "/src/headshots/Creative_PhoebeLee.jpg"
+import Creative_ShannonLin from "/src/headshots/Creative_ShannonLin.jpg"
+import Creative_JeffreyYe from "/src/headshots/Creative_JeffreyYe.jpg"
+import Creative_AarnavPatel from "/src/headshots/Creative_AarnavPatel.jpg"
+import Creative_JingPeng from "/src/headshots/Creative_JingPeng.jpg"
+import Creative_AChair from "/src/headshots/Creative_AChair.jpg"
+import Creative_SuannaZhong from "/src/headshots/Creative_SuannaZhong.jpg"
+import Creative_ErinHsu from "/src/headshots/Creative_ErinHsu.jpg"
+import Creative_EuniceLai from "/src/headshots/Creative_EuniceLai.jpg"
+import Creative_PerryChen from "/src/headshots/Creative_PerryChen.jpg"
+import Creative_OscarWang from "/src/headshots/Creative_OscarWang.jpg"
+import Creative_MatthewAkuamoah_Boateng from "/src/headshots/Creative_MatthewAkuamoah-Boateng.jpg"
+import Creative_NicholasBaek from "/src/headshots/Creative_NicholasBaek.jpg"
+import Creative_SherryChen from "/src/headshots/Creative_SherryChen.jpg"
+import Creative_YonMaor from "/src/headshots/Creative_YonMaor.jpg"
+import Creative_ChrisSong from "/src/headshots/Creative_ChrisSong.jpg"
+import Creative_StacyChen from "/src/headshots/Creative_StacyChen.jpg"
+import Creative_AydenXu from "/src/headshots/Creative_AydenXu.jpg"
+import Creative_ErvinSong from "/src/headshots/Creative_ErvinSong.jpg"
+import Creative_VivianaStaicu from "/src/headshots/Creative_VivianaStaicu.jpg"
+import Creative_EricLin from "/src/headshots/Creative_EricLin.jpg"
+import Creative_MinsungKang from "/src/headshots/Creative_MinsungKang.jpg"
+import Model_JeffreyZhang from "/src/headshots/Model_JeffreyZhang.jpg"
+import Model_BrookeGunter from "/src/headshots/Model_BrookeGunter.jpg"
+import Model_AnnaGerchanovsky from "/src/headshots/Model_AnnaGerchanovsky.jpg"
+import Model_YaninaShavialenka from "/src/headshots/Model_YaninaShavialenka.jpg"
+import Model_AndrewZhou from "/src/headshots/Model_AndrewZhou.jpg"
+import Model_MarissaFernandez from "/src/headshots/Model_MarissaFernandez.jpg"
+import Model_TimothyKim from "/src/headshots/Model_TimothyKim.jpg"
+import Model_MayaOusachi from "/src/headshots/Model_MayaOusachi.jpg"
+import Model_ElizabethHager from "/src/headshots/Model_ElizabethHager.jpg"
+import Model_JoyLeung from "/src/headshots/Model_JoyLeung.jpg"
+import Model_KevinTong from "/src/headshots/Model_KevinTong.jpg"
+import Model_DunnZhang from "/src/headshots/Model_DunnZhang.jpg"
+import Model_DestiniBrown_Greene from "/src/headshots/Model_DestiniBrown-Greene.jpg"
+import Model_MildredAmofa from "/src/headshots/Model_MildredAmofa.jpg"
+import Model_LucyHwang from "/src/headshots/Model_LucyHwang.jpg"
+import Model_JocelynSu from "/src/headshots/Model_JocelynSu.jpg"
+import Model_CarolineLaPiana from "/src/headshots/Model_CarolineLaPiana.jpg"
+import Model_SallyPak from "/src/headshots/Model_SallyPak.jpg"
+import Model_DhrutiKuchibhotla from "/src/headshots/Model_DhrutiKuchibhotla.jpg"
+import Model_Olu_BankeBoakye_Yiadom from "/src/headshots/Model_Olu-BankeBoakye-Yiadom.jpg"
+import PR_LillianHao from "/src/headshots/PR_LillianHao.jpg"
+import PR_PeggyShen from "/src/headshots/PR_PeggyShen.jpg"
+import PR_AngelaHuang from "/src/headshots/PR_AngelaHuang.jpg"
+import PR_JiaxinLin from "/src/headshots/PR_JiaxinLin.jpg"
+import PR_JoelleLee from "/src/headshots/PR_JoelleLee.jpg"
+import PR_KirstenPark from "/src/headshots/PR_KirstenPark.jpg"
+import Dance_JisooHan from "/src/headshots/Dance_JisooHan.jpg"
+import Dance_VeraZhong from "/src/headshots/Dance_VeraZhong.jpg"
+import Dance_FranStedman from "/src/headshots/Dance_FranStedman.jpg"
+import Dance_AlisaLo from "/src/headshots/Dance_AlisaLo.jpg"
+import Dance_SaanikaChauk from "/src/headshots/Dance_SaanikaChauk.jpg"
+import Dance_KaitlynXie from "/src/headshots/Dance_KaitlynXie.jpg"
+import Dance_LiannaHuang from "/src/headshots/Dance_LiannaHuang.jpg"
+import Dance_ChaseGumbs from "/src/headshots/Dance_ChaseGumbs.jpg"
+import Dance_AJSeo from "/src/headshots/Dance_AJSeo.jpg"
+import Dance_HelenHuang from "/src/headshots/Dance_HelenHuang.jpg"
+import Dance_KellyDam from "/src/headshots/Dance_KellyDam.jpg"
+import Dance_YujunWu from "/src/headshots/Dance_YujunWu.jpg"
+import Dance_CindyLiu from "/src/headshots/Dance_CindyLiu.jpg"
+import Dance_JoannaGe from "/src/headshots/Dance_JoannaGe.jpg"
+import Dance_SmritiChopra from "/src/headshots/Dance_SmritiChopra.jpg"
+import Dance_HannaLuo from "/src/headshots/Dance_HannaLuo.jpg"
+import Dance_AnnikaWu from "/src/headshots/Dance_AnnikaWu.jpg"
+import Dance_AliceAnie from "/src/headshots/Dance_AliceAnie.jpg"
+import Dance_KateLee from "/src/headshots/Dance_KateLee.jpg"
+import Dance_SharonRen from "/src/headshots/Dance_SharonRen.jpg"
+import Dance_SophiaHoch from "/src/headshots/Dance_SophiaHoch.jpg"
+import Dance_CarolineMichalow from "/src/headshots/Dance_CarolineMichalow.jpg"
+import Dance_YuXiLee from "/src/headshots/Dance_LaurenLoriaSklar.jpg"// "/src/headshots/Dance_YuXiLee.jpg"
+import Dance_LaurenLoriaSklar from "/src/headshots/Dance_LaurenLoriaSklar.jpg"
+import Dance_SamanthaVu from "/src/headshots/Dance_SamanthaVu.jpg"
+import Dance_IancaDeLosSantos from "/src/headshots/Dance_IancaDeLosSantos.jpg"
+import Dance_LilyStern from "/src/headshots/Dance_LilyStern.jpg"
+import Dance_VeraMazeeva from "/src/headshots/Dance_VeraMazeeva.jpg"
+import Dance_AudreyShao from "/src/headshots/Dance_AudreyShao.jpg"
+import Dance_BrooklynMao from "/src/headshots/Dance_BrooklynMao.jpg"
+import Dance_RebeccaJiang from "/src/headshots/Dance_RebeccaJiang.jpg"
+import Dance_RoyPark from "/src/headshots/Dance_RoyPark.jpg"
+import Dance_KyliHilaire from "/src/headshots/Dance_KyliHilaire.jpg"
+import Dance_ElvaJia from "/src/headshots/Dance_ElvaJia.jpg"
+import Dance_YikunYang from "/src/headshots/Dance_YikunYang.jpg"
+import Production_SowangKundeling from "/src/headshots/Production_SowangKundeling.jpg"
+import Production_YeajooCho from "/src/headshots/Production_YeajooCho.jpg"
+import Production_VivianLiu from "/src/headshots/Production_VivianLiu.jpg"
+import Production_AliceYu from "/src/headshots/Production_AliceYu.jpg"
+import Production_EshaShah from "/src/headshots/Production_EshaShah.jpg"
+import Production_MaggieGuo from "/src/headshots/Production_MaggieGuo.jpg"
+import Production_KarinaHalevy from "/src/headshots/Production_KarinaHalevy.jpg"
+import Production_JasperGitlitz from "/src/headshots/Production_JasperGitlitz.jpg"
+import Production_KatherineWang from "/src/headshots/Production_KatherineWang.jpg"
+import Production_FelixGabriel from "/src/headshots/Production_FelixGabriel.jpg"
+import Production_HarrySchneider from "/src/headshots/Production_HarrySchneider.jpg"
+import Production_NickBarreto from "/src/headshots/Production_NickBarreto.jpg"
+import Production_WillBerick from "/src/headshots/Production_WillBerick.jpg"
+import Production_EricaFu from "/src/headshots/Production_EricaFu.jpg"
+import Production_MaddieBurroughs from "/src/headshots/Production_MaddieBurroughs.jpg"
+import Production_AidanHong from "/src/headshots/Production_AidanHong.jpg"
+import Production_ChelseaTang from "/src/headshots/Production_ChelseaTang.jpg"
+import Production_ErinChoi from "/src/headshots/Production_ErinChoi.jpg"
+import Production_KateLee from "/src/headshots/Production_KateLee.jpg"
+import Production_SusanNi from "/src/headshots/Production_SusanNi.jpg"
+import Production_YukthaVemula from "/src/headshots/Production_YukthaVemula.jpg"
+import Production_AsthaShah from "/src/headshots/Production_AsthaShah.jpg"
+import Production_LucyGunther from "/src/headshots/Production_LucyGunther.jpg"
+import Production_RiannaCampbell from "/src/headshots/Production_RiannaCampbell.jpg"
+import Production_EliseeaFaur from "/src/headshots/Production_EliseeaFaur.jpg"
+import Cinematography_RuiWang from "/src/headshots/Cinematography_RuiWang.jpg"
+import Cinematography_PeiranGe from "/src/headshots/Cinematography_PeiranGe.jpg"
+import Cinematography_JenniferZhou from "/src/headshots/Cinematography_JenniferZhou.jpg"
+import Cinematography_MinjinBatzorig from "/src/headshots/Cinematography_MinjinBatzorig.jpg"
+import Hair_Makeup_TippiLi from "/src/headshots/Hair_Makeup_TippiLi.jpeg"
+import Hair_Makeup_AnnieWoo from "/src/headshots/Hair_Makeup_AnnieWoo.jpeg"
+import Hair_Makeup_DaniPreston from "/src/headshots/Hair_Makeup_DaniPreston.jpeg"
+import Hair_Makeup_LaylaMalhas from "/src/headshots/Hair_Makeup_LaylaMalhas.jpeg"
+import Hair_Makeup_JessicaLai from "/src/headshots/Hair_Makeup_JessicaLai.jpeg"
+import Hair_Makeup_GraceLiao from "/src/headshots/Hair_Makeup_GraceLiao.jpeg"
+import Hair_Makeup_MairssaLee from "/src/headshots/Hair_Makeup_MairssaLee.jpeg"
+import Hair_Makeup_SulliYatabe from "/src/headshots/Hair_Makeup_SulliYatabe.jpeg"
+
+export const images = [
+  Executive_AnitaCheng, 
+  Executive_EllaSanfilippo, 
+  Design_AmyHu, 
+  Design_AmandaWen, 
+  Design_JuliaKasper, 
+  Design_MichaelDiGiovanna, 
+  Design_SaeraKim, 
+  Design_MinjooKim, 
+  Design_NayanaBalusu, 
+  Design_BrookeSchwartz, 
+  Design_GwenToll, 
+  Design_SueahKim, 
+  Design_LeaDeVylder, 
+  Design_KatrinaDarms, 
+  Design_SydneySun, 
+  Design_ClarineLee, 
+  Design_AnikaBhagavatula, 
+  Design_HazelFroling, 
+  Design_GraceKolosek, 
+  Design_CelineMin, 
+  Design_MayaGalindo_Benson, 
+  Design_NicoleHuang, 
+  Design_SukieWang, 
+  Design_JacksonUnderwood, 
+  Design_RayyaGracy, 
+  Design_GraanaKhan, 
+  Design_CamelliaWang, 
+  Design_LilyDu, 
+  Creative_ChristyZo, 
+  Creative_HeysuOh, 
+  Creative_SophiaHao, 
+  Creative_ShannonLee, 
+  Creative_SophieHeap, 
+  Creative_LeslieLin, 
+  Creative_YuerZhu, 
+  Creative_DionLewis, 
+  Creative_MicheleHratko, 
+  Creative_JoannaNi, 
+  Creative_PhoebeLee, 
+  Creative_ShannonLin, 
+  Creative_JeffreyYe, 
+  Creative_AarnavPatel, 
+  Creative_JingPeng, 
+  Creative_AChair, 
+  Creative_SuannaZhong, 
+  Creative_ErinHsu, 
+  Creative_EuniceLai, 
+  Creative_PerryChen, 
+  Creative_OscarWang, 
+  Creative_MatthewAkuamoah_Boateng, 
+  Creative_NicholasBaek, 
+  Creative_SherryChen, 
+  Creative_YonMaor, 
+  Creative_ChrisSong, 
+  Creative_StacyChen, 
+  Creative_AydenXu, 
+  Creative_ErvinSong, 
+  Creative_VivianaStaicu, 
+  Creative_EricLin, 
+  Creative_MinsungKang, 
+  Creative_AChair, 
+  Model_JeffreyZhang, 
+  Model_BrookeGunter, 
+  Model_AnnaGerchanovsky, 
+  Model_YaninaShavialenka, 
+  Model_AndrewZhou, 
+  Model_MarissaFernandez, 
+  Model_TimothyKim, 
+  Model_MayaOusachi, 
+  Model_ElizabethHager, 
+  Model_JoyLeung, 
+  Model_KevinTong, 
+  Model_DunnZhang, 
+  Model_DestiniBrown_Greene, 
+  Model_MildredAmofa, 
+  Model_LucyHwang, 
+  Model_JocelynSu, 
+  Model_CarolineLaPiana, 
+  Model_SallyPak, 
+  Model_DhrutiKuchibhotla, 
+  Model_Olu_BankeBoakye_Yiadom, 
+  PR_LillianHao, 
+  PR_PeggyShen, 
+  PR_AngelaHuang, 
+  PR_JiaxinLin, 
+  PR_JoelleLee, 
+  PR_KirstenPark, 
+  Dance_JisooHan, 
+  Dance_VeraZhong, 
+  Dance_FranStedman, 
+  Dance_AlisaLo, 
+  Dance_SaanikaChauk, 
+  Dance_KaitlynXie, 
+  Dance_LiannaHuang, 
+  Dance_ChaseGumbs, 
+  Dance_AJSeo, 
+  Dance_HelenHuang, 
+  Dance_KellyDam, 
+  Dance_YujunWu, 
+  Dance_CindyLiu, 
+  Dance_JoannaGe, 
+  Dance_FranStedman, 
+  Dance_SmritiChopra, 
+  Dance_HannaLuo, 
+  Dance_AnnikaWu, 
+  Dance_AliceAnie, 
+  Dance_KateLee, 
+  Dance_SharonRen, 
+  Dance_SophiaHoch, 
+  Dance_CarolineMichalow, 
+  Dance_YuXiLee, 
+  Dance_LaurenLoriaSklar, 
+  Dance_SamanthaVu, 
+  Dance_IancaDeLosSantos, 
+  Dance_LilyStern, 
+  Dance_VeraMazeeva, 
+  Dance_AudreyShao, 
+  Dance_BrooklynMao, 
+  Dance_RebeccaJiang, 
+  Dance_RoyPark, 
+  Dance_KyliHilaire, 
+  Dance_ElvaJia, 
+  Dance_AnnikaWu, 
+  Dance_YikunYang, 
+  Production_SowangKundeling, 
+  Production_YeajooCho, 
+  Production_VivianLiu, 
+  Production_AliceYu, 
+  Production_EshaShah, 
+  Production_MaggieGuo, 
+  Production_KarinaHalevy, 
+  Production_JasperGitlitz, 
+  Production_KatherineWang, 
+  Production_FelixGabriel, 
+  Production_HarrySchneider, 
+  Production_NickBarreto, 
+  Production_WillBerick, 
+  Production_EricaFu, 
+  Production_MaddieBurroughs, 
+  Production_AidanHong, 
+  Production_ChelseaTang, 
+  Production_ErinChoi, 
+  Production_KateLee, 
+  Production_SusanNi, 
+  Production_YukthaVemula, 
+  Production_AsthaShah, 
+  Production_LucyGunther, 
+  Production_RiannaCampbell, 
+  Production_EliseeaFaur, 
+  Cinematography_RuiWang, 
+  Cinematography_PeiranGe, 
+  Cinematography_JenniferZhou, 
+  Cinematography_MinjinBatzorig, 
+  Hair_Makeup_TippiLi, 
+  Hair_Makeup_AnnieWoo, 
+  Hair_Makeup_DaniPreston, 
+  Hair_Makeup_LaylaMalhas, 
+  Hair_Makeup_JessicaLai, 
+  Hair_Makeup_GraceLiao, 
+  Hair_Makeup_MairssaLee, 
+  Hair_Makeup_SulliYatabe, 
+  Hair_Makeup_SulliYatabe, 
+]
