@@ -63,14 +63,14 @@ const App = () => {
     from: { position: [0, 0, -10], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
     enter: { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1], opacity: 1 },
     leave: { position: [0, 0, 100], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
-    config: () => (n) => n === "opacity" && { friction: 1000, duration: duration },
+    config: () => (n) => n === "opacity" && { friction: 1000, duration: 10000 },
   }
 
   const go_out = {
     from: { position: [0, 0, 10], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
     enter: { position: [0, 0, 0], rotation: [0, 0, 0], scale: [1, 1, 1], opacity: 1 },
     leave: { position: [0, 0, -100], rotation: [0, 0, 0], scale: [0, 0, 0], opacity: 0 },
-    config: () => (n) => n === "opacity" && { friction: 1000, duration: duration },
+    config: () => (n) => n === "opacity" && { friction: 100000, duration: 100000 },
   }
 
   const landing_settings = {
@@ -192,7 +192,8 @@ function Model({spring, viewport}) {
           position={[radius * Math.sin(angle), 0, radius * Math.cos(angle)]} 
           rotation={rotation}
           onClick = { (e) => sendBack(e, spring) }
-          onPointerDown = { (e) => redirect(e, id, spring) } 
+          onPointerDown = { (e) => redirect(e, id, spring) }
+          // visible = { rotation[1] > 180 ? true : false}
         >
           <RoundedBox args={[paneHeight, paneWidth, 0.1]} radius={0.05} smoothness={2}>
             {/* <meshLambertMaterial {...lambertConfig}/> */}
@@ -202,8 +203,8 @@ function Model({spring, viewport}) {
               meshPhysicalMaterial={false}
               transmissionSampler={false}
               backside={false}
-              samples={8}
-              resolution={10}
+              samples={4}
+              resolution={5}
               transmission={0.94}
               roughness={0.24}
               thickness={1.62}
