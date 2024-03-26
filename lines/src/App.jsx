@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Canvas, useThree, useFrame } from "@react-three/fiber"
 import { 
   Edges, 
-  Image,
   useTexture,
   MeshTransmissionMaterial,
   Text3D,
@@ -10,8 +9,8 @@ import {
 } from '@react-three/drei'
 import * as THREE from 'three'
 import './App.css'
-import { map, LIMINAL } from '../../src/index.jsx'
-import { animated, useSpring, useSpringValue, } from '@react-spring/three'
+import { map, LIMINAL, sendBack } from '../../src/index.jsx'
+import { animated } from '@react-spring/three'
 import Meliora_Aliturae_Left from '../../src/images/Meliora_Aliturae_Left.webp'
 import Meliora_Aliturae_Right from '../../src/images/Meliora_Aliturae_Right.webp'
 import Nandini_Left from '../../src/images/Nandini_Left.webp'
@@ -434,6 +433,13 @@ const PathBackward = ({backwardHover, backwardUnhover}) => {
 }
  
 export function LinesPage() {
+
+  useEffect(() => {
+    window.addEventListener('pointerup', (e) => sendBack(e));
+    return () => {
+      window.removeEventListener('pointerup', (e) => sendBack(e));
+    };
+  }, []);
 
   const [isForwardHovered, setIsForwardHovered] = useState(false)
   const [isBackwardHovered, setIsBackwardHovered] = useState(false)

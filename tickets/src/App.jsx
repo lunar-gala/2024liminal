@@ -4,19 +4,12 @@ import { animated, useSpringValue, } from '@react-spring/three'
 
 // Typography
 import { useThree } from '@react-three/fiber'
-import { Text } from '@react-three/drei'
 
 // Lense
-import React, { useRef, useState, useEffect } from 'react'
-import { useFrame, createPortal } from '@react-three/fiber'
-import { useGLTF, useFBO, MeshTransmissionMaterial } from '@react-three/drei'
+import React, { useRef, useEffect } from 'react'
+import { useFrame } from '@react-three/fiber'
+import { useGLTF, MeshTransmissionMaterial } from '@react-three/drei'
 import * as THREE from 'three'
-
-import { useStore } from './store'
-
-// ticketButtonHTML
-import { Html } from '@react-three/drei'
-// import './style.css'
 
 export function TixPage() {
 
@@ -31,9 +24,16 @@ export function TixPage() {
       if (e.finished === true && move) {
         // console.log(e);
         window.open("https://carnegiemellontickets.universitytickets.com/w/event.aspx?id=2462&p=1", '_blank').focus();
-        sendBack()
+        sendBack();
       }
     }})
+
+  useEffect(() => {
+    window.addEventListener('pointerup', (e) => sendBack(e));
+    return () => {
+      window.removeEventListener('pointerup', (e) => sendBack(e));
+    };
+  }, []);
 
   // lens
   function Lens({ size, damping = 0.15, ...props }) {

@@ -43,6 +43,7 @@ const App = () => {
   function handleWindowSizeChange() {
       setWidth(window.innerWidth)
   }
+  
   useEffect(() => {
       window.addEventListener('resize', handleWindowSizeChange)
       return () => {
@@ -138,7 +139,7 @@ function Pages({ transition, isMobile, spring }) {
           <LinesPage />
         </Route>
       </Switch>
-      <Sensor spring={spring}/>
+      {/* <Sensor /> */}
     </a.group>
   ))
 }
@@ -150,7 +151,7 @@ function Sensor() {
     <mesh 
       position = {[0, 0, 0]} 
       onPointerUp = { (e) => sendBack(e) } 
-      onClick = { (e) => sendBack(e) }
+      // onClick = { (e) => sendBack(e) }
     >
       <boxGeometry args={[100, 100, 0.1]}/>
       <meshPhongMaterial color={"pink"} opacity={0} transparent />
@@ -288,7 +289,7 @@ function Model({spring, viewport}) {
       var z = radius * Math.sin(angle);
 
       let text = pages[i%4]
-      console.log(angle)
+      // console.log(angle)
 
       planes.push(
         <Pane key={i} id={(i)%4} position={[0, 0, 0]} rotation={[0, angle + Math.PI/2, 0]} text={text} x={x} z={z} angle={angle} />

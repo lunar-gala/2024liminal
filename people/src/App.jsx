@@ -1,28 +1,20 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { 
   Canvas,
   useThree,
   useFrame,
 } from "@react-three/fiber"
 import { 
-  Stats, 
-  Text, 
   Loader, 
-  useTexture, 
-  useGLTF, 
-  Shadow,
   Edges,
   Image
 } from '@react-three/drei'
-import { animated, useSpring, useSpringValue, useSpringRef, a } from "@react-spring/three"
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { animated, useSpringValue } from "@react-spring/three"
 import './App.css'
-import { fonts, map, constrain, Cover, Pane, max, min } from '../../src/index.jsx'
-import * as THREE from 'three'
+import { sendBack, RobotoMono, Kommuna } from '../../src/index.jsx'
+// import * as THREE from 'three'
 
 import { urls, names, team, title, images } from './newConstants.js'
-import { RobotoMono, Kommuna, WordMark  } from '/src/index.jsx'
 
 const numPeople = 163;
 
@@ -362,6 +354,13 @@ const Cards = ( ) => {
 export function PeoplePage({isMobile}) {
 
   // console.log(isMobile)
+
+  useEffect(() => {
+    window.addEventListener('pointerup', (e) => sendBack(e));
+    return () => {
+      window.removeEventListener('pointerup', (e) => sendBack(e));
+    };
+  }, []);
   
   return (
     <>

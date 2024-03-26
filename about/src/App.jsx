@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Canvas, useThree } from "@react-three/fiber"
 import { 
   Stats, 
@@ -6,7 +6,7 @@ import {
 } from '@react-three/drei'
 import './App.css'
 import { createNoise2D } from 'simplex-noise'
-import { map, Pane, RobotoMono, LIMINAL, text2components } from '../../src/index.jsx'
+import { map, Pane, RobotoMono, LIMINAL, text2components, sendBack } from '../../src/index.jsx'
 import tons from './assets/tons.png'
 import s from './assets/s.png'
 
@@ -26,7 +26,6 @@ function chimesMoveFunction(position, size, id, state, ref) {
 }
 
 export function AboutPage() {
-  const [count, setCount] = useState(0)
   const { viewport } = useThree()
 
   const panesSpan = viewport.width * (1 - 2*0.07) // 7% margins
@@ -44,6 +43,13 @@ export function AboutPage() {
     
     panes.push(<Pane position={position} size={size} moveFunction={chimesMoveFunction} key={i} id={i}/>)
   }
+
+  useEffect(() => {
+    window.addEventListener('pointerup', (e) => sendBack(e));
+    return () => {
+      window.removeEventListener('pointerup', (e) => sendBack(e));
+    };
+  }, []);
 
   /* text blocks */
   const about_text_11 = "it is not what is on each side of the doorway, but rather the space in between."
