@@ -82,7 +82,7 @@ export const Pane = ({ position, size, moveFunction, id, opacity }) => {
         <mesh 
             position = {position} 
             ref = {ref} 
-            onClick = { (e) => sendBack() }
+            onClick = { (e) => sendBack(e) }
             onPointerDown = { (e) => redirect(id) } 
         >
         
