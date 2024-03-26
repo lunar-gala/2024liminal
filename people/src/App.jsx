@@ -351,7 +351,7 @@ const Cards = ( ) => {
   )
 }
 
-export function PeoplePage({isMobile}) {
+export function PeoplePage() {
 
   // console.log(isMobile)
 

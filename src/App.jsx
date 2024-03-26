@@ -43,7 +43,7 @@ const App = () => {
   function handleWindowSizeChange() {
       setWidth(window.innerWidth)
   }
-  
+
   useEffect(() => {
       window.addEventListener('resize', handleWindowSizeChange)
       return () => {
@@ -397,6 +397,7 @@ function Lens({ size, location, damping = 0.15, ...props }) {
   }
 
   const config = location == '/home' ? homeConfig : subConfig
+  size = location == '/people'? 0.5 * size : size
 
   return (
     <>
@@ -409,7 +410,7 @@ function Lens({ size, location, damping = 0.15, ...props }) {
         <mesh scale={size} ref={ref} rotation-x={Math.PI/2} geometry={nodes.Cube.geometry} visible={location == '/tickets' ? false : true} {...props}>
           {/* {config.meshPhysicalMaterial ? <meshPhysicalMaterial {...config} /> : <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} />} */}
           {/* <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} /> */}
-          <MeshTransmissionMaterial {...config}/>
+          <MeshTransmissionMaterial {...config} depthTest={false} />
         </mesh>
       </group>
     </>

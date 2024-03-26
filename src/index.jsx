@@ -43,7 +43,7 @@ export function redirect(e, id) {
     e.stopPropagation();
 
     const pages = ["about", "tickets", "people", "lines"];
-    console.log(id)
+    // console.log(id)
 
     const location = {
         pathname: "/" + pages[id],

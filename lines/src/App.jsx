@@ -123,8 +123,6 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
   const pathWidth = paneWidth * 0.75
   const refPaneLeft = useRef()
   const refPaneRight = useRef()
-  const refMeshLeft = useRef()
-  const refMeshRight = useRef()
   const refNewLeft = useRef()
   const refNewRight = useRef()
   const labelRef = useRef()
@@ -134,80 +132,60 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
   useFrame(() => {
     if (forwardHovered) {
       refNewRight.current.position.z += speed
-      refMeshRight.current.position.z += speed
       refPaneRight.current.position.z += speed
       refNewLeft.current.position.z += speed
-      refMeshLeft.current.position.z += speed
       refPaneLeft.current.position.z += speed
       labelRef.current.position.z += speed
       refNewRight.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
-      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
       refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
-      refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
       refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
       refNewLeft.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
       labelRef.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
     }
     else if (backwardHovered) {
       refNewRight.current.position.z -= speed
-      refMeshRight.current.position.z -= speed
       refPaneRight.current.position.z -= speed
       refNewLeft.current.position.z -= speed
-      refMeshLeft.current.position.z -= speed
       refPaneLeft.current.position.z -= speed
       labelRef.current.position.z -= speed
       refNewRight.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
-      refMeshRight.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
       refPaneRight.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
       refNewLeft.current.material.opacity = 1 - (Math.abs(refNewRight.current.position.z)/40)
-      refMeshLeft.current.material.opacity = 1 - (Math.abs(refMeshRight.current.position.z)/40)
       refPaneLeft.current.material.opacity = 1 - (Math.abs(refPaneRight.current.position.z)/40)
     }
-    if (refMeshLeft.current.position.z > 20) {
+    if (refPaneLeft.current.position.z > 20) {
       refNewRight.current.material.opacity = 0
       refNewRight.current.position.z = -280
-      refMeshRight.current.material.opacity = 0
-      refMeshRight.current.position.z = -280
       refPaneRight.current.material.opacity = 0
       refPaneRight.current.position.z = -280
       refNewLeft.current.material.opacity = 0
       refNewLeft.current.position.z = -280
-      refMeshLeft.current.material.opacity = 0
-      refMeshLeft.current.position.z = -280
       refPaneLeft.current.material.opacity = 0
       refPaneLeft.current.position.z = -280
       labelRef.current.material.opacity = 0
       labelRef.current.position.z -= 300
     }
-    else if (refMeshLeft.current.position.z < -280) {
+    else if (refPaneLeft.current.position.z < -280) {
       refNewRight.current.position.z = 20
       refNewRight.current.material.opacity = 1
-      refMeshRight.current.position.z = 20
-      refMeshRight.current.material.opacity = 1
       refPaneRight.current.position.z= 20
       refPaneRight.current.material.opacity = 1
       refNewLeft.current.position.z = 20
       refNewLeft.current.material.opacity = 1
-      refMeshLeft.current.position.z = 20
-      refMeshLeft.current.material.opacity = 1
       refPaneLeft.current.position.z = 20
       refPaneLeft.current.material.opacity = 1
       labelRef.current.position.z += 300
       labelRef.current.material.opacity = 1
     }
-    if (refMeshLeft.current.position.z < -40 || refMeshLeft.current.position.z > distBetweenPairs * 3){
+    if (refPaneLeft.current.position.z < -40 || refPaneLeft.current.position.z > distBetweenPairs * 3){
       refPaneRight.current.visible = false
       refNewRight.current.visible = false
-      refMeshRight.current.visbile = false
-      refMeshLeft.current.visible = false
       refPaneLeft.current.visible = false
       refNewLeft.current.visible = false
       labelRef.current.visible = false
     } else {
       refPaneRight.current.visible = true
       refNewRight.current.visible = true
-      refMeshRight.current.visbile = true
-      refMeshLeft.current.visible = true
       refPaneLeft.current.visible = true
       refNewLeft.current.visible = true
       labelRef.current.visible = true
@@ -255,15 +233,6 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
             toneMapped={false}
             />
       </mesh>
-      <mesh position={ [ -paneWidth * 1.75/2 + x, y, z + 0.01 ] } ref = {refMeshLeft}>
-        <boxGeometry args = {[paneWidth, paneHeight, paneThickness]}/>
-        <meshStandardMaterial 
-          map={left}
-          opacity={1 - (Math.abs(z)/40)}
-          transparent={true} 
-          toneMapped={false}
-        />
-      </mesh>
       <mesh
         position={ [ paneWidth * 1.75/2 + x, y, z ] }
         ref = {refNewRight}>
@@ -290,15 +259,6 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
             transparent = {true}
             toneMapped={false}
           />
-      </mesh>
-      <mesh position={ [paneWidth * 1.75/2 + x, y, z + 0.01] } ref = {refMeshRight}>
-        <boxGeometry args = {[paneWidth, paneHeight, paneThickness]}/>
-        <meshStandardMaterial 
-          map={right}
-          opacity={1 - (Math.abs(z)/40)}
-          transparent={true} 
-          toneMapped={false}
-        />
       </mesh>
       <Center middle center position={[0, -viewport.height/4, z]}>
         <Text3D height={0.01} size={id != 6 ? 0.7 : 0.5} font="./fonts/Kommuna/Kommuna_Cond_Regular.json" ref={labelRef} >
@@ -456,7 +416,7 @@ export function LinesPage() {
   
     let pairs = []
     for (let i = 0; i < nLines; i++) {
-      console.log(- (i * distBetweenPairs) - 0.1)
+      // console.log(- (i * distBetweenPairs) - 0.1)
       pairs.push(
         <AnimatedPair 
           opacity={1}
