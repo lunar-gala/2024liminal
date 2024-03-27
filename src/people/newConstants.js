@@ -164,12 +164,12 @@ export const names = [
 ];
 
 export const team = [
-  "Co-Producer, Model",
+  "Co-Producer\n│      ├─   Model",
   "Co-Producer",
   "Head of Design",
   "Design Coordinator",
-  "Designer, Coordinator",
-  "Designer, Coordinator",
+  "Designer \n│      ├─  Coordinator",
+  "Designer \n│      ├─  Coordinator",
   "Designer",
   "Designer",
   "Designer",
@@ -197,7 +197,7 @@ export const team = [
   "Co-Head of Print",
   "Co-Head of Print",
   "Print member",
-  "Print member, Dance",
+  "Print member\n│      ├─   Dance",
   "Print member",
   "Print member",
   "print member",
@@ -229,7 +229,7 @@ export const team = [
   "Co-Head of Model",
   "Model Coordinator",
   "Model",
-  "Model, Finance Assistant",
+  "Model\n│      ├─  Finance Assistant",
   "Model",
   "Model",
   "Model",
@@ -270,8 +270,8 @@ export const team = [
   "dancer",
   "Dancer",
   "Dancer",
-  "",
-  "",
+  "Dancer",
+  "Dancer",
   "Dancer",
   "Dancer",
   "Dancer",
@@ -294,14 +294,14 @@ export const team = [
   "Box Office Coordinator",
   "Box Office Coordinator",
   "Box Office Coordinator",
-  "Lighting Designer, Dancer",
-  "Lighting Designer, SM Support",
-  "Head of Sound Design, Model",
+  "Lighting Designer\n│      ├─  Dancer",
+  "Lighting Designer\n│      ├─  SM Support",
+  "Head of Sound Design\n│      ├─  Model",
   "Sound Designer",
   "Sound Designer",
   "Sound Designer",
   "Sound Designer",
-  "Co-Head of Stage Design, Hair/Makeup",
+  "Co-Head of Stage Design\n│      ├─  Hair/Makeup",
   "Co-Head of Stage Design",
   "Stage Designer",
   "Stage Designer",
@@ -656,6 +656,9 @@ export const urls = [
   "/../../src/headshots/Hair_Makeup_SulliYatabe.webp",
 ];
 
+
+
+// const Executive_AnitaCheng = React.lazy(() => import("/src/headshots/Executive_AnitaCheng.webp"));
 import Executive_AnitaCheng from "/src/headshots/Executive_AnitaCheng.webp"
 import Executive_EllaSanfilippo from "/src/headshots/Executive_EllaSanfilippo.webp"
 import Design_AmyHu from "/src/headshots/Design_AmyHu.webp"

@@ -7,7 +7,8 @@ import {
 import { 
   Loader, 
   Edges,
-  Image
+  Image,
+  useTexture
 } from '@react-three/drei'
 import { animated, useSpringValue } from "@react-spring/three"
 import { sendBack, RobotoMono, Kommuna } from '../../src/index.jsx'
@@ -50,23 +51,13 @@ let stack = {
 
 const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
   const state = useThree();
-  const ref = useRef();
   const { viewport } = useThree();
 
   const cardWidth = 0.25 * viewport.width;
   //use viewport height
-  const cardHeight = 0.65*viewport.height;
+  const cardHeight = 0.75*viewport.height;
 
-  const namePosition = [-cardWidth * 0.425, -cardHeight * 0.23, paneThickness * 0.5 + 0.01];
-  const teamPosition = [-cardWidth * 0.4375, -cardHeight * 0.33, paneThickness * 0.5 + 0.01];
-  const LPosition = [-cardWidth * 0.318, -cardHeight * 0.36, paneThickness * 0.5 + 0.01];
-  const subteamPosition = [-cardWidth * 0.4375, -cardHeight * 0.28, paneThickness * 0.5 + 0.01];
-
-  const curve2Scale = [cardWidth * 0.07, cardWidth * 0.07 * (206 / 208), 1];
-  const curve2Position = [-cardWidth * 0.28, -cardHeight * 0.36, paneThickness * 0.5 + 0.01];
-
-  const curve1Scale = [cardWidth * 0.1, cardWidth * 0.1 * 2, 1];
-  const curve1Position = [-cardWidth * 0.375, -cardHeight * 0.32, paneThickness * 0.5 + 0.01];
+  const namePosition = [-cardWidth * 0.425, -cardHeight * 0.18, paneThickness * 0.5 + 0.01];
 
   const imageHeight = cardHeight * 0.5;
 
@@ -82,51 +73,56 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
 
   const position = [myid * dx, myid * dy, myid * dz];
 
+  const text = name.toUpperCase() + "\n" + "├─  "+subteam.toUpperCase() + "\n" + "│      ├─  " + team.toUpperCase()
+
   return (
-    <mesh
-      position={position}
-      ref={ref}
-      visible={myid > id && myid < id + 30 ? true : false}
-    >
-      <boxGeometry args={size}/>
-      <meshBasicMaterial 
-        color={"white"} 
-        toneMapped={false}
-      />
-      <Edges
-        scale={1}
-        threshold={15}
-        color="black"
-      />
-      <Image 
-        position={[0, 1.5, paneThickness * 0.5 + 0.01]} 
-        url={imageUrl} 
-        scale={[cardWidth*0.85, cardHeight*0.6, 1]}
-        anchorX="left"
-        visible={myid > id && myid < id + 2 ? true : false }
-      />
-      <RobotoMono
-        position={namePosition}
-        fontSize={cardWidth*0.045}
-        color="black"
-        anchorX="left"
-        text={name.toUpperCase()}
-      />
-      <RobotoMono
-        position={subteamPosition}
-        fontSize={cardWidth*0.045}
-        color="black"
-        anchorX="left"
-        text={"├─  "+subteam.toUpperCase()}
-      />
-      <RobotoMono
-        position={teamPosition}
-        fontSize={cardWidth*0.045}
-        color="black"
-        anchorX="left"
-        text={"│      ├─  " + team.toUpperCase()}
-      />
-    </mesh>
+    <group position={position}>
+        <mesh
+          // position={position}
+          visible={myid > id && myid < id + 30 ? true : false}
+        >
+          <boxGeometry args={size}/>
+          <meshBasicMaterial 
+            color={"white"} 
+            toneMapped={false}
+          />
+          <Edges
+            scale={1}
+            threshold={15}
+            color="black"
+          />
+        <Image 
+          position={[0, 1.5, paneThickness * 0.5 + 0.01]} 
+          url={imageUrl} 
+          scale={[cardWidth*0.85, cardHeight*0.6, 1]}
+          anchorX="left"
+          visible={myid > id && myid < id + 2 ? true : false }
+        />
+        <RobotoMono
+          position={namePosition}
+          fontSize={cardWidth*0.045}
+          lineHeight={2}
+          color="black"
+          anchorX="left"
+          anchorY="Top"
+          text={text}
+        />
+      </mesh>
+      {/* <mesh
+        visible={myid > id && myid < id + 30 ? true : false}
+        // position={[0, cardHeight * 0.15, 0]}
+      >
+        <boxGeometry 
+          args={[cardWidth*0.85, cardHeight*0.85, 0.01]}
+        />
+        <meshStandardMaterial 
+          color={"white"} 
+          transprent={true}
+          map={useTexture(imageUrl)}
+          toneMapped={false}
+        />
+      </mesh> */}
+    </group>
   )
 }
 

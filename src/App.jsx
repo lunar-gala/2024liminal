@@ -27,10 +27,10 @@ import { useTransition, useSpringValue } from "@react-spring/core"
 import { a, animated } from "@react-spring/three"
 
 // pages
-import { AboutPage } from "./about/App.jsx"
-import { TixPage } from "./tickets/App.jsx"
-import { PeoplePage } from "./people/App.jsx"
-import { LinesPage } from "./lines/App.jsx"
+import { AboutPage } from "./about/App"
+import { TixPage } from "./tickets/App"
+import { PeoplePage } from "./people/App"
+import { LinesPage } from "./lines/App"
 
 // assets
 import promoVid from "/src/assets/fuckit.mp4"

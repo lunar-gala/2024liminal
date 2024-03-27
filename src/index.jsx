@@ -184,6 +184,7 @@ export const RobotoMono = ({ position, width, fontSize, text, ...props }) => {
             text={text}
             onPointerOver={props.onPointerOver}
             onPointerOut={props.onPointerOut}
+            lineHeight={props.lineHeight == null ? "normal" : props.lineHeight}
         />
     )
 }
