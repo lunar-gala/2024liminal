@@ -55,7 +55,9 @@ export function redirect(e, id) {
   
 export function sendBack(e) {
     console.log(e)
-    if (e != undefined) e.stopPropagation();
+    if (e == undefined) return
+    
+    e.stopPropagation();
     return history.replace("/home")
 }
 
