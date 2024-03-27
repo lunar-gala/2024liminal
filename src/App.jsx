@@ -138,7 +138,7 @@ function Pages({ transition, isMobile, spring }) {
 
   return transition(({ opacity, ...props }, location) => (
     <a.group {...props}>
-      <Switch location={location}>
+      <Switch location={location} {...props}>
         <Route path="/">
           <LandingPage />
         </Route>
@@ -152,7 +152,7 @@ function Pages({ transition, isMobile, spring }) {
           <TixPage />
         </Route>
         <Route path="/people">
-          <PeoplePage isMobile={isMobile} />
+          <PeoplePage />
         </Route>
         <Route path="/lines">
           <LinesPage />
