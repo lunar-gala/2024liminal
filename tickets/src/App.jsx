@@ -24,7 +24,7 @@ export function TixPage() {
       if (e.finished === true && move) {
         // console.log(e);
         window.open("https://carnegiemellontickets.universitytickets.com/w/event.aspx?id=2462&p=1", '_blank').focus();
-        sendBack();
+        sendBack(e);
       }
     }})
 

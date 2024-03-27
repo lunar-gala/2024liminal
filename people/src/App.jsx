@@ -179,9 +179,7 @@ const Cards = ( ) => {
 
   const Rect = ({ row, col, moveFunction, id}) => {
 
-    const state = useThree()
     const ref = useRef()
-    const { viewport } = useThree()
 
     const [hover, setHover] = useState(false);
 

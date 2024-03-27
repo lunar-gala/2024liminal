@@ -34,6 +34,25 @@ import { LinesPage } from "../lines/src/App.jsx"
 
 // assets
 import promoVid from "/src/assets/fuckit.mp4"
+import {preloadFont} from "troika-three-text"
+
+preloadFont(
+  {
+      font: fonts.Kommuna, 
+      characters: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[]"
+  }, () => {
+    console.log("preloaded Kommuna")
+  }
+)
+
+preloadFont(
+  {
+      font: fonts.RobotoMono, 
+      characters: "ABCDEFGHIJKLMNOPQRSTUVWXYZ│├─-,"
+  }, () => {
+    console.log("preloaded Roboto Mono")
+  }
+)
 
 const App = () => {
 
@@ -93,7 +112,7 @@ const App = () => {
   return (
     <>
       <Cover>
-        <Canvas camera={{ position: [0, 0, 20], fov: 50 }} >
+        <Canvas camera={{ position: [0, 0, 20], fov: 50 }} performance={{ min: 0.1 }} >
           <color attach="background" args={['white']} />
           {/* <AnimatedColor args={opacitySpring.to((value) => [value, value, value])}/> */}
           <ambientLight intensity={1}/>
@@ -353,7 +372,7 @@ function Lens({ size, location, damping = 0.15, ...props }) {
   useFrame(({ pointer }) => {
     const x = (pointer.x * viewport.width) / 2
     const y = (pointer.y * viewport.height) / 2
-    ref.current.position.set(x, y, 1)
+    ref.current.position.set(x, y, 0)
   })
 
   const homeConfig = {
@@ -401,18 +420,11 @@ function Lens({ size, location, damping = 0.15, ...props }) {
 
   return (
     <>
-      <group>
-        {/* {createPortal(children, scene)} */}
-        {/* <mesh scale:[viewport.width, viewport.height, 1]}>
-          <planeGeometry />
-          <meshBasicMaterial map={buffer.texture} /> 
-        </mesh> */}
-        <mesh scale={size} ref={ref} rotation-x={Math.PI/2} geometry={nodes.Cube.geometry} visible={location == '/tickets' ? false : true} {...props}>
-          {/* {config.meshPhysicalMaterial ? <meshPhysicalMaterial {...config} /> : <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} />} */}
-          {/* <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} /> */}
-          <MeshTransmissionMaterial {...config} depthTest={false} />
-        </mesh>
-      </group>
+      <mesh scale={size} ref={ref} rotation-x={Math.PI/2} geometry={nodes.Cube.geometry} visible={location == '/tickets' ? false : true} {...props}>
+        {/* {config.meshPhysicalMaterial ? <meshPhysicalMaterial {...config} /> : <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} />} */}
+        {/* <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} /> */}
+        <MeshTransmissionMaterial {...config} depthTest={false} />
+      </mesh>
     </>
   )
 }

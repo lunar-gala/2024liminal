@@ -56,8 +56,14 @@ export function redirect(e, id) {
 export function sendBack(e) {
     console.log(e)
     if (e == undefined) return
-    
-    e.stopPropagation();
+
+    try{
+        e.stopPropagation();
+    }
+    catch {
+        console.log("event can't stop propogation")
+    }
+
     return history.replace("/home")
 }
 
@@ -68,6 +74,10 @@ export const fonts = {
     Wordmark: "/fonts/Wordmark/NewEdge666-Regular.otf",
     Wordmark_Rounded: "/fonts/Wordmark/NewEdge666-RegularRounded.otf",
 }
+
+import Kommuna_font from "/fonts/Kommuna/KommunaNarrow1.10.otf"
+import RobotoMono_font from "/fonts/RobotoMono/RobotoMono-VariableFont_wght.ttf"
+
 
 // components
 
@@ -163,7 +173,8 @@ export const RobotoMono = ({ position, width, fontSize, text, ...props }) => {
         <Text 
             fontSize={fontSize != null ? fontSize : 0.1}
             position={position != null ? position : [0,0,0]}
-            font={fonts.RobotoMono}
+            // font={fonts.RobotoMono}
+            font={RobotoMono_font}
             characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ│├─-,"
             color={props.color == null ? "black" : props.color}
             anchorX={props.anchorX == null ? "center" : props.anchorX}
@@ -182,8 +193,9 @@ export const Kommuna = ({ position, width, fontSize, text, ...props }) => {
         <Text 
             fontSize={fontSize != null ? fontSize : 0.1}
             position={position != null ? position : [0,0,0]}
-            font={fonts.Kommuna}
-            characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789![]"
+            // font={fonts.Kommuna}
+            font={Kommuna_font}
+            characters="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ[]"
             color={props.color == null ? "black" : props.color}
             anchorX={props.anchorX == null ? "center" : props.anchorX}
             anchorY={props.anchorY == null ? "middle" : props.anchorY}
