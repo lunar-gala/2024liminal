@@ -8,7 +8,6 @@ import {
   Center
 } from '@react-three/drei'
 import * as THREE from 'three'
-import './App.css'
 import { map, LIMINAL, sendBack } from '../../src/index.jsx'
 import { animated } from '@react-spring/three'
 import Meliora_Aliturae_Left from '../../src/images/Meliora_Aliturae_Left.webp'

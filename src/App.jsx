@@ -27,10 +27,10 @@ import { useTransition, useSpringValue } from "@react-spring/core"
 import { a, animated } from "@react-spring/three"
 
 // pages
-import { AboutPage } from "../about/src/App.jsx"
-import { TixPage } from "../tickets/src/App.jsx"
-import { PeoplePage } from "../people/src/App.jsx"
-import { LinesPage } from "../lines/src/App.jsx"
+import { AboutPage } from "./about/App.jsx"
+import { TixPage } from "./tickets/App.jsx"
+import { PeoplePage } from "./people/App.jsx"
+import { LinesPage } from "./lines/App.jsx"
 
 // assets
 import promoVid from "/src/assets/fuckit.mp4"
@@ -473,12 +473,21 @@ function HomePage({spring}) {
   )
 }
 
+let send = true
+
 function LandingPage() {
 
   const ref = useRef()
   const { viewport } = useThree();
 
-  setTimeout(sendBack, 23000);
+  function sendFromLanding() {
+    if (send) {
+      sendBack(0)
+      send = false;
+    }
+  }
+
+  setTimeout(sendFromLanding, 23000);
 
   return (
     <>

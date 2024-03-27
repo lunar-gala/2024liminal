@@ -4,7 +4,6 @@ import {
   Stats, 
   Image, 
 } from '@react-three/drei'
-import './App.css'
 import { createNoise2D } from 'simplex-noise'
 import { map, Pane, RobotoMono, LIMINAL, text2components, sendBack } from '../../src/index.jsx'
 import tons from './assets/tons.png'
