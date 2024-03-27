@@ -27,10 +27,10 @@ import { useTransition, useSpringValue } from "@react-spring/core"
 import { a, animated } from "@react-spring/three"
 
 // pages
-import { AboutPage } from "../about/src/App.jsx"
-import { TixPage } from "../tickets/src/App.jsx"
-import { PeoplePage } from "../people/src/App.jsx"
-import { LinesPage } from "../lines/src/App.jsx"
+import { AboutPage } from "../about/src/App"
+import { TixPage } from "../tickets/src/App"
+import { PeoplePage } from "../people/src/App"
+import { LinesPage } from "../lines/src/App"
 
 // assets
 import promoVid from "/src/assets/fuckit.mp4"
@@ -163,21 +163,6 @@ function Pages({ transition, isMobile, spring }) {
   ))
 }
 
-// mesh element that covers the screen and calls sendBack() 
-// when the mouse is lifted
-function Sensor() {
-  return (
-    <mesh 
-      position = {[0, 0, 0]} 
-      onPointerUp = { (e) => sendBack(e) } 
-      // onClick = { (e) => sendBack(e) }
-    >
-      <boxGeometry args={[100, 100, 0.1]}/>
-      <meshPhongMaterial color={"pink"} opacity={0} transparent />
-    </mesh>
-  )
-}
-
 /**
  * SUB-PAGES
  * should go in seperate files
@@ -192,8 +177,6 @@ function Model({spring, viewport}) {
   const textRadScale = 1.4
   const textY = 0.47 * paneWidth
 
-  let print = true;
-
   function Pane({position, rotation, text, config, x, z, angle, id}) {
     const ref = useRef()
 
@@ -201,7 +184,7 @@ function Model({spring, viewport}) {
     //   ref.current.rotation.y += 0.5 * delta // (angle + clock.getElapsedTime() / 8) % (2*Math.PI);
     // });
 
-    useFrame(({ pointer, clock }) => {
+    useFrame(({ clock }) => {
       groupRef.current.rotation.x = -clock.getElapsedTime() / 8;
     });
 
