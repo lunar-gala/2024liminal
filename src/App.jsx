@@ -22,15 +22,15 @@ import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
 import * as THREE from "three";
 
 // nav
-import { useLocation, Switch, Route } from "wouter"
+import { useLocation, Switch, Route, Router } from "wouter"
 import { useTransition, useSpringValue } from "@react-spring/core"
 import { a, animated } from "@react-spring/three"
 
 // pages
-import { AboutPage } from "../about/src/App.jsx"
-import { TixPage } from "../tickets/src/App.jsx"
-import { PeoplePage } from "../people/src/App.jsx"
-import { LinesPage } from "../lines/src/App.jsx"
+const AboutPage = React.lazy(() => import("../about/src/App.jsx"));
+const TixPage = React.lazy(() => import("../tickets/src/App.jsx"));
+const PeoplePage = React.lazy(() => import("../people/src/App.jsx"));
+const LinesPage = React.lazy(() => import("../lines/src/App.jsx"));
 
 // assets
 import promoVid from "/src/assets/fuckit.mp4"
@@ -114,13 +114,9 @@ const App = () => {
       <Cover>
         <Canvas camera={{ position: [0, 0, 20], fov: 50 }} performance={{ min: 0.1 }} >
           <color attach="background" args={['white']} />
-          {/* <AnimatedColor args={opacitySpring.to((value) => [value, value, value])}/> */}
           <ambientLight intensity={1}/>
-          {/* <directionalLight position={[0, 0, 5]} intensity={0.5} /> */}
-          <Suspense fallback={null}>
-            <Pages transition={transition} isMobile={isMobile} spring={opacitySpring} />
-            <Lens location={location} size={1} />
-          </Suspense>
+          <Pages transition={transition} isMobile={isMobile} spring={opacitySpring} />
+          <Lens location={location} size={1} />
         </Canvas>
       </Cover>
       <Loader />
@@ -137,29 +133,33 @@ export default App
 function Pages({ transition, isMobile, spring }) {
 
   return transition(({ opacity, ...props }, location) => (
-    <a.group {...props}>
-      <Switch location={location}>
-        <Route path="/">
-          <LandingPage />
-        </Route>
-        <Route path="/home">
-          <HomePage spring={spring} />
-        </Route>
-        <Route path="/about">
-          <AboutPage />
-        </Route>
-        <Route path="/tickets">
-          <TixPage />
-        </Route>
-        <Route path="/people">
-          <PeoplePage isMobile={isMobile} />
-        </Route>
-        <Route path="/lines">
-          <LinesPage />
-        </Route>
-      </Switch>
-      {/* <Sensor /> */}
-    </a.group>
+    <React.Suspense fallback={<p>loading...</p>}>
+      <a.group {...props}>
+        <Router>
+          <Switch location={location}>
+            <Route path="/" render={() => <LandingPage />} />
+              {/* <LandingPage />
+            </Route> */}
+            <Route path="/home" render={() => <HomePage />} />
+              {/* <HomePage spring={spring} />
+            </Route> */}
+            <Route path="/about" render={() => <AboutPage />} />
+              {/* <AboutPage />
+            </Route> */}
+            <Route path="/tickets" render={() => <TixPage />} />
+              {/* <TixPage />
+            </Route> */}
+            <Route path="/people" render={() => <PeoplePage />} />
+              {/* <PeoplePage />
+            </Route> */}
+            <Route path="/lines" render={() => <LinesPage />} />
+              {/* <LinesPage />
+            </Route> */}
+          </Switch>
+          {/* <Sensor /> */}
+        </Router>
+      </a.group>
+    </React.Suspense>
   ))
 }
 
@@ -478,7 +478,7 @@ function LandingPage() {
   const ref = useRef()
   const { viewport } = useThree();
 
-  setTimeout(sendBack, 23000);
+  setTimeout(() => sendBack(0), 23000);
 
   return (
     <>
