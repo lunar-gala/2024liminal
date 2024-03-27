@@ -10,7 +10,6 @@ import {
   Image
 } from '@react-three/drei'
 import { animated, useSpringValue } from "@react-spring/three"
-import './App.css'
 import { sendBack, RobotoMono, Kommuna } from '../../src/index.jsx'
 // import * as THREE from 'three'
 
