@@ -11,7 +11,7 @@ import { useFrame } from '@react-three/fiber'
 import { useGLTF, MeshTransmissionMaterial } from '@react-three/drei'
 import * as THREE from 'three'
 
-export function TixPage() {
+export function TixPage({location}) {
 
   // tix globals
   const { viewport } = useThree()
@@ -41,6 +41,9 @@ export function TixPage() {
     const { nodes } = useGLTF("./LG-tickets-cursor.glb")
     
     useFrame(({ pointer }) => {
+
+      if (location != '/tickets') return
+
       const x = (pointer.x * viewport.width) / 2
       const y = (pointer.y * viewport.height) / 2
       ref.current.position.set(x, y, -0.1)

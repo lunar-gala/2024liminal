@@ -42,7 +42,7 @@ export const names = [
   "Jeffrey Ye",
   "Aarnav Patel",
   "Jing Peng",
-  "A Chair",
+  "Mason Wang",
   "Suanna Zhong",
   "Erin Hsu",
   "Eunice Lai",
@@ -535,7 +535,7 @@ export const urls = [
   "/../../src/headshots/Creative_JeffreyYe.webp",
   "/../../src/headshots/Creative_AarnavPatel.webp",
   "/../../src/headshots/Creative_JingPeng.webp",
-  "/../../src/headshots/Creative_AChair.webp",
+  "/../../src/headshots/Creative_MasonWang.webp",
   "/../../src/headshots/Creative_SuannaZhong.webp",
   "/../../src/headshots/Creative_ErinHsu.webp",
   "/../../src/headshots/Creative_EuniceLai.webp",
@@ -702,7 +702,7 @@ import Creative_ShannonLin from "/src/headshots/Creative_ShannonLin.webp"
 import Creative_JeffreyYe from "/src/headshots/Creative_JeffreyYe.webp"
 import Creative_AarnavPatel from "/src/headshots/Creative_AarnavPatel.webp"
 import Creative_JingPeng from "/src/headshots/Creative_JingPeng.webp"
-import Creative_AChair from "/src/headshots/Creative_AChair.webp"
+import Creative_MasonWang from "/src/headshots/Creative_MasonWang.webp"
 import Creative_SuannaZhong from "/src/headshots/Creative_SuannaZhong.webp"
 import Creative_ErinHsu from "/src/headshots/Creative_ErinHsu.webp"
 import Creative_EuniceLai from "/src/headshots/Creative_EuniceLai.webp"
@@ -719,6 +719,7 @@ import Creative_ErvinSong from "/src/headshots/Creative_ErvinSong.webp"
 import Creative_VivianaStaicu from "/src/headshots/Creative_VivianaStaicu.webp"
 import Creative_EricLin from "/src/headshots/Creative_EricLin.webp"
 import Creative_MinsungKang from "/src/headshots/Creative_MinsungKang.webp"
+import Creative_AChair from "/src/headshots/Creative_AChair.webp"
 import Model_JeffreyZhang from "/src/headshots/Model_JeffreyZhang.webp"
 import Model_BrookeGunter from "/src/headshots/Model_BrookeGunter.webp"
 import Model_AnnaGerchanovsky from "/src/headshots/Model_AnnaGerchanovsky.webp"
@@ -862,7 +863,7 @@ export const images = [
   Creative_JeffreyYe, 
   Creative_AarnavPatel, 
   Creative_JingPeng, 
-  Creative_AChair, 
+  Creative_MasonWang, 
   Creative_SuannaZhong, 
   Creative_ErinHsu, 
   Creative_EuniceLai, 

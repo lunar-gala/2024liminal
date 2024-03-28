@@ -6,6 +6,22 @@ import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
 import { createBrowserHistory } from 'history';
 import { Text, MeshTransmissionMaterial } from '@react-three/drei'
 import * as THREE from 'three'
+import { useIntersection } from 'react-use'
+
+export const useInView = () => {
+  const ref = useRef(null)
+  const threshold = 0.05
+  const intersection = useIntersection(ref, {
+      root: null,
+      rootMargin: '0px',
+      threshold,
+  })
+
+  return {
+      ref,
+      inView: intersection && intersection.intersectionRatio > threshold,
+  }
+}
 
 // general utils
 
@@ -81,13 +97,18 @@ import RobotoMono_font from "/fonts/RobotoMono/RobotoMono-VariableFont_wght.ttf"
 
 // components
 
-export const Pane = ({ position, size, moveFunction, id, opacity }) => {
+export const Pane = ({ position, size, moveFunction, id, opacity, location, target }) => {
 
     const state = useThree()
     const ref = useRef()
 
-    useFrame(({ delta, pointer }) => {
-        if (moveFunction != null) moveFunction(position, size, id, state, ref);
+    useFrame(() => {
+        console.log(location == target)
+        if (location != target) {
+            console.log('wrong page')
+            return
+        }
+        if (moveFunction != null) moveFunction(position, size, id, state, ref, location);
     })
 
     return (
@@ -101,7 +122,7 @@ export const Pane = ({ position, size, moveFunction, id, opacity }) => {
         <boxGeometry args={size}/>
         <MeshTransmissionMaterial 
             samples={16} 
-            resolution={100} 
+            resolution={10} 
             anisotropicBlur={.1} 
             thickness={0.1} 
             roughness={0.4} 

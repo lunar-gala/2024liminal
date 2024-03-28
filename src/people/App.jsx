@@ -49,13 +49,11 @@ let stack = {
 }
 
 
-const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
-  const state = useThree();
-  const { viewport } = useThree();
+const Card = ({ myid, id, imageUrl, name, team, subteam, viewport }) => {
 
   const cardWidth = 0.25 * viewport.width;
   //use viewport height
-  const cardHeight = 0.75*viewport.height;
+  const cardHeight = 0.7*viewport.height;
 
   const namePosition = [-cardWidth * 0.425, -cardHeight * 0.18, paneThickness * 0.5 + 0.01];
 
@@ -92,7 +90,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
             color="black"
           />
         <Image 
-          position={[0, 1.5, paneThickness * 0.5 + 0.01]} 
+          position={[0, 2, paneThickness * 0.5 + 0.01]} 
           url={imageUrl} 
           scale={[cardWidth*0.85, cardHeight*0.6, 1]}
           anchorX="left"
@@ -128,7 +126,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam }) => {
 
 const AnimatedCard = animated(Card)
 
-function makeCards(id) {
+function makeCards(id, viewport) {
   const cards = [];
   // console.log(urls.length, names.length, team.length, title.length)
   for (let i = 0; i < numPeople; i++) {
@@ -138,14 +136,14 @@ function makeCards(id) {
     const theteam = team[(i+161) % team.length];
     const subteam = title[(i+161) % title.length];
     // console.log(i, imageUrl, name, theteam, subteam)
-    cards.push(<AnimatedCard id={id} myid={i} key={i} imageUrl={imageUrl} name={name} team={theteam} subteam={subteam} />);
+    cards.push(<AnimatedCard id={id} myid={i} key={i} imageUrl={imageUrl} name={name} team={theteam} subteam={subteam} viewport={viewport}/>);
   }
 
   return cards;
 }
 
 
-const Cards = ( ) => {
+const Cards = ({location}) => {
 
   const { viewport } = useThree()
   
@@ -161,9 +159,9 @@ const Cards = ( ) => {
   const rWidth = gridRectWidthScalar * viewport.width
   const rHeight = gridRectHeightScalar * viewport.height // rWidth * 3 // maybe make adaptive to height?
 
-  const cards = makeCards(id)
+  const cards = React.useMemo(() => makeCards(id, viewport), []);
 
-  const handleEnter = (newid, setHover) => {
+  const handleEnter = (id, newid, setHover) => {
     id.start(newid)
     setHover(true)
   }
@@ -172,13 +170,15 @@ const Cards = ( ) => {
     setHover(false)
   }
 
-  const Rect = ({ row, col, moveFunction, id}) => {
+  const Rect = ({row, col, myid, id}) => {
 
     const ref = useRef()
 
     const [hover, setHover] = useState(false);
 
     useFrame(() => {
+      if (location != '/people') return
+      
       if (hover) {
         // ref.current.position.y = -1.3 * rHeight * col + 0.05;
         ref.current.material.color.r = 0
@@ -200,7 +200,7 @@ const Cards = ( ) => {
         <mesh 
           position = {position} 
           ref = {ref} 
-          onPointerOver={() => handleEnter(id, setHover)}
+          onPointerOver={() => handleEnter(id, myid, setHover)}
           onPointerLeave={() => handleLeave(setHover)}
         >
           <boxGeometry args={size}/>
@@ -215,7 +215,6 @@ const Cards = ( ) => {
   }
 
   const TextPositionMarker = ({ group, col, lineName }) => {
-    const { viewport } = useThree();
     
     const rWidth = gridRectWidthScalar * viewport.width;
     const rHeight = gridRectHeightScalar * viewport.height;
@@ -273,7 +272,7 @@ const Cards = ( ) => {
   
         // If the row is not in any of the ranges, include the rect
         if (includeRect) {
-          gridRects.push(<Rect row={row} col={col} moveFunction={null} key={i} id={i} />)
+          gridRects.push(<Rect row={row} col={col} moveFunction={null} key={i} myid={i} id={id} />)
           i++;
         }
       }
@@ -295,7 +294,7 @@ const Cards = ( ) => {
     return gridRects;
   }
 
-  const gridRects = makeGrid()
+  const gridRects = React.useMemo(() => makeGrid(), [viewport]);
 
   // magic numbers go burr
   const rectWidth = gridRectWidthScalar * viewport.width * 2.5
@@ -344,7 +343,7 @@ const Cards = ( ) => {
   )
 }
 
-export function PeoplePage() {
+export function PeoplePage({location}) {
 
   // console.log(isMobile)
 
@@ -358,7 +357,7 @@ export function PeoplePage() {
   return (
     <>
       <group>
-        <Cards />
+        <Cards location={location}/>
       </group>
     </>
   )

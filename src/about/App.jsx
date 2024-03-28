@@ -14,8 +14,8 @@ function chimesMoveFunction(position, size, id, state, ref) {
 
     let d = 10;
     let theta_z = (noise(state.clock.elapsedTime / 2 - position[0] / 10, id/10) + 0.5) / 20
-    let theta_x = noise(state.clock.elapsedTime / 2 - position[0] / 10 + 1000, id/10) / 40
-    // console.log(theta)
+    let theta_x = noise(state.clock.elapsedTime / 2 - position[0] / 10 + 1000, id/20) / 40
+    // console.log(theta_x)
     ref.current.rotation.z = theta_z
     ref.current.rotation.x = theta_x
     ref.current.position.x = position[0] + 2*d*Math.sin(theta_z/2)*Math.cos(theta_z/2)
@@ -24,7 +24,22 @@ function chimesMoveFunction(position, size, id, state, ref) {
 
 }
 
-export function AboutPage() {
+function makePanes(panesSpan, panesSection, paneHeight, paneWidth, location) {
+  const panes = []
+
+  for (let i = 0; i < 8; i++){
+    let position = [map(i, 0, 7, -panesSpan/2, panesSpan/2), 0, 0]
+    let size = [paneWidth, paneHeight, 0.05]
+    let force = null // noise(state.clock.elapsedTime + position[0], 1)
+    
+    panes.push(<Pane position={position} size={size} moveFunction={chimesMoveFunction} key={i} id={i} location={location} target={'/about'}/>)
+  }
+
+  return panes
+}
+
+export function AboutPage({location}) {
+
   const { viewport } = useThree()
 
   const panesSpan = viewport.width * (1 - 2*0.07) // 7% margins
@@ -34,14 +49,7 @@ export function AboutPage() {
 
   const RobotoMonoSize = 0.5 // viewport.width * 0.017
   
-  const panes = []
-  for (let i = 0; i < 8; i++){
-    let position = [map(i, 0, 7, -panesSpan/2, panesSpan/2), 0, 0]
-    let size = [paneWidth, paneHeight, 0.05]
-    let force = null // noise(state.clock.elapsedTime + position[0], 1)
-    
-    panes.push(<Pane position={position} size={size} moveFunction={chimesMoveFunction} key={i} id={i}/>)
-  }
+  const panes = React.useMemo(() => makePanes(panesSpan, panesSection, paneHeight, paneWidth, location), [viewport])
 
   useEffect(() => {
     window.addEventListener('pointerup', (e) => sendBack(e));
@@ -96,20 +104,3 @@ export function AboutPage() {
     </>
   )
 }
-
-
-/**
- * DO NOT MODIFY APP
- */
-function App() {
-
-  return (
-    <>
-      <Canvas>
-        <AboutPage />
-      </Canvas>
-    </>
-  )
-}
-
-export default App

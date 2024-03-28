@@ -8,8 +8,10 @@ import {
   Center
 } from '@react-three/drei'
 import * as THREE from 'three'
-import { map, LIMINAL, sendBack } from '../../src/index.jsx'
+import { map, LIMINAL, sendBack, useInView } from '../../src/index.jsx'
 import { animated } from '@react-spring/three'
+
+
 import Meliora_Aliturae_Left from '../../src/images/Meliora_Aliturae_Left.webp'
 import Meliora_Aliturae_Right from '../../src/images/Meliora_Aliturae_Right.webp'
 import Nandini_Left from '../../src/images/Nandini_Left.webp'
@@ -114,7 +116,7 @@ const nLines = 15 // number of lines
 const distBetweenPairs = 20
 const endPoint = nLines * (distBetweenPairs-1)
 
-const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHovered, image}) => {
+const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHovered, image, location}) => {
   const {viewport} = useThree()
   const paneHeight = viewport.height * 0.58
   const paneWidth = paneHeight * 0.85
@@ -129,6 +131,9 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
   const speed = 0.5
 
   useFrame(() => {
+    console.log(location)
+    if (location != '/lines') return
+    
     if (forwardHovered) {
       refNewRight.current.position.z += speed
       refPaneRight.current.position.z += speed
@@ -279,14 +284,10 @@ const Path = () => {
   const pathWidth = paneWidth * 0.75
   const pathRef = useRef();
 
-  useFrame(() => {
-    pathRef.current.rotation.x = Math.PI / 2;
-  });
-
   return (
     <>
       <group >
-        <mesh ref={pathRef} position={[0, -paneHeight/2 + 0.1, -10]} >
+        <mesh ref={pathRef} position={[0, -paneHeight/2 + 0.1, -10]} rotation-x={Math.PI / 2}>
             <boxGeometry args={[pathWidth, 60, 0.01]} />
             <Edges
               scale={1}
@@ -308,9 +309,6 @@ const PathForward = ({forwardHover, forwardUnhover}) => {
   const pathWidth = paneWidth * 0.75
   const pathRef = useRef();
 
-  useFrame(() => {
-    pathRef.current.rotation.x = Math.PI / 2;
-  });
 
   return (
     <mesh 
@@ -318,6 +316,8 @@ const PathForward = ({forwardHover, forwardUnhover}) => {
       position={[0, -paneHeight/2, -27]}
       onPointerOver = {forwardHover}
       onPointerOut = {forwardUnhover}
+      rotation-x={Math.PI / 2}
+      visible={false}
     >
         <boxGeometry args={[pathWidth, 27, 0.01]} />
         <Edges
@@ -339,16 +339,14 @@ const PathStay = ({stayHover, stayUnhover}) => {
   const pathWidth = paneWidth * 0.75
   const pathRef = useRef();
 
-  useFrame(() => {
-    pathRef.current.rotation.x = Math.PI / 2;
-  });
-
   return (
     <mesh 
       ref={pathRef} 
       position={[0, -paneHeight/2, -10]}
       onPointerOver = {stayHover}
       onPointerOut = {stayUnhover}
+      rotation-x={Math.PI / 2}
+      visible={false}
     >
         <boxGeometry args={[pathWidth, 5, 0.01]} />
         <Edges
@@ -369,16 +367,14 @@ const PathBackward = ({backwardHover, backwardUnhover}) => {
   const pathWidth = paneWidth * 0.75
   const pathRef = useRef();
 
-  useFrame(() => {
-    pathRef.current.rotation.x = Math.PI / 2;
-  });
-
   return (
     <mesh 
       ref={pathRef} 
       position={[0, -paneHeight/2, 3]}
       onPointerOver = {backwardHover}
       onPointerOut = {backwardUnhover}
+      rotation-x={Math.PI / 2}
+      visible={false}
     >
         <boxGeometry args={[pathWidth, 20, 0.01]} />
         <Edges
@@ -391,7 +387,7 @@ const PathBackward = ({backwardHover, backwardUnhover}) => {
   )
 }
  
-export function LinesPage() {
+export function LinesPage({location}) {
 
   useEffect(() => {
     window.addEventListener('pointerup', (e) => sendBack(e));
@@ -426,6 +422,7 @@ export function LinesPage() {
           key={i}
           id={i}
           image = {image_urls[i]}
+          location={location}
         />
       )
     }

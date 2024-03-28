@@ -22,7 +22,7 @@ import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
 import * as THREE from "three";
 
 // nav
-import { useLocation, Switch, Route } from "wouter"
+import { useLocation, Route, Switch } from "wouter"
 import { useTransition, useSpringValue } from "@react-spring/core"
 import { a, animated } from "@react-spring/three"
 
@@ -134,28 +134,30 @@ export default App
 /**
  * NAV
  */
+
+let currPage = 'landing'
 function Pages({ transition, isMobile, spring }) {
 
   return transition(({ opacity, ...props }, location) => (
     <a.group {...props}>
-      <Switch location={location} {...props}>
+      <Switch location={location}>
         <Route path="/">
-          <LandingPage />
+          <LandingPage location={location} />
         </Route>
         <Route path="/home">
-          <HomePage spring={spring} />
+          {<HomePage location={location} />}
         </Route>
         <Route path="/about">
-          <AboutPage />
+          <AboutPage location={location} />
         </Route>
         <Route path="/tickets">
-          <TixPage />
+          <TixPage location={location} />
         </Route>
         <Route path="/people">
-          <PeoplePage />
+          <PeoplePage location={location} />
         </Route>
         <Route path="/lines">
-          <LinesPage />
+          <LinesPage location={location} />
         </Route>
       </Switch>
       {/* <Sensor /> */}
@@ -403,7 +405,7 @@ function Lens({ size, location, damping = 0.15, ...props }) {
 
   return (
     <>
-      <mesh scale={size} ref={ref} rotation-x={Math.PI/2} geometry={nodes.Cube.geometry} visible={location == '/tickets' ? false : true} {...props}>
+      <mesh scale={size} ref={ref} rotation-x={Math.PI/2} geometry={nodes.Cube.geometry} visible={location == '/tickets' || location == '/' ? false : true} {...props}>
         {/* {config.meshPhysicalMaterial ? <meshPhysicalMaterial {...config} /> : <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} />} */}
         {/* <MeshTransmissionMaterial background={new THREE.Color(config.bg)} {...config} /> */}
         <MeshTransmissionMaterial {...config} depthTest={false} />
@@ -438,15 +440,6 @@ function HomePage({spring}) {
       </group>
     )
   }
-
-  const vidRef = useRef()
-  const vidLength = 20000
-
-  useFrame(({clock}) => {
-    if (clock.getElapsedTime() > vidLength) {
-      vidRef.current.material.opacity -= 0.1;
-    }
-  })
 
   return (
     <>
