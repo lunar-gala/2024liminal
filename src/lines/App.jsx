@@ -12,8 +12,8 @@ import { map, LIMINAL, sendBack, useInView } from '../../src/index.jsx'
 import { animated } from '@react-spring/three'
 
 
-import Meliora_Aliturae_Left from '../../src/images/Meliora_Aliturae_Left.webp'
-import Meliora_Aliturae_Right from '../../src/images/Meliora_Aliturae_Right.webp'
+import Meliora_Aliturae_Left from '../../src/images/Meliora_Left.webp'
+import Meliora_Aliturae_Right from '../../src/images/Meliora_Right.webp'
 import Nandini_Left from '../../src/images/Nandini_Left.webp'
 import Nandini_Right from '../../src/images/Nandini_Right.webp'
 import Twilight_Left from '../../src/images/Twilight_Left.webp'
