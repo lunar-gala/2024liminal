@@ -89,14 +89,14 @@ const Card = ({ myid, id, imageUrl, name, team, subteam, viewport }) => {
             threshold={15}
             color="black"
           />
-        <Image 
+        {myid > id && myid < id + 2 && <Image 
           position={[0, 2, paneThickness * 0.5 + 0.01]} 
           url={imageUrl} 
           scale={[cardWidth*0.85, cardHeight*0.6, 1]}
           anchorX="left"
-          visible={myid > id && myid < id + 2 ? true : false }
-        />
-        <RobotoMono
+          // visible={myid > id && myid < id + 2 ? true : false }
+        />}
+        {myid > id && myid < id + 2 && <RobotoMono
           position={namePosition}
           fontSize={cardWidth*0.045}
           lineHeight={2}
@@ -104,7 +104,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam, viewport }) => {
           anchorX="left"
           anchorY="Top"
           text={text}
-        />
+        />}
       </mesh>
       {/* <mesh
         visible={myid > id && myid < id + 30 ? true : false}
