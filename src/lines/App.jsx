@@ -128,10 +128,11 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
   const refNewRight = useRef()
   const labelRef = useRef()
 
+  const [isVisible, setItVisible] = useState(true);
+
   const speed = 0.5
 
   useFrame(() => {
-    console.log(location)
     if (location != '/lines') return
     
     if (forwardHovered) {
@@ -187,12 +188,16 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
       refPaneLeft.current.visible = false
       refNewLeft.current.visible = false
       labelRef.current.visible = false
+
+      setItVisible(false);
     } else {
       refPaneRight.current.visible = true
       refNewRight.current.visible = true
       refPaneLeft.current.visible = true
       refNewLeft.current.visible = true
       labelRef.current.visible = true
+
+      setItVisible(true);
     }
 
     labelRef.current.rotation.x = Math.PI / 2;
@@ -214,7 +219,7 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
         position={ [ -paneWidth * 1.75/2 + x, y, z-0.1 ] }
         ref = {refNewLeft}>
           <boxGeometry args = { [paneWidth, paneHeight, paneThickness] }/>
-          <MeshTransmissionMaterial 
+          {isVisible && <MeshTransmissionMaterial 
             samples={16} 
             resolution={10} 
             anisotropicBlur={5}
@@ -224,24 +229,24 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
             transparent={true}
             opacity={1 - (Math.abs(z)/40)}
             background={new THREE.Color('#b5e2ff')} 
-          />
+          /> }
       </mesh>
       <mesh
         position={ [ -paneWidth * 1.75/2 + x, y, z + 0.01 ] }
         ref = {refPaneLeft}>
           <boxGeometry args = { [paneWidth, paneHeight, paneThickness] }/>
-          <meshStandardMaterial
+          {isVisible && <meshStandardMaterial
             map = {left}
             opacity = {1 - (Math.abs(z)/40)}
             transparent = {true}
             toneMapped={false}
-            />
+            /> }
       </mesh>
       <mesh
         position={ [ paneWidth * 1.75/2 + x, y, z ] }
         ref = {refNewRight}>
           <boxGeometry args = { [paneWidth, paneHeight, paneThickness] }/>
-          <MeshTransmissionMaterial 
+          {isVisible && <MeshTransmissionMaterial 
             samples={16} 
             resolution={100} 
             anisotropicBlur={5}
@@ -251,18 +256,18 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
             transparent={true}
             opacity={1 - (Math.abs(z)/40)}
             background={new THREE.Color('#b5e2ff')} 
-          />
+          /> }
       </mesh>
       <mesh
         position={ [ x + paneWidth * 1.75/2, y, z ] }
         ref = {refPaneRight}>
           <boxGeometry args = { [paneWidth, paneHeight, paneThickness] }/>
-          <meshStandardMaterial
+          {isVisible && <meshStandardMaterial
             map = {right}
             opacity = {1 - (Math.abs(z)/40)}
             transparent = {true}
             toneMapped={false}
-          />
+          /> }
       </mesh>
       <Center middle center position={[0, -viewport.height/4, z]}>
         <Text3D height={0.01} size={id != 6 ? 0.7 : 0.5} font="./fonts/Kommuna/Kommuna_Cond_Regular.json" ref={labelRef} >
