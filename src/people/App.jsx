@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, Suspense } from 'react'
 import { 
   Canvas,
   useThree,
@@ -75,51 +75,41 @@ const Card = ({ myid, id, imageUrl, name, team, subteam, viewport }) => {
 
   return (
     <group position={position}>
-        <mesh
-          // position={position}
-          visible={myid > id && myid < id + 30 ? true : false}
-        >
-          <boxGeometry args={size}/>
-          <meshBasicMaterial 
-            color={"white"} 
-            toneMapped={false}
-          />
-          <Edges
-            scale={1}
-            threshold={15}
-            color="black"
-          />
-        {myid > id && myid < id + 2 && <Image 
-          position={[0, 2, paneThickness * 0.5 + 0.01]} 
-          url={imageUrl} 
-          scale={[cardWidth*0.85, cardHeight*0.6, 1]}
-          anchorX="left"
-          // visible={myid > id && myid < id + 2 ? true : false }
-        />}
-        {myid > id && myid < id + 2 && <RobotoMono
-          position={namePosition}
-          fontSize={cardWidth*0.045}
-          lineHeight={2}
-          color="black"
-          anchorX="left"
-          anchorY="Top"
-          text={text}
-        />}
-      </mesh>
-      {/* <mesh
+      <mesh
+        // position={position}
         visible={myid > id && myid < id + 30 ? true : false}
-        // position={[0, cardHeight * 0.15, 0]}
       >
-        <boxGeometry 
-          args={[cardWidth*0.85, cardHeight*0.85, 0.01]}
-        />
-        <meshStandardMaterial 
+        <boxGeometry args={size}/>
+        <meshBasicMaterial 
           color={"white"} 
-          transprent={true}
-          map={useTexture(imageUrl)}
           toneMapped={false}
         />
-      </mesh> */}
+        <Edges
+          scale={1}
+          threshold={15}
+          color="black"
+        />
+        <Suspense fallback={null}>
+          {myid > id && myid < id + 2 && <Image 
+            position={[0, 2, paneThickness * 0.5 + 0.01]} 
+            url={imageUrl} 
+            scale={[cardWidth*0.85, cardHeight*0.6, 1]}
+            anchorX="left"
+            // visible={myid > id && myid < id + 2 ? true : false }
+          />}
+        </Suspense>
+        <Suspense fallback={null}>
+          {myid > id && myid < id + 2 && <RobotoMono
+            position={namePosition}
+            fontSize={cardWidth*0.045}
+            lineHeight={2}
+            color="black"
+            anchorX="left"
+            anchorY="Top"
+            text={text}
+          />}
+        </Suspense>
+      </mesh>
     </group>
   )
 }
@@ -142,18 +132,20 @@ function makeCards(id, viewport) {
   return cards;
 }
 
+let global_id = 0;
+
 
 const Cards = ({location}) => {
 
   const { viewport } = useThree()
   
   const id = useSpringValue(0, {
-    config: {
-      mass: 2,
-      friction: 5,
-      tension: 80,
-      clamp: true
-    },
+    // config: {
+    //   mass: 2,
+    //   friction: 10,
+    //   tension: 80,
+    //   clamp: true
+    // },
   })
 
   const rWidth = gridRectWidthScalar * viewport.width
@@ -162,8 +154,11 @@ const Cards = ({location}) => {
   const cards = React.useMemo(() => makeCards(id, viewport), []);
 
   const handleEnter = (id, newid, setHover) => {
+    id.animation.config.duration = Math.log(Math.abs(newid - global_id) + 1) * 100
     id.start(newid)
     setHover(true)
+
+    global_id = newid;
   }
 
   const handleLeave = (setHover) => {
