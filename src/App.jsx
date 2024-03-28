@@ -123,7 +123,7 @@ const App = () => {
           </Suspense>
         </Canvas>
       </Cover>
-      <Loader />
+      {/* <Loader /> */}
     </>
   )
 
