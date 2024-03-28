@@ -3,3 +3,5 @@
   to = "https://2024.lunargala.org/:splat"
   status = 301
   force = true
+
+/* /index.html 200
