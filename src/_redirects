@@ -1,7 +1,0 @@
-[[redirects]]
-  from = "https://deluxe-griffin-bc29b6.netlify.app/*"
-  to = "https://2024.lunargala.org/:splat"
-  status = 301
-  force = true
-
-/* /index.html 200
