@@ -75,6 +75,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam, viewport }) => {
 
   return (
     <group position={position}>
+      {id-5 < myid && myid < id + 30 &&
       <mesh
         // position={position}
         visible={myid > id && myid < id + 30 ? true : false}
@@ -97,8 +98,6 @@ const Card = ({ myid, id, imageUrl, name, team, subteam, viewport }) => {
             anchorX="left"
             // visible={myid > id && myid < id + 2 ? true : false }
           />}
-        </Suspense>
-        <Suspense fallback={null}>
           {myid > id && myid < id + 2 && <RobotoMono
             position={namePosition}
             fontSize={cardWidth*0.045}
@@ -109,7 +108,7 @@ const Card = ({ myid, id, imageUrl, name, team, subteam, viewport }) => {
             text={text}
           />}
         </Suspense>
-      </mesh>
+      </mesh>}
     </group>
   )
 }
