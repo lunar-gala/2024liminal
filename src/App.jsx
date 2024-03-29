@@ -142,22 +142,22 @@ function Pages({ transition, isMobile, spring }) {
     <a.group {...props}>
       <Switch location={location}>
         <Route path="/">
-          <LandingPage location={location} />
+          <LandingPage location={currPage} />
         </Route>
         <Route path="/home">
-          {<HomePage location={location} />}
+          <HomePage location={currPage} />
         </Route>
         <Route path="/about">
-          <AboutPage location={location} />
+          <AboutPage location={currPage} />
         </Route>
         <Route path="/tickets">
-          <TixPage location={location} />
+          <TixPage location={currPage} />
         </Route>
         <Route path="/people">
-          <PeoplePage location={location} />
+          <PeoplePage location={currPage} />
         </Route>
         <Route path="/lines">
-          <LinesPage location={location} />
+          <LinesPage location={currPage} />
         </Route>
       </Switch>
       {/* <Sensor /> */}
@@ -170,7 +170,20 @@ function Pages({ transition, isMobile, spring }) {
  * should go in seperate files
  */
 
-function Model({spring, viewport}) {
+function sendBackWrapper(e) {
+  currPage = 'home'
+
+  sendBack(e)
+}
+
+function redirectWrapper(e, id) {
+  const pages = ["about", "tickets", "people", "lines"];
+  currPage = pages[id]
+
+  redirect(e, id)
+}
+
+function Model({viewport}) {
   const groupRef = useRef();
   
   const paneWidth = viewport.width * 0.5
@@ -197,8 +210,8 @@ function Model({spring, viewport}) {
         <mesh 
           position={[radius * Math.sin(angle), 0, radius * Math.cos(angle)]} 
           rotation={rotation}
-          onClick = { (e) => sendBack(e, spring) }
-          onPointerDown = { (e) => redirect(e, id, spring) }
+          onClick = { (e) => sendBackWrapper(e) }
+          onPointerDown = { (e) => redirectWrapper(e, id) }
           // visible = { rotation[1] > 180 ? true : false}
         >
           <RoundedBox args={[paneHeight, paneWidth, 0.1]} radius={0.05} smoothness={2}>
@@ -252,28 +265,6 @@ function Model({spring, viewport}) {
     )
   }
 
-  const textConfig = {
-    positiontext: {value: [0.01, .06 * paneWidth, -0.4 * paneWidth]},
-    rotationtext: {value: [3.2 * paneWidth,3.14 * paneWidth, 0.07 * paneWidth]}
-  };
-
-
-  const lambertConfig = {
-    transparent: true,
-    opacity: 0.86,
-    depthTest: true,
-    depthWrite: true,
-    alphaTest: 0,
-    alphaHash: true,
-    visible: true,
-    side: THREE.DoubleSide,
-    color: '#5f5f5f',
-    emissive: '#000000',
-    fog: true,
-    combine: THREE.MultiplyOperation,
-    reflectifity: 1,
-    refractionRatio: 1
-  }
 
   function Scene() {
     const { camera } = useThree();
@@ -415,7 +406,7 @@ function Lens({ size, location, damping = 0.15, ...props }) {
 }
 
 
-function HomePage({spring}) {
+function HomePage({location}) {
   const { viewport } = useThree();
 
   function Mask() {
@@ -444,7 +435,7 @@ function HomePage({spring}) {
   return (
     <>
       <Mask />
-      <Model spring={spring} viewport={viewport} />
+      <Model viewport={viewport} />
     </>
   )
 }

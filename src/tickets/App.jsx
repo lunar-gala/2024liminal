@@ -42,7 +42,7 @@ export function TixPage({location}) {
     
     useFrame(({ pointer }) => {
 
-      if (location != '/tickets') return
+      if (location != 'tickets') return
 
       const x = (pointer.x * viewport.width) / 2
       const y = (pointer.y * viewport.height) / 2

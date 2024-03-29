@@ -6,22 +6,6 @@ import { Canvas, useFrame, useThree, extend } from "@react-three/fiber"
 import { createBrowserHistory } from 'history';
 import { Text, MeshTransmissionMaterial } from '@react-three/drei'
 import * as THREE from 'three'
-import { useIntersection } from 'react-use'
-
-export const useInView = () => {
-  const ref = useRef(null)
-  const threshold = 0.05
-  const intersection = useIntersection(ref, {
-      root: null,
-      rootMargin: '0px',
-      threshold,
-  })
-
-  return {
-      ref,
-      inView: intersection && intersection.intersectionRatio > threshold,
-  }
-}
 
 // general utils
 
@@ -103,11 +87,10 @@ export const Pane = ({ position, size, moveFunction, id, opacity, location, targ
     const ref = useRef()
 
     useFrame(() => {
-        console.log(location == target)
-        if (location != target) {
-            console.log('wrong page')
-            return
-        }
+
+        // if (location != 'about') {
+        //     return
+        // }
         if (moveFunction != null) moveFunction(position, size, id, state, ref, location);
     })
 
@@ -119,21 +102,21 @@ export const Pane = ({ position, size, moveFunction, id, opacity, location, targ
             onPointerDown = { (e) => redirect(id) } 
         >
         
-        <boxGeometry args={size}/>
-        <MeshTransmissionMaterial 
-            samples={16} 
-            resolution={10} 
-            anisotropicBlur={.1} 
-            thickness={0.1} 
-            roughness={0.4} 
-            toneMapped={true} 
-            background={new THREE.Color('#b5e2ff')} 
-        />
-        {/* <meshStandardMaterial 
-            color={"#E4F2F4"} 
-            opacity={opacity}
-            transparent={true} 
-        /> */}
+            <boxGeometry args={size}/>
+            <MeshTransmissionMaterial 
+                samples={16} 
+                resolution={10} 
+                anisotropicBlur={.1} 
+                thickness={0.1} 
+                roughness={0.4} 
+                toneMapped={true} 
+                background={new THREE.Color('#b5e2ff')} 
+            />
+            {/* <meshStandardMaterial 
+                color={"#E4F2F4"} 
+                opacity={opacity}
+                transparent={true} 
+            /> */}
         </mesh>
     )
 }

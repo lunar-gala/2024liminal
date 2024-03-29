@@ -32,7 +32,7 @@ function makePanes(panesSpan, panesSection, paneHeight, paneWidth, location) {
     let size = [paneWidth, paneHeight, 0.05]
     let force = null // noise(state.clock.elapsedTime + position[0], 1)
     
-    panes.push(<Pane position={position} size={size} moveFunction={chimesMoveFunction} key={i} id={i} location={location} target={'/about'}/>)
+    panes.push(<Pane position={position} size={size} moveFunction={chimesMoveFunction} key={i} id={i} location={location}/>)
   }
 
   return panes

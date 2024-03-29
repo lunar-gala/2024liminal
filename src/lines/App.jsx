@@ -8,7 +8,7 @@ import {
   Center
 } from '@react-three/drei'
 import * as THREE from 'three'
-import { map, LIMINAL, sendBack, useInView } from '../../src/index.jsx'
+import { map, LIMINAL, sendBack } from '../../src/index.jsx'
 import { animated } from '@react-spring/three'
 
 
@@ -133,7 +133,7 @@ const Pair = ({id, position, opacity, forwardHovered, backwardHovered, stayHover
   const speed = 0.5
 
   useFrame(() => {
-    if (location != '/lines') return
+    if (location != 'lines') return
     
     if (forwardHovered) {
       refNewRight.current.position.z += speed

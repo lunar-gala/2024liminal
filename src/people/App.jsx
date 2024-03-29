@@ -171,7 +171,7 @@ const Cards = ({location}) => {
     const [hover, setHover] = useState(false);
 
     useFrame(() => {
-      if (location != '/people') return
+      if (location != 'people') return
       
       if (hover) {
         // ref.current.position.y = -1.3 * rHeight * col + 0.05;
